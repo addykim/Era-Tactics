@@ -1,12 +1,15 @@
-package askim.eratactics;
+package askim.eratactics.activities;
 
 import android.annotation.SuppressLint;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import askim.eratactics.R;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -98,6 +101,7 @@ public class Splash_Activity extends AppCompatActivity {
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("Splash: ", "CLICK!");
                 toggle();
             }
         });
@@ -120,8 +124,12 @@ public class Splash_Activity extends AppCompatActivity {
 
     private void toggle() {
         if (mVisible) {
+            Log.d("Splash: ", "gonna hide!");
+
             hide();
         } else {
+            Log.d("Splash: ", "show!");
+
             show();
         }
     }
