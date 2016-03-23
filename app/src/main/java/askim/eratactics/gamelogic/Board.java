@@ -5,10 +5,5 @@ package askim.eratactics.gamelogic;
  */
 public class Board {
 
-    public enum Skills {
-        FIREBALL,
-        HEAL,
-        LIGHTNING
-    }
 
 }

@@ -18,13 +18,13 @@ public class Piece {
      * agi = agility, 0~1, possibility of dodging (either)
      */
 
-    int hp, atk, def, mag, res, mrg, atr;
-    double agi;
+    public int hp, atk, def, mag, res, mrg, atr;
+    public double agi;
 
 
     public Piece (Adventurer adv) {
         isPlayer = true;
-
+        hp = adv.getHp(); // etc.
     }
 
 
