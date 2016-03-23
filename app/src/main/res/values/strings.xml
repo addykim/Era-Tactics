@@ -6,12 +6,6 @@
     <string name="settings">Settings</string>
     <string name="members">Members</string>
 
-<<<<<<< HEAD
-    <string name="title_activity_tactics_game">TacticsGame</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-
-=======
     <!--Equipment-->
     <string name="inventory">Inventory</string>
     <string name="skills">Skills</string>
@@ -40,5 +34,4 @@
     <string name="soundFx">Sound Fx</string>
     <string name="vibration">Vibration</string>
     <string name="rHanded">Right handed mode</string>
->>>>>>> ddce9d29bbaf370e97b389641f66a3b234742ec0
 </resources>
