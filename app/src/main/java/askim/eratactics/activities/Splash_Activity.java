@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import askim.eratactics.R;
 
@@ -16,6 +17,12 @@ import askim.eratactics.R;
  * status bar and navigation/system bar) with user interaction.
  */
 public class Splash_Activity extends AppCompatActivity {
+
+    private Button adventureButton;
+    private Button membersButton;
+    private Button teamsButton;
+    private Button settingsButton;
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -110,6 +117,38 @@ public class Splash_Activity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+
+        adventureButton = (Button) findViewById(R.id.adventureButton);
+        adventureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                TODO start adventure
+            }
+
+        });
+        membersButton = (Button) findViewById(R.id.membersButton);
+        membersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                TODO start members intent
+            }
+        });
+        teamsButton = (Button) findViewById(R.id.teamsButton);
+        teamsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                TODO start team intent
+            }
+        });
+        settingsButton = (Button) findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                TODO start settings intent
+            }
+        });
+
     }
 
     @Override

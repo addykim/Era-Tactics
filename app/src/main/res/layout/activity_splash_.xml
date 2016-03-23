@@ -27,7 +27,8 @@
             android:layout_gravity="center"
             android:text="@string/adventure"
             android:textSize="30dp"
-            android:backgroundTint="#1"/>
+            android:backgroundTint="#1"
+            android:id="@+id/adventureButton"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +36,8 @@
             android:layout_gravity="center"
             android:text="@string/members"
             android:textSize="30dp"
-            android:backgroundTint="#1"/>
+            android:backgroundTint="#1"
+            android:id="@+id/membersButton"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +45,8 @@
             android:layout_gravity="center"
             android:text="@string/teams"
             android:textSize="30dp"
-            android:backgroundTint="#1"/>
+            android:backgroundTint="#1"
+            android:id="@+id/teamsButton"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +54,8 @@
             android:layout_gravity="center"
             android:text="@string/settings"
             android:textSize="30dp"
-            android:backgroundTint="#1"/>
+            android:backgroundTint="#1"
+            android:id="@+id/settingsButton"/>
     </LinearLayout>
 
     <!-- The primary full-screen view. This can be replaced with whatever view
