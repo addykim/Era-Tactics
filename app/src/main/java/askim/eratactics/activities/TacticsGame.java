@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import askim.eratactics.R;
+import askim.eratactics.gamelogic.Board;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -18,6 +19,8 @@ import askim.eratactics.R;
 public class TacticsGame extends AppCompatActivity {
 
     private static final String TAG = "Tactics";
+
+    private Board BoardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
