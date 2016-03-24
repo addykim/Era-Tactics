@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
-    tools:context=".activities.Splash_Activity">
+    tools:context=".activities.TacticsGame">
 
     <!--Insert content here or inside linearlayout-->
 
@@ -13,6 +13,10 @@
         android:orientation="vertical"
         android:layout_gravity="center">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Hi"/>
 
     </LinearLayout>
 

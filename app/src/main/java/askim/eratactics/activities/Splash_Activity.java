@@ -64,16 +64,9 @@ public class Splash_Activity extends AppCompatActivity {
 //                TODO start settings intent
             }
         });
-        hide();
-
-    }
-
-    private void hide() {
-        // Hide UI first
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
     }
-
 }
