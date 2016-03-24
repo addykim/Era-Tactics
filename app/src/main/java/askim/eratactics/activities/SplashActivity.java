@@ -16,7 +16,7 @@ import askim.eratactics.R;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class Splash_Activity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     private static final String TAG = "Splash";
     private Button adventureButton;
