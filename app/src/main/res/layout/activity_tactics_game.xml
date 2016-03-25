@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:layout_gravity="center">
 
-        <askim.eratactics.gamelogic.Board
+        <askim.eratactics.views.BoardView
             android:id="@+id/board"
             android:layout_width="300dp"
             android:layout_height="600dp"

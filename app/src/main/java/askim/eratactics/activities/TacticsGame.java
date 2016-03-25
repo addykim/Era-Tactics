@@ -1,6 +1,8 @@
 package askim.eratactics.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.widget.Button;
 
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Board;
+import askim.eratactics.views.BoardView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -20,7 +23,7 @@ public class TacticsGame extends AppCompatActivity {
 
     private static final String TAG = "Tactics";
 
-    private Board BoardView;
+    private BoardView mBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,5 +35,7 @@ public class TacticsGame extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        mBoard = new BoardView(getApplicationContext());
     }
 }
