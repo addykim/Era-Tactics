@@ -41,11 +41,18 @@ public class Adventurer {
         equipments[pos] = e;
     }
 
-    // getters that do calculations
+    /**
+     * Stats getters that do calculations according to Adventurers' base stats,
+     * equipment enhancements, and leader status
+     */
     public int getHp(boolean isLeader) {
         return 0;
     }
 
+
+
+
+//GETTER METHODS:
     public ArrayList<EnumFile.SkillsEnum> getSkills(boolean isLeader) {
         ArrayList<EnumFile.SkillsEnum> skills = new ArrayList<EnumFile.SkillsEnum>();
         for (Equipment e : equipments) {
