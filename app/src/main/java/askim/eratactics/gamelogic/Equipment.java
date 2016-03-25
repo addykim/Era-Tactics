@@ -20,21 +20,35 @@ public class Equipment {
 
     // 0 = head, 1 = hands, 2 = body, 3 = class
     public int pos;
-    public EnumFile.SkillsEnum[] skills;
-    public EnumFile.SkillsEnum leaderSkill;
-    public boolean leaderSkillActivated;
+    private EnumFile.SkillsEnum skill;
+    private EnumFile.SkillsEnum leaderSkill;
+    private boolean leaderSkillActivated;
 
     // making sure that the equipment goes with the adventurer's class
     public EnumFile.ClassEnum[] compatibleClasses;
 
     public Equipment() {
         stats = new double[]{3, 0, 0, 0, 0, 0, 0, 0};
-        skills = new EnumFile.SkillsEnum[]{EnumFile.SkillsEnum.FIREBALL};
+        skill = EnumFile.SkillsEnum.FIREBALL;
         compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
         name = "SuperShield";
         pos = 1;
         leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
         leaderSkillActivated = true;
+    }
+
+
+//GETTER METHODS:
+    public EnumFile.SkillsEnum getSkill() {
+        return skill;
+    }
+
+    public boolean isLeaderSkillActivated() {
+        return leaderSkillActivated;
+    }
+
+    public EnumFile.SkillsEnum getLeaderSkill() {
+        return leaderSkill;
     }
 
 }
