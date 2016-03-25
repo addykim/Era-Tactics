@@ -13,11 +13,12 @@
         android:orientation="vertical"
         android:layout_gravity="center">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hi"/>
+        <askim.eratactics.gamelogic.Board
+            android:id="@+id/board"
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"/>
 
     </LinearLayout>
-
 </FrameLayout>
