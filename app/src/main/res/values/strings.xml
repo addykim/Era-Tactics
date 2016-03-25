@@ -35,4 +35,5 @@
     <string name="soundFx">Sound Fx</string>
     <string name="vibration">Vibration</string>
     <string name="rHanded">Right handed mode</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>
