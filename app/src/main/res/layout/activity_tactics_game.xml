@@ -7,18 +7,76 @@
 
     <!--Insert content here or inside linearlayout-->
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/skillList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+
+                <!--TODO replace these images with dummy images later-->
+                <ImageView
+                    android:id="@+id/firstSkill"
+                    android:layout_width="@dimen/skillBoxSize"
+                    android:layout_height="@dimen/skillBoxSize"
+                    android:src="@drawable/double_arrow"
+                    android:background="@color/white"
+                    android:layout_marginLeft="@dimen/skillMarginLR"
+                    android:layout_marginRight="@dimen/skillMarginLR"
+                    android:layout_marginBottom="@dimen/skillMarginLR"/>
+                <ImageView
+                    android:id="@+id/secondSkill"
+                    android:layout_width="@dimen/skillBoxSize"
+                    android:layout_height="@dimen/skillBoxSize"
+                    android:src="@drawable/punch"
+                    android:background="@color/white"
+                    android:layout_marginLeft="@dimen/skillMarginLR"
+                    android:layout_marginBottom="@dimen/skillMarginLR"/>
+                <ImageView
+                    android:id="@+id/thirdSkill"
+                    android:layout_width="@dimen/skillBoxSize"
+                    android:layout_height="@dimen/skillBoxSize"
+                    android:background="@color/white"
+                    android:layout_marginLeft="@dimen/skillMarginLR"
+                    android:layout_marginBottom="@dimen/skillMarginLR"/>
+                <ImageView
+                    android:id="@+id/fourSkill"
+                    android:layout_width="@dimen/skillBoxSize"
+                    android:layout_height="@dimen/skillBoxSize"
+                    android:src="@drawable/punch"
+                    android:background="@color/white"
+                    android:layout_marginLeft="@dimen/skillMarginLR"
+                    android:layout_marginBottom="@dimen/skillMarginLR"/>
+                <ImageView
+                    android:id="@+id/fifthSkill"
+                    android:layout_width="@dimen/skillBoxSize"
+                    android:layout_height="@dimen/skillBoxSize"
+                    android:background="@color/white"
+                    android:layout_marginLeft="@dimen/skillMarginLR"
+                    android:layout_marginBottom="@dimen/skillMarginLR"/>
+                <ImageView
+                    android:id="@+id/sixthSkill"
+                    android:layout_width="@dimen/skillBoxSize"
+                    android:layout_height="@dimen/skillBoxSize"
+                    android:background="@color/white"
+                    android:layout_marginLeft="@dimen/skillMarginLR"
+                    android:layout_marginBottom="@dimen/skillMarginLR"/>
+        </LinearLayout>
 
         <askim.eratactics.views.BoardView
             android:id="@+id/board"
             android:layout_width="300dp"
-            android:layout_height="600dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"/>
+            android:layout_height="450dp"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/boardMargin"
+            android:layout_marginBottom="@dimen/boardMargin"
+            android:layout_marginRight="@dimen/boardMargin"
+            android:layout_toEndOf="@+id/skillList"
+            android:layout_toRightOf="@+id/skillList" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>
