@@ -11,4 +11,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
 
+    <!--Settings-->
+    <dimen name="setting_header">50sp</dimen>
+    <dimen name="options_text">30sp</dimen>
 </resources>
