@@ -14,7 +14,6 @@ public class Adventurer {
     public Equipment[] equipments = new Equipment[4];
 
     public int lvl;
-    public boolean leader;
 
     public Adventurer(Equipment[] equips) {
         name = "Bob";
@@ -36,7 +35,6 @@ public class Adventurer {
         }
 
         lvl = 1;
-        leader = true;
     }
 
     public void changeEquipment (Equipment e, int pos) {
@@ -44,8 +42,19 @@ public class Adventurer {
     }
 
     // getters that do calculations
-    public int getHp() {
+    public int getHp(boolean isLeader) {
         return 0;
+    }
+
+    public ArrayList<EnumFile.SkillsEnum> getSkills(boolean isLeader) {
+        ArrayList<EnumFile.SkillsEnum> skills = new ArrayList<EnumFile.SkillsEnum>();
+        for (Equipment e : equipments) {
+            skills.add(e.getSkill());
+            if (e.isLeaderSkillActivated() && isLeader) {
+                skills.add(e.getLeaderSkill());
+            }
+        }
+        return null;
     }
 
 }

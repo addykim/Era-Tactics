@@ -17,6 +17,29 @@ public class Board extends View {
     /* Used to determine stroke width of board lines */
     private static final int GRID_LINE_WIDTH = 6;
 
+
+    private Piece[][] pieces;
+
+//    TODO Need to get team from context
+//    public Board(Team team) {
+//        pieces = new Piece[6][3];
+//        for (int i = 0; i < 9; i++) {
+//            Adventurer temp = team.getAdventurer(i);
+//            if (temp != null) {
+//                Piece p;
+//                if (team.getLeader() == temp) {
+//                    p = new Piece(temp, true);
+//                }
+//                else {
+//                    p = new Piece(temp, false);
+//                }
+//            }
+//        }
+//    }
+
+    private void generateEnemies() {
+
+    }
     /* Constructor code based on Spring 2016 CS 371M tutorial code */
     public Board(Context context) {
         super(context);

@@ -1,5 +1,7 @@
 package askim.eratactics.gamelogic;
 
+import java.util.ArrayList;
+
 /**
  * Created by nunuloop on 3/10/16.
  */
@@ -20,12 +22,14 @@ public class Piece {
 
     public int hp, atk, def, mag, res, mrg, atr;
     public double agi;
+    public boolean leader;
+    private ArrayList<EnumFile.SkillsEnum> skills;
 
-
-    public Piece (Adventurer adv) {
+    public Piece(Adventurer adv, boolean isLeader) {
         isPlayer = true;
-        hp = adv.getHp(); // etc.
+        leader = isLeader;
+        skills = adv.getSkills(isLeader);
+        hp = adv.getHp(leader); // etc.
     }
-
 
 }
