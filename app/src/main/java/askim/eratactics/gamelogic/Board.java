@@ -43,6 +43,7 @@ public class Board {
         pieces[2][2] = new Piece();
     }
 
+    // Returns who is in cell of grid
     // returns 0 if nothing in grid, 1 if enemy is in grid, 2 if adventurer
     public int resolveGrid(int row, int col) {
         if (pieces[row][col] == null) {
@@ -54,6 +55,7 @@ public class Board {
         } else
             return -1;
     }
+
 
     public ArrayList<EnumFile.SkillsEnum> getAdventurerSkills(int row, int col) {
         return pieces[row][col].getSkills();
