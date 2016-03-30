@@ -245,9 +245,11 @@ public class Board {
 
     /**
      *
+     * @return false if no available pieces
+     *         true if made a move
      */
-    public void makeComputerMove() {
-
+    public boolean makeComputerMove() {
+        return false;
     }
 
     /**
