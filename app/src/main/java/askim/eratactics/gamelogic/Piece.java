@@ -24,11 +24,13 @@ public class Piece {
     private boolean isPlayer;
     public boolean leader;
     private ArrayList<EnumFile.SkillsEnum> skills;
+    private boolean hasMoved;
 
     public Piece(Adventurer adv, boolean isLeader) {
         isPlayer = true;
         leader = isLeader;
         skills = adv.getSkills(isLeader);
+        hasMoved = false;
         hp = adv.getHp(leader); // etc.
     }
 
@@ -46,5 +48,17 @@ public class Piece {
 
     public ArrayList<EnumFile.SkillsEnum> getSkills() {
         return skills;
+    }
+
+    public void moved() {
+        hasMoved = true;
+    }
+
+    public void resetPiece() {
+        hasMoved = false;
+    }
+
+    public boolean isHasMoved() {
+        return hasMoved;
     }
 }

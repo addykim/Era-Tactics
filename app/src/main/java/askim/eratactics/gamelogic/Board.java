@@ -17,6 +17,7 @@ import java.util.IdentityHashMap;
 public class Board {
 
     private Piece[][] pieces;
+    int activeEnemies = 0;
 
     public Board(Team team) {
         pieces = new Piece[6][3];
@@ -44,15 +45,21 @@ public class Board {
     }
 
     // Returns who is in cell of grid
-    // returns 0 if nothing in grid, 1 if enemy is in grid, 2 if adventurer
+    // returns 0 if nothing in grid, 1 if enemy is in grid, 2 if adventurer, 3 if inactive adventurer
     public int resolveGrid(int row, int col) {
         if (pieces[row][col] == null) {
             return 0;
-        } else if (!pieces[row][col].getIsPlayer()) {
+        }
+        else if (!pieces[row][col].getIsPlayer()) {
             return 1;
-        } else if (pieces[row][col].getIsPlayer()) {
+        }
+        else if (pieces[row][col].getIsPlayer() && !pieces[row][col].isHasMoved()) {
             return 2;
-        } else
+        }
+        else if (pieces[row][col].getIsPlayer() && pieces[row][col].isHasMoved()) {
+            return 3;
+        }
+        else
             return -1;
     }
 
@@ -193,6 +200,70 @@ public class Board {
                     pieces[destRow][destCol].hp = pieces[destRow][destCol].maxHp;
                 }
                 break;
+        }
+
+        pieces[row][col].moved();
+    }
+
+    /**
+     * Checks the HP of each piece and remove them if they are dead.
+     * Return if the game is over after cleaning up the board.
+     * @return 0 if continue
+     *         1 if player won
+     *         2 if computer won
+     */
+    public int checkGameOver() {
+        int playerCount = 0;
+        int enemyCount = 0;
+        activeEnemies = 0;
+
+        // remove dead pieces
+        for (int r = 0; r < 6; r++) {
+            for (int c = 0; c < 3; c++) {
+                if (pieces[r][c] != null) {
+                    if (pieces[r][c].hp <= 0) {
+                        pieces[r][c] = null;
+                    }
+                    else {
+                        if (pieces[r][c].getIsPlayer()) {
+                            playerCount++;
+                        }
+                        else {
+                            enemyCount++;
+                            if (!pieces[r][c].isHasMoved()) {
+                                activeEnemies++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (enemyCount == 0)
+            return 1;
+        else if (playerCount == 0)
+            return 2;
+        return 0;
+    }
+
+    /**
+     *
+     * @return false if no available pieces
+     *         true if made a move
+     */
+    public boolean makeComputerMove() {
+        return false;
+    }
+
+    /**
+     * After every piece has taken a move, a new turn starts
+     * moved pieces can take moves again.
+     */
+    public void resetTurn() {
+        for (int r = 0; r < 6; r++) {
+            for (int c = 0; c < 3; c++) {
+                if (pieces[r][c] != null)
+                    pieces[r][c].resetPiece();
+            }
         }
     }
 
