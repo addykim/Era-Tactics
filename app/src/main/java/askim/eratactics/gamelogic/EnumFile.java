@@ -7,13 +7,25 @@ public class EnumFile {
     public enum SkillsEnum {
         FIREBALL,
         HEAL,
-        LIGHTNING
+        LIGHTNING,
+        MOVE,
+        PUNCH
     }
+
     public enum ClassEnum {
         VILLAGER,
         MAGICIAN,
         FIGHTER,
         ARCHER,
         KNIGHT
+    }
+
+    public enum TargetType {
+        SELF,
+        ENEMY,
+        ALLY,
+        SELF_ALLY,
+        ENEMY_EMPTY,
+        EMPTY
     }
 }

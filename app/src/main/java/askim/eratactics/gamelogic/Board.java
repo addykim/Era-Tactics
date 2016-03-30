@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -25,11 +26,10 @@ public class Board {
                 Piece p;
                 if (team.getLeader() == temp) {
                     p = new Piece(temp, true);
-                }
-                else {
+                } else {
                     p = new Piece(temp, false);
                 }
-                pieces[i/3 + 3][i%3] = p;
+                pieces[i / 3 + 3][i % 3] = p;
             }
         }
         generateEnemies();
@@ -47,14 +47,11 @@ public class Board {
     public int resolveGrid(int row, int col) {
         if (pieces[row][col] == null) {
             return 0;
-        }
-        else if (!pieces[row][col].getIsPlayer()) {
+        } else if (!pieces[row][col].getIsPlayer()) {
             return 1;
-        }
-        else if (pieces[row][col].getIsPlayer()) {
+        } else if (pieces[row][col].getIsPlayer()) {
             return 2;
-        }
-        else
+        } else
             return -1;
     }
 
@@ -65,24 +62,28 @@ public class Board {
     // return a list of integers between 0-17 corresponding to the 18 grids on the board.
     public ArrayList<Integer> availableTargets(int row, int col, EnumFile.SkillsEnum skill) {
         int range;
-        int targetType; // 0 for self, 1 for enemy, 2 for allies, 3 for self and allies
+        EnumFile.TargetType targetType;
 
         switch (skill) {
+            case MOVE:
+                range = pieces[row][col].mrg;
+                targetType = EnumFile.TargetType.EMPTY;
+                break;
             case FIREBALL:
                 range = 2;
-                targetType = 1;
+                targetType = EnumFile.TargetType.ENEMY_EMPTY;
                 break;
             case LIGHTNING:
                 range = 4;
-                targetType = 1;
+                targetType = EnumFile.TargetType.ENEMY;
                 break;
             case HEAL:
                 range = 3;
-                targetType = 3;
+                targetType = EnumFile.TargetType.SELF_ALLY;
                 break;
             default:
                 range = -1;
-                targetType = -1;
+                targetType = null;
                 break;
         }
 
@@ -90,33 +91,107 @@ public class Board {
         for (int i = 0; i < 18; i++) {
             int r = i / 3;
             int c = i % 3;
-            if (pieces[r][c] != null) {
-                if (Math.abs(r - row) + Math.abs(c - col) <= range) {
-                    switch (targetType) {
-                        case 0:
-                            targets.add(row * 3 + col);
-                            return targets;
-                        case 1:
-                            if (!pieces[r][c].getIsPlayer()) {
-                                targets.add(i);
-                            }
-                            break;
-                        case 2:
-                            if (pieces[r][c].getIsPlayer() && (row * 3 + col != i)) {
-                                targets.add(i);
-                            }
-                            break;
-                        case 3:
-                            if (pieces[r][c].getIsPlayer()) {
-                                targets.add(i);
-                            }
-                            break;
-                    }
+
+            if (Math.abs(r - row) + Math.abs(c - col) <= range) {
+                switch (targetType) {
+                    case SELF:
+                        targets.add(row * 3 + col);
+                        return targets;
+                    case ENEMY:
+                        if (pieces[r][c] != null && !pieces[r][c].getIsPlayer()) {
+                            targets.add(i);
+                        }
+                        break;
+                    case ALLY:
+                        if (pieces[r][c] != null && pieces[r][c].getIsPlayer() && (row * 3 + col != i)) {
+                            targets.add(i);
+                        }
+                        break;
+                    case SELF_ALLY:
+                        if (pieces[r][c] != null && pieces[r][c].getIsPlayer()) {
+                            targets.add(i);
+                        }
+                        break;
+                    case ENEMY_EMPTY:
+                        if (pieces[r][c] == null || !pieces[r][c].getIsPlayer()) {
+                            targets.add(i);
+                        }
+                        break;
+                    case EMPTY:
+                        if (pieces[r][c] == null) {
+                            targets.add(i);
+                        }
+                        break;
+                    default:
+                        Log.d("Board Class", "Oh no! TargetType is bad!");
+                        break;
                 }
             }
+
         }
 
         return targets;
+    }
+
+    public void resolveSkill(int row, int col, int dest, EnumFile.SkillsEnum skill) {
+
+        int destRow = dest / 3;
+        int destCol = dest % 3;
+        double damage;
+
+
+        switch (skill) {
+            case MOVE:
+                pieces[destRow][destCol] = pieces[row][col];
+                pieces[row][col] = null;
+                break;
+
+            case PUNCH:
+                damage = (pieces[row][col].atk - pieces[destRow][destCol].def);
+                if (damage > 0)
+                    pieces[destRow][destCol].hp -= damage;
+                break;
+
+            case LIGHTNING:
+                damage = (pieces[row][col].atk - pieces[destRow][destCol].def) * 1.5;
+                if (damage > 0)
+                    pieces[destRow][destCol].hp -= damage;
+                break;
+
+            case FIREBALL:
+                if (pieces[destRow][destCol] == null)
+                    damage = pieces[row][col].atk * 1.3;
+                else {
+                    damage = (pieces[row][col].atk - pieces[destRow][destCol].def) * 1.3;
+                    if (damage > 0)
+                        pieces[destRow][destCol].hp -= damage;
+                }
+                // area damage
+                if (damage > 0)
+                    damage = damage * 0.3;
+                else
+                    damage = 0;
+                if (destRow > 0 && resolveGrid(row, col) != resolveGrid(destRow - 1, destCol)) {
+                    pieces[destRow - 1][destCol].hp -= damage;
+                }
+                if (destCol > 0 && resolveGrid(row, col) != resolveGrid(destRow, destCol - 1)) {
+                    pieces[destRow][destCol - 1].hp -= damage;
+                }
+                if (destRow < 5 && resolveGrid(row, col) != resolveGrid(destRow + 1, destCol)) {
+                    pieces[destRow + 1][destCol].hp -= damage;
+                }
+                if (destCol < 2 && resolveGrid(row, col) != resolveGrid(destRow, destCol + 1)) {
+                    pieces[destRow][destCol + 1].hp -= damage;
+                }
+                break;
+
+            case HEAL:
+                pieces[destRow][destCol].hp += pieces[destRow][destCol].mag + pieces[row][col].mag;
+                if (pieces[destRow][destCol].hp > pieces[destRow][destCol].maxHp) {
+                    pieces[destRow][destCol].hp = pieces[destRow][destCol].maxHp;
+                }
+                break;
+        }
     }
 
 }

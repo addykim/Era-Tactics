@@ -19,7 +19,7 @@ public class Piece {
      * agi = agility, 0~1, possibility of dodging (either)
      */
 
-    public int hp, atk, def, mag, res, mrg, atr;
+    public int maxHp, hp, atk, def, mag, res, mrg, atr;
     public double agi;
     private boolean isPlayer;
     public boolean leader;
@@ -35,6 +35,7 @@ public class Piece {
     // Generate generic enemies with 10 hp, 5 atk
     public Piece() {
         isPlayer = false;
+        maxHp = 10;
         hp = 10;
         atk = 5;
     }
