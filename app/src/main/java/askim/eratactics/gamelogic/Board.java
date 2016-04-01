@@ -267,4 +267,7 @@ public class Board {
         }
     }
 
+    public Piece getBoardOccupant(int row, int col) {
+        return pieces[row][col];
+    }
 }
