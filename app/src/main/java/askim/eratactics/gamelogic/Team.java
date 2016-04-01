@@ -16,8 +16,18 @@ public class Team {
     public Adventurer leader;
     public int advCount;
 
+    private boolean debugMode;
+
     public Team() {
         adventurers = new Adventurer[9];
+        debugMode = false;
+    }
+
+    /* Creates a single leader */
+    public Team(boolean debugMode) {
+        adventurers = new Adventurer[9];
+        debugMode = true;
+        addAdventurer(new Adventurer(new Equipment[3]), 0, true);
     }
 
     public void addAdventurer(Adventurer adv, int pos, boolean isLeader) {
