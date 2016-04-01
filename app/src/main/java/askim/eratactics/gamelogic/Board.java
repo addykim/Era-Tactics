@@ -16,6 +16,7 @@ import java.util.IdentityHashMap;
  */
 public class Board {
 
+    private final String TAG = "BoardLogic";
     private Piece[][] pieces;
     int activeEnemies = 0;
 
@@ -268,6 +269,7 @@ public class Board {
     }
 
     public Piece getBoardOccupant(int row, int col) {
+        Log.d(TAG, "Board occupant " + pieces[row][col]);
         return pieces[row][col];
     }
 }

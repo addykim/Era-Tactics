@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Board;
+import askim.eratactics.gamelogic.EnumFile;
 import askim.eratactics.gamelogic.Team;
 import askim.eratactics.views.BoardView;
 
@@ -22,7 +23,7 @@ public class TacticsGame extends AppCompatActivity {
     private static final String TAG = "Tactics";
 
     /* Draws the board based on boardLogic */
-    private BoardView mBoard;
+    private BoardView boardView;
 
     /* Actual game logic related to the board */
     private Board boardLogic;
@@ -38,7 +39,9 @@ public class TacticsGame extends AppCompatActivity {
     private int turnStatus;
 
     private int selectedCharacter;
+    private EnumFile.SkillsEnum selectedSkill;
     private int selectedTarget;
+
 
 
     private int firstSkill;
@@ -66,9 +69,12 @@ public class TacticsGame extends AppCompatActivity {
         //else
         newGame();
 
-        mBoard = (BoardView) findViewById(R.id.board);
+        boardLogic = new Board(new Team());
+        boardView = (BoardView) findViewById(R.id.board);
+        boardView.setGame(boardLogic);
+
         // Listen for touches on the board
-        mBoard.setOnTouchListener(mTouchListener);
+        boardView.setOnTouchListener(mTouchListener);
 
         // Setup click listener for each skill buttons
         firstSkillButton = (ImageView) findViewById(R.id.firstSkill);
@@ -77,6 +83,7 @@ public class TacticsGame extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO
                 checkSkillTime();
+//                selectedSkill =
                 Log.d(TAG, "First skill clicked");
             }
         });
@@ -103,8 +110,9 @@ public class TacticsGame extends AppCompatActivity {
     /* Creates a new game */
     private void newGame() {
         Log.d(TAG, "Creating new game");
+//        TODO replace newBoard(new Team) with clearboard command
+        // Redraw//       boardView.invalidate();
         playersTurn = true;
-        boardLogic = new Board(new Team());
         turnStatus = 0;
         selectedCharacter = 0;
         selectedTarget = 0;
@@ -123,13 +131,16 @@ public class TacticsGame extends AppCompatActivity {
         /* Dead pieces are also removed in checkGameOver */
 //        checkGameOver();
 //      TODO make graphical change to board
+//        TODO erase targeted circles
 //        TODO call reset turn
     }
+
 
 
     /* Changes the available skill icon based on available characters */
     private void displaySkills(int row, int col) {
         boardLogic.getAdventurerSkills(row, col);
+
 //      TODO based on the ArrayList<EnumFile.SkillsEnum> returned, iterate through the ImageViews to change the source
 //        firstSkillButton.setImageResource(R.drawable.new_image);
 //        firstSkill =
@@ -139,8 +150,8 @@ public class TacticsGame extends AppCompatActivity {
 //        thirdSKill =
     }
 
-    /* Check player's turn and time for skill
-     * Increment turnStatus to skill so prevent going back */
+    /* Check player's turn and if it is time to use a skill
+     * Increment turnStatus from player to skill so prevent going back */
     private void checkSkillTime() {
         if (playersTurn && turnStatus == 0) {
             turnStatus++;
@@ -155,18 +166,26 @@ public class TacticsGame extends AppCompatActivity {
         /* Rows 1-3 are for the enemies, 4-6 are for the player */
         public boolean onTouch(View v, MotionEvent event) {
             // Determine which cell was touched
-            int row = (int) event.getY() / mBoard.getBoardCellHeight();
-            int col = (int) event.getX() / mBoard.getBoardCellWidth();
+            int row = (int) event.getY() / boardView.getBoardCellHeight();
+            int col = (int) event.getX() / boardView.getBoardCellWidth();
+            String log = "Clicked on column " + (col+1) + " and row " + (row+1);
             String location = "column " + (col+1) + " and row " + (row+1);
 //            TODO what if -1 is returned from resolve grid
             if (boardLogic.resolveGrid(row, col) == 2) {
-                Log.d(TAG, "Selected adventurer at " + location);
                 /* Selecting a character */
                 if (turnStatus == 0) {
                     //TODO current character
+                    /* Should only be selecting from player's side */
+                    if (row >= 3) {
+                        log += ", Selected player's character";
+                    } else {
+                        log += ", Selected computer's character";
+                    }
                 /* If it is time to select a target */
                 } else if (turnStatus == 2) {
                     //TODO validate selected appropriate target
+                    log += ", Selected target";
+                    boardLogic.availableTargets(row, col, selectedSkill);
                     // if valid target {
                     // call resolve skill
                     // update any graphics, redraw board?
@@ -174,7 +193,7 @@ public class TacticsGame extends AppCompatActivity {
                     // }else do nothing
                 }
             }
-            Log.d(TAG, "Clicked on column " + (col+1) + " and row " + (row+1));
+            Log.d(TAG, log);
             return false;
         }
     };
