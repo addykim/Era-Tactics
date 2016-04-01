@@ -252,7 +252,94 @@ public class Board {
      *         true if made a move
      */
     public boolean makeComputerMove() {
-        return false;
+        if (activeEnemies <= 0) {
+            Log.d(TAG, "OH NO Computer cannot move because the number of active enemies is <= 0!");
+            return false;
+        }
+        int enemyNumber = ((int)Math.random()*activeEnemies) +1;
+        int enemiesEncountered = 0;
+        int movingR = -1;
+        int movingC = -1;
+
+        for (int r = 0; r < 6; r++) {
+            for (int c = 0; c < 3; c++) {
+                Piece p = pieces[r][c];
+                if (p != null && !p.getIsPlayer() && !p.isHasMoved()) {
+                    enemiesEncountered++;
+                    if (enemiesEncountered == enemyNumber) {
+                        movingR = r;
+                        movingC = c;
+                        Log.d(TAG,"Going to move enemy on " + movingR + ", " + movingC);
+                    }
+                }
+            }
+        }
+
+        Piece enemyPiece = pieces[movingR][movingC];
+        ArrayList<EnumFile.SkillsEnum> enemySkills = getAdventurerSkills(movingR, movingC);
+
+        for (EnumFile.SkillsEnum s : enemySkills) {
+            if (enemyPiece != null) {
+                // if the moving enemy has HEAL and there is an enemy low on health (<20%), heal!
+                if (s == EnumFile.SkillsEnum.HEAL) {
+                    ArrayList<Integer> targets = availableTargets(movingR, movingC, s);
+                    for (int t : targets) {
+                        int r = t / 3;
+                        int c = t % 3;
+
+                        if (pieces[r][c].hp < pieces[r][c].maxHp * 0.2) {
+                            resolveSkill(movingR, movingC, t, s);
+                            pieces[movingR][movingC].moved();
+                            activeEnemies--;
+                            Log.d(TAG,"Healed enemy on " + r + ", " + c
+                                    + ". Number of active enemies is now " + activeEnemies);
+
+                            return true;
+                        }
+                    }
+                }
+                // if there're players in range, attack the weakest one!
+                if (s != EnumFile.SkillsEnum.MOVE) {
+                    ArrayList<Integer> targets = availableTargets(movingR, movingC, s);
+                    int target = -1;
+                    for (int t : targets) {
+                        int tr = t / 3;
+                        int tc = t % 3;
+                        if (target == -1) {
+                            target = t;
+                        } else if (pieces[tr][tc].hp < pieces[target / 3][target % 3].hp) {
+                            target = t;
+                        }
+                    }
+                    if (target != -1) {
+                        resolveSkill(movingR, movingC, target, s);
+                        pieces[movingR][movingC].moved();
+                        activeEnemies--;
+                        Log.d(TAG,"Attacked player on " + (target / 3) + ", " + (target % 3)
+                                + ". Number of active enemies is now " + activeEnemies);
+                        return true;
+                    }
+                }
+            }
+        }
+        // if didn't get to heal or attack, then move! randomly!
+        ArrayList<Integer> targets = availableTargets(movingR, movingC, EnumFile.SkillsEnum.MOVE);
+        if (targets.size() == 0) {
+            // This sad enemy piece can't do anything, skip its turn!
+            Log.d(TAG,"Did not find any available moves for enemy " + movingR + ", " + movingC
+                    + ". Turn skipped. Number of active enemies is now " + activeEnemies);
+            pieces[movingR][movingC].moved();
+            activeEnemies--;
+            return true;
+        }
+        int numTargets = targets.size();
+        int moveTo = (int)Math.random()*numTargets;
+        resolveSkill(movingR, movingC, targets.get(moveTo), EnumFile.SkillsEnum.MOVE);
+        pieces[movingR][movingC].moved();
+        activeEnemies--;
+        Log.d(TAG,"Moved to grid number " + targets.get(moveTo)
+                + ". Number of active enemies is now " + activeEnemies);
+        return true;
     }
 
     /**

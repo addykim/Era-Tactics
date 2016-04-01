@@ -20,7 +20,7 @@ import askim.eratactics.views.BoardView;
  */
 public class TacticsGame extends AppCompatActivity {
 
-    private static final String TAG = "Tactics";
+    private static final String TAG = "TacticsGame";
 
     /* Draws the board based on boardLogic */
     private BoardView boardView;
