@@ -24,6 +24,7 @@ public class Equipment {
     public int pos;
     private EnumFile.SkillsEnum skill;
     private EnumFile.SkillsEnum leaderSkill;
+    public EnumFile.ClassEnum className;
     private boolean leaderSkillActivated;
 
     // making sure that the equipment goes with the adventurer's class
@@ -41,6 +42,7 @@ public class Equipment {
     }
 
     public Equipment(EnumFile.ClassEnum className) {
+        this.className = className;
         switch (className) {
             case VILLAGER:
                 stats = new double[]{15, 5, 2, 3, 1, 2, 1, 0};
