@@ -31,7 +31,15 @@ public class Piece {
         leader = isLeader;
         skills = adv.getSkills(isLeader);
         hasMoved = false;
-        hp = adv.getHp(leader); // etc.
+        maxHp = adv.getHp(leader);
+        hp = maxHp;
+        atk = adv.getAtk(leader);
+        def = adv.getDef(leader);
+        mag = adv.getMag(leader);
+        res = adv.getRes(leader);
+        mrg = adv.getMrg(leader);
+        atr = adv.getAtr(leader);
+        agi = adv.getAgi(leader);
     }
 
     // Generate generic enemies with 10 hp, 5 atk
@@ -40,6 +48,12 @@ public class Piece {
         maxHp = 10;
         hp = 10;
         atk = 5;
+        def = 2;
+        mag = 2;
+        res = 2;
+        mrg = 2;
+        atr = 2;
+        agi = 0;
     }
 
     public boolean getIsPlayer() {

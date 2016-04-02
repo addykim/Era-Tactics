@@ -121,12 +121,24 @@ public class Adventurer {
         int atr = 0;
         for (Equipment e : equipments) {
             if (e != null) {
-                atr += e.stats[5];
+                atr += e.stats[6];
             }
         }
         if (isLeader)
             atr += 0;
         return atr;
+    }
+
+    public double getAgi(boolean isLeader) {
+        double agi = 0;
+        for (Equipment e : equipments) {
+            if (e != null) {
+                agi += e.stats[7];
+            }
+        }
+        if (isLeader)
+            agi += 0;
+        return agi;
     }
 
 //GETTER METHODS:
