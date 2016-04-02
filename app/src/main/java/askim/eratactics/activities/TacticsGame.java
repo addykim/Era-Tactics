@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowAnimationFrameStats;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -71,8 +72,19 @@ public class TacticsGame extends AppCompatActivity {
         //else
         newGame();
         Team alphaTeam = new Team();
-        Adventurer a1 = new Adventurer(new Equipment[]{new Equipment(), new Equipment(EnumFile.ClassEnum.VILLAGER)});
-        alphaTeam.addAdventurer(a1, 2, true);
+        Adventurer villager1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.VILLAGER)});
+        Adventurer apprentice1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.APPRENTICE),
+                                                                new Equipment(EnumFile.Equipments.BASIC_POTION)});
+        Adventurer magician1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.MAGICIAN),
+                                                              new Equipment(EnumFile.Equipments.BASIC_WAND),
+                                                              new Equipment(EnumFile.Equipments.BASIC_POTION)});
+        Adventurer archer1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.ARCHER),
+                                                            new Equipment(EnumFile.Equipments.BASIC_ARROW)});
+        alphaTeam.addAdventurer(villager1, 2, false);
+        alphaTeam.addAdventurer(apprentice1, 6, false);
+        alphaTeam.addAdventurer(magician1, 3, false);
+        alphaTeam.addAdventurer(archer1, 5, false);
+
 
 //        boardLogic = new Board(new Team());
         boardLogic = new Board(alphaTeam);
