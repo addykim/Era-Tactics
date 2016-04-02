@@ -1,5 +1,7 @@
 package askim.eratactics.gamelogic;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +10,7 @@ import java.util.Map;
  * Created by nunuloop on 3/10/16.
  */
 public class Adventurer {
+    private static final String TAG = "Adventurer";
     public String name;
     public Equipment adventurerClass;
     // 0 = head, 1,2 = hand, 3 = body
@@ -120,7 +123,10 @@ public class Adventurer {
         int mrg = (int)adventurerClass.stats[5];
         for (Equipment e : equipments) {
             if (e != null) {
+                Log.d(TAG, "not null");
                 mrg += e.stats[5];
+            } else {
+                Log.d(TAG, "equipment is null");
             }
         }
         if (isLeader)

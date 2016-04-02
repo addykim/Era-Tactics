@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowAnimationFrameStats;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -148,6 +149,7 @@ public class TacticsGame extends AppCompatActivity {
 //        }
         selectedChar = -1;
         boardView.setCharacter(selectedChar);
+        boardView.setTargets(null);
 //        boardView.eraseCircles();
         boardView.invalidate();
         /* Dead pieces are also removed in checkGameOver */
@@ -164,8 +166,8 @@ public class TacticsGame extends AppCompatActivity {
         boardLogic.getAdventurerSkills(row, col);
 
 //      TODO based on the ArrayList<EnumFile.SkillsEnum> returned, iterate through the ImageViews to change the source
-//        thirdSkillButton.setImageResource(R.drawable.new_image);
-//        thirdSKill =
+//        skillButton.setImageResource(R.drawable.new_image);
+//        skillButton =
     }
 
     /* Check player's turn and if it is time to use a skill
@@ -196,8 +198,6 @@ public class TacticsGame extends AppCompatActivity {
     // Listen for touches on the board
     // Adapted from in class code
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
-
-//        TODO refactor the target code
         /* Rows 1-3 are for the enemies, 4-6 are for the player */
         public boolean onTouch(View v, MotionEvent event) {
             // Determine which cell was touched
@@ -228,9 +228,7 @@ public class TacticsGame extends AppCompatActivity {
                     boardView.invalidate();
                 /* If it is time to select a target */
                 } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
-                    log += ", Selected target";
                     /* Check if selected adventurer is in the target list */
-
                     if (possibleTargets.contains(row*3+col)) {
                         log += ", target is valid to use skill on";
                         boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
@@ -239,6 +237,9 @@ public class TacticsGame extends AppCompatActivity {
                         log += ", target is not valid to use skill on";
                     }
                 }
+            } else if (boardLogic.resolveGrid(row, col) == 3) {
+                Toast.makeText(getApplicationContext(),
+                        "You already used this character", Toast.LENGTH_SHORT).show();
             } else {
 //            TODO what if -1 is returned from resolve grid
                 log = "What";

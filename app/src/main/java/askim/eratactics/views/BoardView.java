@@ -149,7 +149,7 @@ public class BoardView extends View {
                         mPaint);
             }
             /* Potential targets */
-            if (targets.contains(index) && index > -1) {
+            if (targets != null && targets.contains(index) && index > -1) {
                 mPaint.setColor((Color.RED));
                 canvas.drawOval(new RectF(
                                 (col * cellWidth),
@@ -171,19 +171,11 @@ public class BoardView extends View {
     public void setCharacter(int character) { selectedChar = character; }
 
     public void setTargets(ArrayList<Integer> targets) {
-        // Not empty and not null
-        if (!targets.isEmpty() && targets != null) {
-            this.targets = targets;
-        }
+        this.targets = targets;
     }
 
     public void moveBitmapImage(int srcRow, int srcCol, int destRow, int destCol) {
         piecesBitmaps[destRow][destCol] = piecesBitmaps[srcRow][srcCol];
         piecesBitmaps[srcRow][srcCol] = null;
     }
-
-    public void eraseCircles() {
-
-    }
-
 }
