@@ -1,15 +1,7 @@
 package askim.eratactics.gamelogic;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
-
 import java.util.ArrayList;
-import java.util.IdentityHashMap;
 
 /**
  * Created by nunuloop on 3/10/16.

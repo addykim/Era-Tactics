@@ -26,6 +26,9 @@ public class BoardView extends View {
     private Paint mPaint;
     private Bitmap piecesBitmaps[][] = new Bitmap[6][3];
 
+    private int selectedChar;
+    private int[] targets;
+
     /* Used to determine stroke width of board lines */
     private static final int GRID_LINE_WIDTH = 6;
 
@@ -47,6 +50,7 @@ public class BoardView extends View {
 
     public void initialize() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        selectedChar = -1;
     }
 
     public void setGame(Board boardLogic) {
@@ -100,7 +104,8 @@ public class BoardView extends View {
         /* Draw characters */
         drawChar(canvas, cellWidth, cellHeight);
         /* Draw circles on top of characters */
-//        drawCircle(canvas, cellWidth, cellHeight);
+        mPaint.setStyle(Paint.Style.STROKE);
+        drawCircle(canvas, cellWidth, cellHeight);
     }
 
     /* Draws character bitmaps */
@@ -125,13 +130,21 @@ public class BoardView extends View {
     }
 
     /* Draws circles around characters when aiming to use a skill */
-    public void drawCircle(Canvas canvas, int width, int height) {
+    public void drawCircle(Canvas canvas, int cellWidth, int cellHeight) {
         int row, col;
         for (int i=0; i<18; i++) {
             row = i/3;
             col = i%3;
-            canvas.drawOval(new RectF(height*row, width*col, (row+1)*width, (col+1)*height),
-                    mPaint);
+            if ((row*3+col) == selectedChar && selectedChar > -1) {
+                mPaint.setColor((Color.BLUE));
+                canvas.drawOval(new RectF(
+                                (col * cellWidth),
+                                (row * cellHeight),
+                                (col + 1) * cellWidth,
+                                (row + 1) * cellHeight),
+                        mPaint);
+            }
+//            TODO change color based on whehter it is enemy or your own character
         }
     }
 
@@ -140,4 +153,7 @@ public class BoardView extends View {
 
     /* Get board cell height using view's height */
     public int getBoardCellHeight() { return getHeight() / 6; }
+
+    public void setCharacter(int character) { selectedChar = character; }
+
 }

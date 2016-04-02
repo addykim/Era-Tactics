@@ -183,6 +183,9 @@ public class TacticsGame extends AppCompatActivity {
                     log += ", Selected player's character";
                     selectedCharRow = row;
                     selectedCharCol = col;
+                    selectedChar = row*3+col;
+                    boardView.setCharacter(selectedChar);
+                    boardView.invalidate();
                 /* If it is time to select a target */
                 } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
                     log += ", Selected target";
