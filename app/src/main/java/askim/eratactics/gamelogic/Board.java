@@ -165,6 +165,8 @@ public class Board {
             case MOVE:
                 pieces[destRow][destCol] = pieces[row][col];
                 pieces[row][col] = null;
+                row = destRow;
+                col = destCol;
                 break;
 
             case PUNCH:
