@@ -49,10 +49,10 @@ public class TacticsGame extends AppCompatActivity {
 
 
     private int firstSkill;
-    private ImageView firstSkillButton;
+    private ImageView moveButton;
 
     private int secondSkill;
-    private ImageView secondSkillButton;
+    private ImageView punchButton;
 
     private int thirdSkill;
     private ImageView thirdSkillButton;
@@ -76,8 +76,8 @@ public class TacticsGame extends AppCompatActivity {
         Adventurer a1 = new Adventurer(new Equipment[]{new Equipment(), new Equipment(EnumFile.ClassEnum.VILLAGER)});
         alphaTeam.addAdventurer(a1, 2, true);
 
-        boardLogic = new Board(new Team());
-//        boardLogic = new Board(alphaTeam);
+//        boardLogic = new Board(new Team());
+        boardLogic = new Board(alphaTeam);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
 
@@ -85,23 +85,23 @@ public class TacticsGame extends AppCompatActivity {
         boardView.setOnTouchListener(mTouchListener);
 
         // Setup click listener for each skill buttons
-        firstSkillButton = (ImageView) findViewById(R.id.firstSkill);
-        firstSkillButton.setOnClickListener(new View.OnClickListener() {
+        moveButton = (ImageView) findViewById(R.id.move);
+        moveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO
                 checkSkillTime();
 //                selectedSkill =
-                Log.d(TAG, "First skill clicked");
+                Log.d(TAG, "Move clicked");
             }
         });
-        secondSkillButton = (ImageView) findViewById(R.id.secondSkill);
-        secondSkillButton.setOnClickListener(new View.OnClickListener() {
+        punchButton = (ImageView) findViewById(R.id.punch);
+        punchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            // TODO
+                // TODO
                 checkSkillTime();
-                Log.d(TAG, "Second skill clicked");
+                Log.d(TAG, "Punch clicked");
             }
         });
         thirdSkillButton = (ImageView) findViewById(R.id.thirdSkill);
@@ -150,9 +150,9 @@ public class TacticsGame extends AppCompatActivity {
         boardLogic.getAdventurerSkills(row, col);
 
 //      TODO based on the ArrayList<EnumFile.SkillsEnum> returned, iterate through the ImageViews to change the source
-//        firstSkillButton.setImageResource(R.drawable.new_image);
+//        moveButton.setImageResource(R.drawable.new_image);
 //        firstSkill =
-//        secondSkillButton.setImageResource(R.drawable.new_image);
+//        punchButton.setImageResource(R.drawable.new_image);
 //        secondSkill =
 //        thirdSkillButton.setImageResource(R.drawable.new_image);
 //        thirdSKill =

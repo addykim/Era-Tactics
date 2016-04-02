@@ -20,16 +20,16 @@
 
                 <!--TODO replace these images with dummy images later-->
                 <ImageView
-                    android:id="@+id/firstSkill"
+                    android:id="@+id/move"
                     android:layout_width="@dimen/skillBoxSize"
                     android:layout_height="@dimen/skillBoxSize"
-                    android:src="@drawable/double_arrow"
+                    android:src="@drawable/move"
                     android:background="@color/white"
                     android:layout_marginLeft="@dimen/skillMarginLR"
                     android:layout_marginRight="@dimen/skillMarginLR"
                     android:layout_marginBottom="@dimen/skillMarginLR"/>
                 <ImageView
-                    android:id="@+id/secondSkill"
+                    android:id="@+id/punch"
                     android:layout_width="@dimen/skillBoxSize"
                     android:layout_height="@dimen/skillBoxSize"
                     android:src="@drawable/punch"
