@@ -42,9 +42,11 @@ public class TacticsGame extends AppCompatActivity {
      */
     private int turnStatus;
 
-    private int selectedCharacter;
+    /* First slot is the character integer, second slot is the row, third slot is the col */
+    private int selectedCharacter[] = new int[3];
     private EnumFile.SkillsEnum selectedSkill;
     private int selectedTarget;
+
 
 
 
@@ -122,7 +124,7 @@ public class TacticsGame extends AppCompatActivity {
         // Redraw//       boardView.invalidate();
         playersTurn = true;
         turnStatus = 0;
-        selectedCharacter = 0;
+        selectedCharacter[0] = 0;
         selectedTarget = 0;
     }
 
@@ -150,10 +152,6 @@ public class TacticsGame extends AppCompatActivity {
         boardLogic.getAdventurerSkills(row, col);
 
 //      TODO based on the ArrayList<EnumFile.SkillsEnum> returned, iterate through the ImageViews to change the source
-//        moveButton.setImageResource(R.drawable.new_image);
-//        firstSkill =
-//        punchButton.setImageResource(R.drawable.new_image);
-//        secondSkill =
 //        thirdSkillButton.setImageResource(R.drawable.new_image);
 //        thirdSKill =
     }
@@ -178,27 +176,28 @@ public class TacticsGame extends AppCompatActivity {
             int col = (int) event.getX() / boardView.getBoardCellWidth();
             String log = "Clicked on row " + (row+1) + ", col " + (col+1);
 //            TODO what if -1 is returned from resolve grid
-            if (boardLogic.resolveGrid(row, col) == 2) {
+            if (boardLogic.resolveGrid(row,col) == 1) {
+                log += ", Selected computer's character";
+            }
+            else if (boardLogic.resolveGrid(row, col) == 2) {
                 /* Selecting a character */
                 if (turnStatus == 0) {
                     //TODO current character
-                    /* Should only be selecting from player's side */
-                    if (row >= 3) {
-                        log += ", Selected player's character";
-                    } else {
-                        log += ", Selected computer's character";
-                    }
+                    log += ", Selected player's character";
+
                 /* If it is time to select a target */
                 } else if (turnStatus == 2) {
                     //TODO validate selected appropriate target
                     log += ", Selected target";
-                    /* Check if selected adventuruer is in the target lits */
-                    // TODO change row and col for caster
-                    ArrayList<Integer> targets = boardLogic.availableTargets(row, col, selectedSkill);
+                    /* Check if selected adventurer is in the target lits */
+                    ArrayList<Integer> targets =
+                            boardLogic.availableTargets(
+                                    selectedCharacter[1],
+                                    selectedCharacter[2],
+                                    selectedSkill);
                     if (targets.contains(boardLogic.getBoardOccupant(row, col))) {
                         log += ", target is valid to use skill on";
-//                        what is dest
-//                        boardLogic.resolveSkill(row, col, , selectedSkill);
+                        boardLogic.resolveSkill(row, col, , selectedSkill);
                         changeTurn();
                     } else {
                         log += ", target is not valid to use skill on";

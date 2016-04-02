@@ -35,6 +35,7 @@ public class Board {
             }
         }
         generateEnemies();
+        Log.d(TAG, "Current board status:\n" + printBoard());
     }
 
     private void generateEnemies() {
@@ -358,7 +359,17 @@ public class Board {
     }
 
     public Piece getBoardOccupant(int row, int col) {
-        Log.d(TAG, "Board occupant " + pieces[row][col]);
+//        Log.d(TAG, "Board occupant " + pieces[row][col]);
         return pieces[row][col];
+    }
+
+    private String printBoard() {
+        String s = "";
+        for (int r = 0; r < 6; r++) {
+            for (int c = 0; c < 3; c++) {
+
+            }
+        }
+        return null;
     }
 }

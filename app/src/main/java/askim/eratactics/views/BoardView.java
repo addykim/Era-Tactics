@@ -24,7 +24,7 @@ public class BoardView extends View {
 
     private Board boardLogic;
     private Paint mPaint;
-    private Bitmap piecesBitmaps[][];
+    private Bitmap piecesBitmaps[][] = new Bitmap[6][3];
 
     /* Used to determine stroke width of board lines */
     private static final int GRID_LINE_WIDTH = 6;
@@ -47,20 +47,20 @@ public class BoardView extends View {
 
     public void initialize() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        piecesBitmaps = new Bitmap[6][3];
-        // TODO create the board based on the board occupant
+    }
+
+    public void setGame(Board boardLogic) {
+        this.boardLogic = boardLogic;
         // DEBUG
         int row, col;
         for (int i=0; i<18; i++) {
             row = i / 3;
             col = i % 3;
-            Log.d(TAG, "Placing bitmap at row " + (row + 1) + ", col " + (col + 1));
-            piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.apprentice_normal);
+            if (boardLogic.getBoardOccupant(row, col) != null) {
+                Log.d(TAG, "Placing bitmap at row " + (row + 1) + ", col " + (col + 1));
+                piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.apprentice_normal);
+            }
         }
-    }
-
-    public void setGame(Board boardLogic) {
-        this.boardLogic = boardLogic;
     }
 
     /* Draws the lines on the board */
@@ -100,19 +100,25 @@ public class BoardView extends View {
         /* Draw characters */
         drawChar(canvas, cellWidth, cellHeight);
         /* Draw circles on top of characters */
-        drawCircle(canvas, cellWidth, cellHeight);
+//        drawCircle(canvas, cellWidth, cellHeight);
     }
 
     /* Draws character bitmaps */
     public void drawChar(Canvas canvas, int cellWidth, int cellHeight) {
-        int row, col;
+        int row, col, row_line, col_line;
         for (int i=0; i<18; i++) {
             row = i/3;
             col = i%3;
-            if (piecesBitmaps[row][col] != null) {
+            row_line = row*GRID_LINE_WIDTH;
+            col_line = col*GRID_LINE_WIDTH;
+            if (boardLogic.resolveGrid(row, col) != 0) {
                 Log.d(TAG, "Drawing bitmap at row " + (row+1) + ", col " + (col+1));
                 canvas.drawBitmap(piecesBitmaps[row][col], null,
-                        new Rect(row*cellWidth, col*cellHeight, (row+1)*cellWidth, (col+1)*cellHeight),
+                        new Rect(
+                                (col*cellWidth),
+                                (row*cellHeight),
+                                (col+1)*cellWidth,
+                                (row+1)*cellHeight),
                         null);
             }
         }
@@ -120,11 +126,12 @@ public class BoardView extends View {
 
     /* Draws circles around characters when aiming to use a skill */
     public void drawCircle(Canvas canvas, int width, int height) {
-        for (int row=0; row<6; row++) {
-            for (int col=0; col<3; col++) {
-                canvas.drawOval(new RectF(width*row, height*col, (width+1)*row, (height+1)*col),
-                        mPaint);
-            }
+        int row, col;
+        for (int i=0; i<18; i++) {
+            row = i/3;
+            col = i%3;
+            canvas.drawOval(new RectF(height*row, width*col, (row+1)*width, (col+1)*height),
+                    mPaint);
         }
     }
 
