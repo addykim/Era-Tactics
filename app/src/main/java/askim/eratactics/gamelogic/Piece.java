@@ -25,6 +25,7 @@ public class Piece {
     public boolean leader;
     private ArrayList<EnumFile.SkillsEnum> skills;
     private boolean hasMoved;
+    public EnumFile.ClassEnum pieceClass;
 
     public Piece(Adventurer adv, boolean isLeader) {
         isPlayer = true;
@@ -40,6 +41,7 @@ public class Piece {
         mrg = adv.getMrg(leader);
         atr = adv.getAtr(leader);
         agi = adv.getAgi(leader);
+        pieceClass = adv.adventurerClass.className;
     }
 
     // Generate generic enemies with 10 hp, 5 atk
