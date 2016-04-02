@@ -79,30 +79,35 @@ public class Equipment {
                 name = "Basic Sword";
                 pos = 1;
                 compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.FIGHTER, EnumFile.ClassEnum.KNIGHT};
+                skill = EnumFile.SkillsEnum.STRIKE;
                 break;
             case BASIC_SHIELD:
                 stats = new double[]{5, 1, 2, 0, 0, 0, 0, 0};
                 name = "Basic Shield";
                 pos = 1;
                 compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
+                skill = EnumFile.SkillsEnum.BLOCK;
                 break;
             case BASIC_ARROW:
                 stats = new double[]{0, 1, 0, 1, 0, 0, 5, 0.1};
                 name = "Basic Arrow";
                 pos = 1;
                 compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.ARCHER};
+                skill = EnumFile.SkillsEnum.FIREBALL;
                 break;
             case BASIC_WAND:
                 stats = new double[]{2, 1, 0, 3, 1, 1, 4, 0.1};
                 name = "Basic Wand";
                 pos = 1;
                 compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.MAGICIAN};
+                skill = EnumFile.SkillsEnum.LIGHTNING;
                 break;
             case BASIC_POTION:
                 stats = new double[]{0, 0, 0, 0, 0, 0, 0, 0};
                 name = "Basic Potion";
                 pos = 1;
                 compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.MAGICIAN, EnumFile.ClassEnum.APPRENTICE};
+                skill = EnumFile.SkillsEnum.HEAL;
                 break;
         }    }
 

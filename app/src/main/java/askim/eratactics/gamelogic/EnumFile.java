@@ -15,7 +15,9 @@ public class EnumFile {
         HEAL,
         LIGHTNING,
         MOVE,
-        PUNCH
+        PUNCH,
+        STRIKE,
+        BLOCK
     }
 
     public enum ClassEnum {
