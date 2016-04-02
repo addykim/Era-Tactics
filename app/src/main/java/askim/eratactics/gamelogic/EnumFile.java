@@ -17,7 +17,8 @@ public class EnumFile {
         MAGICIAN,
         FIGHTER,
         ARCHER,
-        KNIGHT
+        KNIGHT,
+        APPRENTICE
     }
 
     public enum TargetType {
@@ -32,7 +33,7 @@ public class EnumFile {
     public enum Equipments {
         BASIC_WAND,
         BASIC_SWORD,
-        BASIC_SHIELF,
+        BASIC_SHIELD,
         BASIC_ARROW,
         BASIC_POTION
     }
