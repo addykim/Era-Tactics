@@ -12,6 +12,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Board;
 
@@ -27,7 +29,7 @@ public class BoardView extends View {
     private Bitmap piecesBitmaps[][] = new Bitmap[6][3];
 
     private int selectedChar;
-    private int[] targets;
+    private ArrayList<Integer> targets;
 
     /* Used to determine stroke width of board lines */
     private static final int GRID_LINE_WIDTH = 6;
@@ -51,6 +53,7 @@ public class BoardView extends View {
     public void initialize() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         selectedChar = -1;
+        targets = new ArrayList<Integer>();
     }
 
     public void setGame(Board boardLogic) {
@@ -131,12 +134,23 @@ public class BoardView extends View {
 
     /* Draws circles around characters when aiming to use a skill */
     public void drawCircle(Canvas canvas, int cellWidth, int cellHeight) {
-        int row, col;
+        int row, col, index;
         for (int i=0; i<18; i++) {
             row = i/3;
             col = i%3;
-            if ((row*3+col) == selectedChar && selectedChar > -1) {
+            index = row*3+col;
+            if (index == selectedChar && selectedChar > -1) {
                 mPaint.setColor((Color.BLUE));
+                canvas.drawOval(new RectF(
+                                (col * cellWidth),
+                                (row * cellHeight),
+                                (col + 1) * cellWidth,
+                                (row + 1) * cellHeight),
+                        mPaint);
+            }
+            /* Potential targets */
+            if (targets.contains(index) && index > -1) {
+                mPaint.setColor((Color.RED));
                 canvas.drawOval(new RectF(
                                 (col * cellWidth),
                                 (row * cellHeight),
@@ -155,5 +169,18 @@ public class BoardView extends View {
     public int getBoardCellHeight() { return getHeight() / 6; }
 
     public void setCharacter(int character) { selectedChar = character; }
+
+    public void setTargets(ArrayList<Integer> targets) {
+        // Not empty and not null
+        if (!targets.isEmpty() && targets != null) {
+            this.targets = targets;
+        }
+    }
+
+    public void moveBitmapImage(int srcRow, int srcCol, int destRow, int destCol) {
+        piecesBitmaps[destRow][destCol] = piecesBitmaps[srcRow][srcCol];
+        piecesBitmaps[srcRow][srcCol] = null;
+
+    }
 
 }

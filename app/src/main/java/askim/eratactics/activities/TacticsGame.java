@@ -133,6 +133,7 @@ public class TacticsGame extends AppCompatActivity {
             playersTurn = true;
             turnStatus = EnumFile.TurnStatus.CHARACTER;
         }
+        boardView.invalidate();
         /* Dead pieces are also removed in checkGameOver */
 //        checkGameOver();
 //      TODO make graphical change to board
@@ -167,6 +168,7 @@ public class TacticsGame extends AppCompatActivity {
     // Adapted from in class code
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
 
+//        TODO refactor the target code
         /* Rows 1-3 are for the enemies, 4-6 are for the player */
         public boolean onTouch(View v, MotionEvent event) {
             // Determine which cell was touched
@@ -174,10 +176,28 @@ public class TacticsGame extends AppCompatActivity {
             int col = (int) event.getX() / boardView.getBoardCellWidth();
             String log = "Clicked on row " + (row+1) + ", col " + (col+1);
 //            TODO what if -1 is returned from resolve grid
-            if (boardLogic.resolveGrid(row,col) == 1) {
+            if (boardLogic.resolveGrid(row, col) == 0) {
+                if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill == EnumFile.SkillsEnum.MOVE) {
+                    ArrayList<Integer> targets =
+                        boardLogic.availableTargets(selectedCharRow, selectedCharCol, selectedSkill);
+
+                    String debug = "";
+                    for (int target: targets) {
+                        debug += (target + ", ");
+                    }
+                    Log.d(TAG, debug);
+                    if (targets.contains(row*3+col)) {
+                        log += ", target is valid to use skill on";
+                        boardView.moveBitmapImage(selectedCharRow, selectedCharCol, row, col);
+                        boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
+                        changeTurn();
+                    } else {
+                        log += ", target is not valid to use skill on";
+                    }
+                }
+            } else if (boardLogic.resolveGrid(row,col) == 1) {
                 log += ", Selected computer's character";
-            }
-            else if (boardLogic.resolveGrid(row, col) == 2) {
+            } else if (boardLogic.resolveGrid(row, col) == 2) {
                 /* Selecting a character */
                 if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
                     log += ", Selected player's character";
@@ -190,8 +210,8 @@ public class TacticsGame extends AppCompatActivity {
                 } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
                     log += ", Selected target";
                     /* Check if selected adventurer is in the target list */
-                    ArrayList<Integer> targets =
-                            boardLogic.availableTargets(selectedCharRow, selectedCharCol, selectedSkill);
+                    ArrayList<Integer> targets = new ArrayList<Integer>();
+                    boardLogic.availableTargets(selectedCharRow, selectedCharCol, selectedSkill);
                     String debug = "";
                     for (int target: targets) {
                         debug += (target + ", ");
@@ -205,6 +225,8 @@ public class TacticsGame extends AppCompatActivity {
                         log += ", target is not valid to use skill on";
                     }
                 }
+            } else {
+                log = "What";
             }
             Log.d(TAG, log);
             return false;
