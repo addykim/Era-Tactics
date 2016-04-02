@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import askim.eratactics.R;
+import askim.eratactics.gamelogic.Adventurer;
 import askim.eratactics.gamelogic.Board;
 import askim.eratactics.gamelogic.EnumFile;
+import askim.eratactics.gamelogic.Equipment;
 import askim.eratactics.gamelogic.Team;
 import askim.eratactics.views.BoardView;
 
@@ -68,6 +70,9 @@ public class TacticsGame extends AppCompatActivity {
         //if savestate exists
         //else
         newGame();
+        Team alphaTeam = new Team();
+        Adventurer a1 = new Adventurer(new Equipment[]{new Equipment()});
+        alphaTeam.addAdventurer(a1, 2, true);
 
         boardLogic = new Board(new Team());
         boardView = (BoardView) findViewById(R.id.board);
