@@ -5,7 +5,7 @@ package askim.eratactics.gamelogic;
  */
 public class Equipment {
     /**
-     * STATS array index
+     * STATS array index, stores EXTRA stats that equipments would give the equipped adventurer
      * 0 hp = health points
      * 1 atk = physical attack power
      * 2 def = physical defense
@@ -45,27 +45,66 @@ public class Equipment {
                 pos = 3;
                 break;
             case FIGHTER:
-                stats = new double[]{25, 8, 5, 3, 2, 3, 2, 0.2};
+                stats = new double[]{25, 8, 5, 3, 2, 3, 1, 0.2};
                 name = "Fighter";
                 pos = 3;
                 break;
             case KNIGHT:
-                stats = new double[]{25, 10, 8, 3, 2, 3, 2, 0.3};
+                stats = new double[]{25, 10, 8, 3, 2, 3, 1, 0.3};
                 name = "Knight";
                 pos = 3;
                 break;
             case ARCHER:
-                stats = new double[]{20, 8, 5, 3, 2, 3, 6, 0.2};
+                stats = new double[]{20, 8, 5, 3, 2, 3, 1, 0.2};
                 name = "Archer";
                 pos = 3;
                 break;
             case MAGICIAN:
-                stats = new double[]{20, 5, 3, 10, 5, 3, 6, 0.3};
+                stats = new double[]{20, 5, 3, 7, 5, 3, 2, 0.3};
                 name = "Magician";
+                pos = 3;
+                break;
+            case APPRENTICE:
+                stats = new double[]{20, 5, 3, 5, 3, 2, 1, 0.1};
+                name = "Apprentice";
                 pos = 3;
                 break;
         }
     }
+
+    public Equipment(EnumFile.Equipments equipment) {
+        switch (equipment) {
+            case BASIC_SWORD:
+                stats = new double[]{0, 2, 1, 0, 0, 0, 1, 0};
+                name = "Basic Sword";
+                pos = 1;
+                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.FIGHTER, EnumFile.ClassEnum.KNIGHT};
+                break;
+            case BASIC_SHIELD:
+                stats = new double[]{5, 1, 2, 0, 0, 0, 0, 0};
+                name = "Basic Shield";
+                pos = 1;
+                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
+                break;
+            case BASIC_ARROW:
+                stats = new double[]{0, 1, 0, 1, 0, 0, 5, 0.1};
+                name = "Basic Arrow";
+                pos = 1;
+                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.ARCHER};
+                break;
+            case BASIC_WAND:
+                stats = new double[]{2, 1, 0, 3, 1, 1, 4, 0.1};
+                name = "Basic Wand";
+                pos = 1;
+                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.MAGICIAN};
+                break;
+            case BASIC_POTION:
+                stats = new double[]{0, 0, 0, 0, 0, 0, 0, 0};
+                name = "Basic Potion";
+                pos = 1;
+                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.MAGICIAN, EnumFile.ClassEnum.APPRENTICE};
+                break;
+        }    }
 
 
 //GETTER METHODS:

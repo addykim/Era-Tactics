@@ -46,11 +46,88 @@ public class Adventurer {
      * equipment enhancements, and leader status
      */
     public int getHp(boolean isLeader) {
-        return 0;
+        int hp = 0;
+        for (Equipment e : equipments) {
+            if (e != null) {
+                hp += e.stats[0];
+            }
+        }
+        if (isLeader)
+            hp += 5;
+        return hp;
     }
 
+    public int getAtk(boolean isLeader) {
+        int atk = 0;
+        for (Equipment e : equipments) {
+            if (e != null) {
+                atk += e.stats[1];
+            }
+        }
+        if (isLeader)
+            atk += 1;
+        return atk;
+    }
 
+    public int getDef(boolean isLeader) {
+        int def = 0;
+        for (Equipment e : equipments) {
+            if (e != null) {
+                def += e.stats[2];
+            }
+        }
+        if (isLeader)
+            def += 1;
+        return def;
+    }
 
+    public int getMag(boolean isLeader) {
+        int mag = 0;
+        for (Equipment e : equipments) {
+            if (e != null) {
+                mag += e.stats[3];
+            }
+        }
+        if (isLeader)
+            mag += 1;
+        return mag;
+    }
+
+    public int getRes(boolean isLeader) {
+        int res = 0;
+        for (Equipment e : equipments) {
+            if (e != null) {
+                res += e.stats[4];
+            }
+        }
+        if (isLeader)
+            res += 1;
+        return res;
+    }
+
+    public int getMrg(boolean isLeader) {
+        int mrg = 0;
+        for (Equipment e : equipments) {
+            if (e != null) {
+                mrg += e.stats[5];
+            }
+        }
+        if (isLeader)
+            mrg += 1;
+        return mrg;
+    }
+
+    public int getAtr(boolean isLeader) {
+        int atr = 0;
+        for (Equipment e : equipments) {
+            if (e != null) {
+                atr += e.stats[5];
+            }
+        }
+        if (isLeader)
+            atr += 0;
+        return atr;
+    }
 
 //GETTER METHODS:
     public ArrayList<EnumFile.SkillsEnum> getSkills(boolean isLeader) {
