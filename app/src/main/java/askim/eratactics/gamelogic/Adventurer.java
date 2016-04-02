@@ -55,6 +55,8 @@ public class Adventurer {
 //GETTER METHODS:
     public ArrayList<EnumFile.SkillsEnum> getSkills(boolean isLeader) {
         ArrayList<EnumFile.SkillsEnum> skills = new ArrayList<EnumFile.SkillsEnum>();
+        skills.add(EnumFile.SkillsEnum.MOVE);
+        skills.add(EnumFile.SkillsEnum.PUNCH);
         for (Equipment e : equipments) {
             skills.add(e.getSkill());
             if (e.isLeaderSkillActivated() && isLeader) {

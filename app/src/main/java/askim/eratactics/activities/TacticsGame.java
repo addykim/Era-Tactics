@@ -73,7 +73,7 @@ public class TacticsGame extends AppCompatActivity {
         //else
         newGame();
         Team alphaTeam = new Team();
-        Adventurer a1 = new Adventurer(new Equipment[]{new Equipment()});
+        Adventurer a1 = new Adventurer(new Equipment[]{new Equipment(), new Equipment(EnumFile.ClassEnum.VILLAGER)});
         alphaTeam.addAdventurer(a1, 2, true);
 
         boardLogic = new Board(new Team());

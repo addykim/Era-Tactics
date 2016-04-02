@@ -37,6 +37,52 @@ public class Equipment {
         leaderSkillActivated = true;
     }
 
+    public Equipment(EnumFile.ClassEnum className) {
+        switch (className) {
+            case VILLAGER:
+                stats = new double[]{15, 5, 2, 3, 1, 2, 1, 0};
+                name = "Villager";
+                pos = 3;
+                break;
+            case FIGHTER:
+                stats = new double[]{25, 8, 5, 3, 2, 3, 2, 0.2};
+                skill = EnumFile.SkillsEnum.FIREBALL;
+                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
+                name = "SuperShield";
+                pos = 3;
+                leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
+                leaderSkillActivated = true;
+                break;
+            case KNIGHT:
+                stats = new double[]{25, 10, 8, 3, 2, 3, 2, 0.3};
+                skill = EnumFile.SkillsEnum.FIREBALL;
+                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
+                name = "SuperShield";
+                pos = 3;
+                leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
+                leaderSkillActivated = true;
+                break;
+            case ARCHER:
+                stats = new double[]{20, 8, 5, 3, 2, 3, 6, 0.2};
+                skill = EnumFile.SkillsEnum.FIREBALL;
+                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
+                name = "SuperShield";
+                pos = 3;
+                leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
+                leaderSkillActivated = true;
+                break;
+            case MAGICIAN:
+                stats = new double[]{20, 5, 3, 10, 5, 3, 6, 0.3};
+                skill = EnumFile.SkillsEnum.FIREBALL;
+                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
+                name = "SuperShield";
+                pos = 3;
+                leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
+                leaderSkillActivated = true;
+                break;
+        }
+    }
+
 
 //GETTER METHODS:
     public EnumFile.SkillsEnum getSkill() {
