@@ -143,6 +143,8 @@ public class Board {
         return targets;
     }
 
+
+    /* Stick value from available target into dest */
     public void resolveSkill(int row, int col, int dest, EnumFile.SkillsEnum skill) {
 
         int destRow = dest / 3;

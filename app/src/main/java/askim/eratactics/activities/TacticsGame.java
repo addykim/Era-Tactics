@@ -8,6 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Adventurer;
 import askim.eratactics.gamelogic.Board;
@@ -75,6 +77,7 @@ public class TacticsGame extends AppCompatActivity {
         alphaTeam.addAdventurer(a1, 2, true);
 
         boardLogic = new Board(new Team());
+//        boardLogic = new Board(alphaTeam);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
 
@@ -173,8 +176,7 @@ public class TacticsGame extends AppCompatActivity {
             // Determine which cell was touched
             int row = (int) event.getY() / boardView.getBoardCellHeight();
             int col = (int) event.getX() / boardView.getBoardCellWidth();
-            String log = "Clicked on column " + (col+1) + " and row " + (row+1);
-            String location = "column " + (col+1) + " and row " + (row+1);
+            String log = "Clicked on row " + (row+1) + ", col " + (col+1);
 //            TODO what if -1 is returned from resolve grid
             if (boardLogic.resolveGrid(row, col) == 2) {
                 /* Selecting a character */
@@ -190,12 +192,17 @@ public class TacticsGame extends AppCompatActivity {
                 } else if (turnStatus == 2) {
                     //TODO validate selected appropriate target
                     log += ", Selected target";
-                    boardLogic.availableTargets(row, col, selectedSkill);
-                    // if valid target {
-                    // call resolve skill
-                    // update any graphics, redraw board?
-                    // changeTurn();
-                    // }else do nothing
+                    /* Check if selected adventuruer is in the target lits */
+                    // TODO change row and col for caster
+                    ArrayList<Integer> targets = boardLogic.availableTargets(row, col, selectedSkill);
+                    if (targets.contains(boardLogic.getBoardOccupant(row, col))) {
+                        log += ", target is valid to use skill on";
+//                        what is dest
+//                        boardLogic.resolveSkill(row, col, , selectedSkill);
+                        changeTurn();
+                    } else {
+                        log += ", target is not valid to use skill on";
+                    }
                 }
             }
             Log.d(TAG, log);

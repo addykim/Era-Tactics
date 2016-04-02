@@ -48,11 +48,14 @@ public class BoardView extends View {
     public void initialize() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         piecesBitmaps = new Bitmap[6][3];
+        // TODO create the board based on the board occupant
         // DEBUG
-        for (int row=0; row<6; row++) {
-            for (int col=0; col<3; col++) {
-                piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.apprentice_normal);
-            }
+        int row, col;
+        for (int i=0; i<18; i++) {
+            row = i / 3;
+            col = i % 3;
+            Log.d(TAG, "Placing bitmap at row " + (row + 1) + ", col " + (col + 1));
+            piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.apprentice_normal);
         }
     }
 
@@ -102,14 +105,15 @@ public class BoardView extends View {
 
     /* Draws character bitmaps */
     public void drawChar(Canvas canvas, int cellWidth, int cellHeight) {
-        for (int row=0; row<6;row++) {
-            for (int col=0; col<3; col++) {
-                if (piecesBitmaps[row][col] != null) {
-                    Log.d(TAG, "Drawing bitmap at row " + (row+1) + ",col " + (col+1));
-                    canvas.drawBitmap(piecesBitmaps[row][col], null,
-                            new Rect(row*cellWidth, row*cellHeight, (row+1)*cellWidth, (col+1)*cellHeight),
-                            null);
-                }
+        int row, col;
+        for (int i=0; i<18; i++) {
+            row = i/3;
+            col = i%3;
+            if (piecesBitmaps[row][col] != null) {
+                Log.d(TAG, "Drawing bitmap at row " + (row+1) + ", col " + (col+1));
+                canvas.drawBitmap(piecesBitmaps[row][col], null,
+                        new Rect(row*cellWidth, col*cellHeight, (row+1)*cellWidth, (col+1)*cellHeight),
+                        null);
             }
         }
     }
