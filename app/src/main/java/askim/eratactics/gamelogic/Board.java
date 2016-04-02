@@ -71,6 +71,7 @@ public class Board {
             case MOVE:
                 range = pieces[row][col].mrg;
                 targetType = EnumFile.TargetType.EMPTY;
+                Log.d(TAG, "move range is " + range);
                 break;
             case PUNCH:
                 range = pieces[row][col].atr;

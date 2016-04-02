@@ -1,5 +1,7 @@
 package askim.eratactics.gamelogic;
 
+import java.util.ArrayList;
+
 /**
  * Created by nunuloop on 3/22/16.
  */
@@ -25,12 +27,13 @@ public class Equipment {
     private boolean leaderSkillActivated;
 
     // making sure that the equipment goes with the adventurer's class
-    public EnumFile.ClassEnum[] compatibleClasses;
+    public ArrayList<EnumFile.ClassEnum> compatibleClasses;
 
     public Equipment() {
         stats = new double[]{3, 0, 0, 0, 0, 0, 0, 0};
         skill = EnumFile.SkillsEnum.FIREBALL;
-        compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
+        compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
+        compatibleClasses.add(EnumFile.ClassEnum.KNIGHT);
         name = "SuperShield";
         pos = 1;
         leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
@@ -78,35 +81,41 @@ public class Equipment {
                 stats = new double[]{0, 2, 1, 0, 0, 0, 1, 0};
                 name = "Basic Sword";
                 pos = 1;
-                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.FIGHTER, EnumFile.ClassEnum.KNIGHT};
+                compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
+                compatibleClasses.add(EnumFile.ClassEnum.FIGHTER);
+                compatibleClasses.add(EnumFile.ClassEnum.KNIGHT);
                 skill = EnumFile.SkillsEnum.STRIKE;
                 break;
             case BASIC_SHIELD:
                 stats = new double[]{5, 1, 2, 0, 0, 0, 0, 0};
                 name = "Basic Shield";
                 pos = 1;
-                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
+                compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
+                compatibleClasses.add(EnumFile.ClassEnum.KNIGHT);
                 skill = EnumFile.SkillsEnum.BLOCK;
                 break;
             case BASIC_ARROW:
                 stats = new double[]{0, 1, 0, 1, 0, 0, 5, 0.1};
                 name = "Basic Arrow";
                 pos = 1;
-                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.ARCHER};
+                compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
+                compatibleClasses.add(EnumFile.ClassEnum.ARCHER);
                 skill = EnumFile.SkillsEnum.FIREBALL;
                 break;
             case BASIC_WAND:
                 stats = new double[]{2, 1, 0, 3, 1, 1, 4, 0.1};
                 name = "Basic Wand";
-                pos = 1;
-                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.MAGICIAN};
+                pos = 1;compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
+                compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
                 skill = EnumFile.SkillsEnum.LIGHTNING;
                 break;
             case BASIC_POTION:
                 stats = new double[]{0, 0, 0, 0, 0, 0, 0, 0};
                 name = "Basic Potion";
                 pos = 1;
-                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.MAGICIAN, EnumFile.ClassEnum.APPRENTICE};
+                compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
+                compatibleClasses.add(EnumFile.ClassEnum.APPRENTICE);
+                compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
                 skill = EnumFile.SkillsEnum.HEAL;
                 break;
         }    }
