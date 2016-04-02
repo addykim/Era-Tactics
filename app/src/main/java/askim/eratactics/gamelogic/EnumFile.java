@@ -4,6 +4,12 @@ package askim.eratactics.gamelogic;
  * Created by nunuloop on 3/22/16.
  */
 public class EnumFile {
+    public enum TurnStatus {
+        CHARACTER,
+        SKILL,
+        TARGET
+    }
+
     public enum SkillsEnum {
         FIREBALL,
         HEAL,
