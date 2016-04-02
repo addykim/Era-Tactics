@@ -72,20 +72,24 @@ public class Board {
                 range = pieces[row][col].mrg;
                 targetType = EnumFile.TargetType.EMPTY;
                 break;
-            case FIREBALL:
+            case PUNCH:
                 range = pieces[row][col].atr;
+                targetType = EnumFile.TargetType.ENEMY;
+                break;
+            case FIREBALL:
+                range = 2;
                 targetType = EnumFile.TargetType.ENEMY_EMPTY;
                 break;
             case STRIKE:
-                range = pieces[row][col].atr;
+                range = pieces[row][col].atr + 1;
                 targetType = EnumFile.TargetType.ENEMY;
                 break;
             case LIGHTNING:
-                range = pieces[row][col].atr;
+                range = 4;
                 targetType = EnumFile.TargetType.ENEMY;
                 break;
             case HEAL:
-                range = pieces[row][col].atr;
+                range = 3;
                 targetType = EnumFile.TargetType.SELF_ALLY;
                 break;
             default:
