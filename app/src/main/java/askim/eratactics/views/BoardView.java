@@ -180,6 +180,9 @@ public class BoardView extends View {
     public void moveBitmapImage(int srcRow, int srcCol, int destRow, int destCol) {
         piecesBitmaps[destRow][destCol] = piecesBitmaps[srcRow][srcCol];
         piecesBitmaps[srcRow][srcCol] = null;
+    }
+
+    public void eraseCircles() {
 
     }
 

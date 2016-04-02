@@ -41,7 +41,7 @@ public class TacticsGame extends AppCompatActivity {
     private int selectedCharRow;
     private int selectedCharCol;
     private EnumFile.SkillsEnum selectedSkill;
-    private int selectedTarget;
+    private ArrayList<Integer> possibleTargets;
 
 
 
@@ -88,7 +88,8 @@ public class TacticsGame extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 selectedSkill = EnumFile.SkillsEnum.MOVE;
-                Log.d(TAG, "Move clicked? " + checkSkillTime());
+                showTargets(checkSkillTime());
+                Log.d(TAG, "Move clicked");
             }
         });
         punchButton = (ImageView) findViewById(R.id.punch);
@@ -120,19 +121,22 @@ public class TacticsGame extends AppCompatActivity {
         selectedChar = -1;
         selectedCharRow = -1;
         selectedCharCol = -1;
-        selectedTarget = 0;
+        possibleTargets = new ArrayList<Integer>();
     }
 
     /* Switch player turn to computer turn or vice versa */
     private void changeTurn() {
-        if (playersTurn) {
-            Log.d(TAG, "It is now the computer turn");
-            playersTurn = false;
-        } else {
-            Log.d(TAG, "It is now the player's turn");
+//        if (playersTurn) {
+//            Log.d(TAG, "It is now the computer turn");
+//            playersTurn = false;
+//        } else {
+//            Log.d(TAG, "It is now the player's turn");
             playersTurn = true;
             turnStatus = EnumFile.TurnStatus.CHARACTER;
-        }
+//        }
+        selectedChar = -1;
+        boardView.setCharacter(selectedChar);
+//        boardView.eraseCircles();
         boardView.invalidate();
         /* Dead pieces are also removed in checkGameOver */
 //        checkGameOver();
@@ -164,6 +168,19 @@ public class TacticsGame extends AppCompatActivity {
         return false;
     }
 
+    public void showTargets(boolean skillTime) {
+        possibleTargets =
+                boardLogic.availableTargets(selectedCharRow, selectedCharCol, selectedSkill);
+        boardView.setTargets(possibleTargets);
+        boardView.invalidate();
+        String debug = "";
+        for (int target: possibleTargets) {
+            debug += (target + ", ");
+
+        }
+        Log.d(TAG, debug);
+    }
+
     // Listen for touches on the board
     // Adapted from in class code
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
@@ -175,18 +192,9 @@ public class TacticsGame extends AppCompatActivity {
             int row = (int) event.getY() / boardView.getBoardCellHeight();
             int col = (int) event.getX() / boardView.getBoardCellWidth();
             String log = "Clicked on row " + (row+1) + ", col " + (col+1);
-//            TODO what if -1 is returned from resolve grid
             if (boardLogic.resolveGrid(row, col) == 0) {
                 if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill == EnumFile.SkillsEnum.MOVE) {
-                    ArrayList<Integer> targets =
-                        boardLogic.availableTargets(selectedCharRow, selectedCharCol, selectedSkill);
-
-                    String debug = "";
-                    for (int target: targets) {
-                        debug += (target + ", ");
-                    }
-                    Log.d(TAG, debug);
-                    if (targets.contains(row*3+col)) {
+                    if (possibleTargets.contains(row*3+col)) {
                         log += ", target is valid to use skill on";
                         boardView.moveBitmapImage(selectedCharRow, selectedCharCol, row, col);
                         boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
@@ -210,14 +218,8 @@ public class TacticsGame extends AppCompatActivity {
                 } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
                     log += ", Selected target";
                     /* Check if selected adventurer is in the target list */
-                    ArrayList<Integer> targets = new ArrayList<Integer>();
-                    boardLogic.availableTargets(selectedCharRow, selectedCharCol, selectedSkill);
-                    String debug = "";
-                    for (int target: targets) {
-                        debug += (target + ", ");
-                    }
-                    Log.d(TAG, debug);
-                    if (targets.contains(row*3+col)) {
+
+                    if (possibleTargets.contains(row*3+col)) {
                         log += ", target is valid to use skill on";
                         boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
                         changeTurn();
@@ -226,6 +228,7 @@ public class TacticsGame extends AppCompatActivity {
                     }
                 }
             } else {
+//            TODO what if -1 is returned from resolve grid
                 log = "What";
             }
             Log.d(TAG, log);
