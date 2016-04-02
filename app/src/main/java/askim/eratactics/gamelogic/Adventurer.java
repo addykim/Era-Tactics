@@ -57,7 +57,7 @@ public class Adventurer {
      * equipment enhancements, and leader status
      */
     public int getHp(boolean isLeader) {
-        int hp = 0;
+        int hp = (int)adventurerClass.stats[0];
         for (Equipment e : equipments) {
             if (e != null) {
                 hp += e.stats[0];
@@ -69,7 +69,7 @@ public class Adventurer {
     }
 
     public int getAtk(boolean isLeader) {
-        int atk = 0;
+        int atk = (int)adventurerClass.stats[1];
         for (Equipment e : equipments) {
             if (e != null) {
                 atk += e.stats[1];
@@ -81,7 +81,7 @@ public class Adventurer {
     }
 
     public int getDef(boolean isLeader) {
-        int def = 0;
+        int def = (int)adventurerClass.stats[2];
         for (Equipment e : equipments) {
             if (e != null) {
                 def += e.stats[2];
@@ -93,7 +93,7 @@ public class Adventurer {
     }
 
     public int getMag(boolean isLeader) {
-        int mag = 0;
+        int mag = (int)adventurerClass.stats[3];
         for (Equipment e : equipments) {
             if (e != null) {
                 mag += e.stats[3];
@@ -105,7 +105,7 @@ public class Adventurer {
     }
 
     public int getRes(boolean isLeader) {
-        int res = 0;
+        int res = (int)adventurerClass.stats[4];
         for (Equipment e : equipments) {
             if (e != null) {
                 res += e.stats[4];
@@ -117,7 +117,7 @@ public class Adventurer {
     }
 
     public int getMrg(boolean isLeader) {
-        int mrg = 0;
+        int mrg = (int)adventurerClass.stats[5];
         for (Equipment e : equipments) {
             if (e != null) {
                 mrg += e.stats[5];
@@ -129,7 +129,7 @@ public class Adventurer {
     }
 
     public int getAtr(boolean isLeader) {
-        int atr = 0;
+        int atr = (int)adventurerClass.stats[6];
         for (Equipment e : equipments) {
             if (e != null) {
                 atr += e.stats[6];
@@ -141,7 +141,7 @@ public class Adventurer {
     }
 
     public double getAgi(boolean isLeader) {
-        double agi = 0;
+        double agi = adventurerClass.stats[7];
         for (Equipment e : equipments) {
             if (e != null) {
                 agi += e.stats[7];
