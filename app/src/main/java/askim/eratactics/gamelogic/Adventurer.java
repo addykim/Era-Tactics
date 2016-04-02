@@ -37,8 +37,19 @@ public class Adventurer {
         lvl = 1;
     }
 
-    public void changeEquipment (Equipment e, int pos) {
-        equipments[pos] = e;
+    /**
+     *
+     * @param e - new equipment
+     * @param pos - where to equip it
+     * @return true - equipment is compatible with the class and successfully equipped
+     *         false - equipment not compatible with class
+     */
+    public boolean changeEquipment (Equipment e, int pos) {
+        if (e.compatibleClasses.contains(adventurerClass)) {
+            equipments[pos] = e;
+            return true;
+        }
+        return false;
     }
 
     /**
