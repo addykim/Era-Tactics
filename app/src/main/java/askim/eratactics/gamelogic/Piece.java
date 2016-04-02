@@ -1,11 +1,15 @@
 package askim.eratactics.gamelogic;
 
+import android.preference.EditTextPreference;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
  * Created by nunuloop on 3/10/16.
  */
 public class Piece {
+    private final String TAG = "Piece Class";
 
     /**
      * ADDED UP STATS
@@ -25,7 +29,7 @@ public class Piece {
     public boolean leader;
     private ArrayList<EnumFile.SkillsEnum> skills;
     private boolean hasMoved;
-    public EnumFile.ClassEnum pieceClass;
+    private EnumFile.ClassEnum pieceClass;
 
     public Piece(Adventurer adv, boolean isLeader) {
         isPlayer = true;
@@ -42,6 +46,7 @@ public class Piece {
         atr = adv.getAtr(leader);
         agi = adv.getAgi(leader);
         pieceClass = adv.adventurerClass.className;
+        Log.d(TAG, "The class of this piece is " + pieceClass);
     }
 
     // Generate generic enemies with 10 hp, 5 atk
@@ -56,6 +61,7 @@ public class Piece {
         mrg = 2;
         atr = 2;
         agi = 0;
+        pieceClass = EnumFile.ClassEnum.ENEMY;
     }
 
     public boolean getIsPlayer() {
@@ -76,5 +82,11 @@ public class Piece {
 
     public boolean isHasMoved() {
         return hasMoved;
+    }
+
+    public EnumFile.ClassEnum getPieceClass() {
+        Log.d(TAG, "Getting the class of this piece: " + pieceClass);
+
+        return pieceClass;
     }
 }

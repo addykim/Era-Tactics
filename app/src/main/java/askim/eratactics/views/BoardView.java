@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Board;
+import askim.eratactics.gamelogic.Piece;
 
 /**
  * Created by addykim on 3/24/16.
@@ -60,16 +61,41 @@ public class BoardView extends View {
         this.boardLogic = boardLogic;
         // DEBUG
         int row, col;
+        Piece occupant;
         for (int i=0; i<18; i++) {
             row = i / 3;
             col = i % 3;
-            if (boardLogic.getBoardOccupant(row, col) != null) {
+            occupant = boardLogic.getBoardOccupant(row, col);
+            if (occupant != null) {
+                switch(occupant.getPieceClass()) {
+                    case VILLAGER:
+                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.villager_normal);
+                        break;
+                    case MAGICIAN:
+                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.wizard_normal);
+                        break;
+                    case KNIGHT:
+                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.knight_normal);
+                        break;
+                    case ARCHER:
+                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.archer_normal);
+                        break;
+                    case APPRENTICE:
+                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.apprentice_normal);
+                        break;
+                    case FIGHTER:
+//                        TODO change civilian to fighter
+                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.civilian_normal);
+                        break;
+                    default:
+                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.lightning);
+                }
+
                 Log.d(TAG, "Placing bitmap at row " + (row + 1) + ", col " + (col + 1));
-                piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.apprentice_normal);
+
             }
         }
     }
-
     /* Draws the lines on the board */
     @Override
     public void onDraw(Canvas canvas) {

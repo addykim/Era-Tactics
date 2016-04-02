@@ -21,6 +21,7 @@ public class EnumFile {
     }
 
     public enum ClassEnum {
+        ENEMY,
         VILLAGER,
         MAGICIAN,
         FIGHTER,
