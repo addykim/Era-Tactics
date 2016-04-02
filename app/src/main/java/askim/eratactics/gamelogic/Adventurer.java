@@ -58,7 +58,7 @@ public class Adventurer {
         skills.add(EnumFile.SkillsEnum.MOVE);
         skills.add(EnumFile.SkillsEnum.PUNCH);
         for (Equipment e : equipments) {
-            if (e.pos != 3) {
+            if (e != null && e.pos != 3) {
                 skills.add(e.getSkill());
                 if (e.isLeaderSkillActivated() && isLeader) {
                     skills.add(e.getLeaderSkill());

@@ -46,39 +46,23 @@ public class Equipment {
                 break;
             case FIGHTER:
                 stats = new double[]{25, 8, 5, 3, 2, 3, 2, 0.2};
-                skill = EnumFile.SkillsEnum.FIREBALL;
-                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
-                name = "SuperShield";
+                name = "Fighter";
                 pos = 3;
-                leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
-                leaderSkillActivated = true;
                 break;
             case KNIGHT:
                 stats = new double[]{25, 10, 8, 3, 2, 3, 2, 0.3};
-                skill = EnumFile.SkillsEnum.FIREBALL;
-                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
-                name = "SuperShield";
+                name = "Knight";
                 pos = 3;
-                leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
-                leaderSkillActivated = true;
                 break;
             case ARCHER:
                 stats = new double[]{20, 8, 5, 3, 2, 3, 6, 0.2};
-                skill = EnumFile.SkillsEnum.FIREBALL;
-                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
-                name = "SuperShield";
+                name = "Archer";
                 pos = 3;
-                leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
-                leaderSkillActivated = true;
                 break;
             case MAGICIAN:
                 stats = new double[]{20, 5, 3, 10, 5, 3, 6, 0.3};
-                skill = EnumFile.SkillsEnum.FIREBALL;
-                compatibleClasses = new EnumFile.ClassEnum[]{EnumFile.ClassEnum.KNIGHT};
-                name = "SuperShield";
+                name = "Magician";
                 pos = 3;
-                leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
-                leaderSkillActivated = true;
                 break;
         }
     }

@@ -28,4 +28,12 @@ public class EnumFile {
         ENEMY_EMPTY,
         EMPTY
     }
+
+    public enum Equipments {
+        BASIC_WAND,
+        BASIC_SWORD,
+        BASIC_SHIELF,
+        BASIC_ARROW,
+        BASIC_POTION
+    }
 }
