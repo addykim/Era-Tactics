@@ -205,4 +205,18 @@ public class BoardView extends View {
         piecesBitmaps[destRow][destCol] = piecesBitmaps[srcRow][srcCol];
         piecesBitmaps[srcRow][srcCol] = null;
     }
+
+    /* Redraws the hp bar when necessary */
+    public void drawHP() {
+        // Future TODO add fancy animation of hp bar dropping
+
+    }
+
+    /* Call this method whenever a character(enemy or player) is hit
+        TODO
+     */
+    public void gotAttacked() {
+
+    }
+
 }

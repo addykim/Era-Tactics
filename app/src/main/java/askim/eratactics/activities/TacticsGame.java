@@ -48,14 +48,12 @@ public class TacticsGame extends AppCompatActivity {
 
 
 
-    private int firstSkill;
     private ImageView moveButton;
 
-    private int secondSkill;
     private ImageView punchButton;
 
-    private int thirdSkill;
-    private ImageView thirdSkillButton;
+    private int normalSkill;
+    private ImageView normalButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +89,7 @@ public class TacticsGame extends AppCompatActivity {
         boardLogic = new Board(alphaTeam);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
+        boardLogic.setBoardView(boardView);
 
         // Listen for touches on the board
         boardView.setOnTouchListener(mTouchListener);
@@ -114,8 +113,8 @@ public class TacticsGame extends AppCompatActivity {
                 Log.d(TAG, "Punch clicked");
             }
         });
-        thirdSkillButton = (ImageView) findViewById(R.id.thirdSkill);
-        thirdSkillButton.setOnClickListener(new View.OnClickListener() {
+        normalButton = (ImageView) findViewById(R.id.thirdSkill);
+        normalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO get skill

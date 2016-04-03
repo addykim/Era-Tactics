@@ -3,14 +3,19 @@ package askim.eratactics.gamelogic;
 import android.util.Log;
 import java.util.ArrayList;
 
+import askim.eratactics.views.BoardView;
+
 /**
  * Created by nunuloop on 3/10/16.
  */
 public class Board {
 
     private final String TAG = "BoardLogic";
+
+    private BoardView boardView;
     private Piece[][] pieces;
     int activeEnemies = 0;
+
 
     public Board(Team team) {
         pieces = new Piece[6][3];
@@ -342,6 +347,8 @@ public class Board {
         int moveTo = (int)Math.random()*numTargets;
         resolveSkill(movingR, movingC, targets.get(moveTo), EnumFile.SkillsEnum.MOVE);
         pieces[movingR][movingC].moved();
+        // If computer is not moving correctly visually I may have set the destination wrong
+        boardView.moveBitmapImage(movingR, movingC, moveTo/3, moveTo%3);
         activeEnemies--;
         Log.d(TAG,"Moved to grid number " + targets.get(moveTo)
                 + ". Number of active enemies is now " + activeEnemies);
@@ -375,4 +382,7 @@ public class Board {
         }
         return null;
     }
+
+    /* This will be used in order to call boardview changes whenever enemy moves */
+    public void setBoardView(BoardView view) { boardView = view; }
 }
