@@ -15,6 +15,7 @@
             android:id="@+id/skillList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/boardMargin"
             android:orientation="vertical"
             android:layout_alignParentBottom="true">
 
@@ -41,30 +42,30 @@
                     android:layout_width="@dimen/skillBoxSize"
                     android:layout_height="@dimen/skillBoxSize"
                     android:background="@color/white"
-                    android:layout_marginLeft="@dimen/skillMarginLR"
-                    android:layout_marginBottom="@dimen/skillMarginLR"/>
-                <ImageView
-                    android:id="@+id/fourSkill"
-                    android:layout_width="@dimen/skillBoxSize"
-                    android:layout_height="@dimen/skillBoxSize"
-                    android:src="@drawable/punch"
-                    android:background="@color/white"
-                    android:layout_marginLeft="@dimen/skillMarginLR"
-                    android:layout_marginBottom="@dimen/skillMarginLR"/>
-                <ImageView
-                    android:id="@+id/fifthSkill"
-                    android:layout_width="@dimen/skillBoxSize"
-                    android:layout_height="@dimen/skillBoxSize"
-                    android:background="@color/white"
-                    android:layout_marginLeft="@dimen/skillMarginLR"
-                    android:layout_marginBottom="@dimen/skillMarginLR"/>
-                <ImageView
-                    android:id="@+id/sixthSkill"
-                    android:layout_width="@dimen/skillBoxSize"
-                    android:layout_height="@dimen/skillBoxSize"
-                    android:background="@color/white"
-                    android:layout_marginLeft="@dimen/skillMarginLR"
-                    android:layout_marginBottom="@dimen/skillMarginLR"/>
+                    android:layout_marginLeft="@dimen/skillMarginLR"/>
+                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
+                <!--<ImageView-->
+                    <!--android:id="@+id/fourSkill"-->
+                    <!--android:layout_width="@dimen/skillBoxSize"-->
+                    <!--android:layout_height="@dimen/skillBoxSize"-->
+                    <!--android:src="@drawable/punch"-->
+                    <!--android:background="@color/white"-->
+                    <!--android:layout_marginLeft="@dimen/skillMarginLR"-->
+                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
+                <!--<ImageView-->
+                    <!--android:id="@+id/fifthSkill"-->
+                    <!--android:layout_width="@dimen/skillBoxSize"-->
+                    <!--android:layout_height="@dimen/skillBoxSize"-->
+                    <!--android:background="@color/white"-->
+                    <!--android:layout_marginLeft="@dimen/skillMarginLR"-->
+                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
+                <!--<ImageView-->
+                    <!--android:id="@+id/sixthSkill"-->
+                    <!--android:layout_width="@dimen/skillBoxSize"-->
+                    <!--android:layout_height="@dimen/skillBoxSize"-->
+                    <!--android:background="@color/white"-->
+                    <!--android:layout_marginLeft="@dimen/skillMarginLR"-->
+                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
         </LinearLayout>
 
         <askim.eratactics.views.BoardView
@@ -72,6 +73,7 @@
             android:layout_width="300dp"
             android:layout_height="450dp"
             android:background="@color/white"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="@dimen/boardMargin"
             android:layout_marginBottom="@dimen/boardMargin"
             android:layout_marginRight="@dimen/boardMargin"

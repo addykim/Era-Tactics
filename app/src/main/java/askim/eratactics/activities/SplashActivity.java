@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import askim.eratactics.R;
 
@@ -43,6 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         membersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Members is not available in this version", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Members button clicked");
 //                TODO start members intent
             }
@@ -51,6 +53,7 @@ public class SplashActivity extends AppCompatActivity {
         teamsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Teams Customization is not available in this version", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Teams button clicked");
 //                TODO start team intent
             }
@@ -59,8 +62,9 @@ public class SplashActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Settings.class);
-                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Settings is not available in this version", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(v.getContext(), Settings.class);
+//                startActivity(intent);
                 Log.d(TAG, "Settings button clicked");
             }
         });
