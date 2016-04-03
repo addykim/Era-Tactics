@@ -154,6 +154,8 @@ public class TacticsGame extends AppCompatActivity {
             turnStatus = EnumFile.TurnStatus.CHARACTER;
         }
         selectedChar = -1;
+        selectedCharCol = -1;
+        selectedCharRow = -1;
         boardView.setCharacter(selectedChar);
         boardView.setTargets(null);
         boardView.invalidate();
@@ -187,6 +189,14 @@ public class TacticsGame extends AppCompatActivity {
     public void showTargets(boolean skillTime) {
         possibleTargets =
                 boardLogic.availableTargets(selectedCharRow, selectedCharCol, selectedSkill);
+        for (int index=0; index<possibleTargets.size(); index++) {
+            /* Disable moving to or healing enemy side */
+            if ((selectedSkill == EnumFile.SkillsEnum.MOVE || selectedSkill == EnumFile.SkillsEnum.HEAL)
+                    && (possibleTargets.get(index)/3) <= 2) {
+                // TODO this is still bugged and does not get rid of all the possible move spots
+                possibleTargets.remove(index);
+            }
+        }
         boardView.setTargets(possibleTargets);
         boardView.invalidate();
     }
@@ -203,13 +213,13 @@ public class TacticsGame extends AppCompatActivity {
             if (boardLogic.resolveGrid(row, col) == 0) {
                 /* If moving */
                 if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill == EnumFile.SkillsEnum.MOVE) {
-                    if (possibleTargets.contains(row*3+col)) {
-                        log += ", target is valid to use skill on";
-                        boardView.moveBitmapImage(selectedCharRow, selectedCharCol, row, col);
+                    if (possibleTargets.contains(row*3+col) && row>=3) {
+                        log += ", target is valid spot to move to";
                         boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
+                        boardView.moveBitmapImage(selectedCharRow, selectedCharCol, row, col);
                         changeTurn();
                     } else {
-                        log += ", target is not valid to use skill on";
+                        log += ", cannot move here";
                     }
                 }
             /* Selecting an enemy's character */
