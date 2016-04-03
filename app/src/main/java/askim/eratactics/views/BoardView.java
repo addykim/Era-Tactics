@@ -91,7 +91,7 @@ public class BoardView extends View {
                         piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.lightning);
                 }
 
-                Log.d(TAG, "Placing bitmap at row " + (row + 1) + ", col " + (col + 1));
+//                Log.d(TAG, "Placing bitmap at row " + (row + 1) + ", col " + (col + 1));
 
             }
         }
@@ -101,6 +101,7 @@ public class BoardView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // Determine the width and height of the View
+        Log.d(TAG, "Drawing board");
         int boardWidth = getWidth();
         int boardHeight = getHeight();
         int cellWidth = getBoardCellWidth();
@@ -146,7 +147,7 @@ public class BoardView extends View {
             row_line = row*GRID_LINE_WIDTH;
             col_line = col*GRID_LINE_WIDTH;
             if (boardLogic.resolveGrid(row, col) != 0) {
-                Log.d(TAG, "Drawing bitmap at row " + (row+1) + ", col " + (col+1));
+//                Log.d(TAG, "Drawing bitmap at row " + (row+1) + ", col " + (col+1));
                 canvas.drawBitmap(piecesBitmaps[row][col], null,
                         new Rect(
                                 (col*cellWidth),
