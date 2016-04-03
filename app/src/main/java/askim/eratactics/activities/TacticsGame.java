@@ -110,14 +110,16 @@ public class TacticsGame extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 selectedSkill = EnumFile.SkillsEnum.PUNCH;
-                Log.d(TAG, "Punch clicked? " + checkSkillTime());
+                showTargets(checkSkillTime());
+                Log.d(TAG, "Punch clicked");
             }
         });
         thirdSkillButton = (ImageView) findViewById(R.id.thirdSkill);
         thirdSkillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
+                // TODO get skill
+//                selectedSkill =
                 checkSkillTime();
                 Log.d(TAG, "Third skill clicked");
             }
@@ -139,27 +141,27 @@ public class TacticsGame extends AppCompatActivity {
 
     /* Switch player turn to computer turn or vice versa */
     private void changeTurn() {
-//        if (playersTurn) {
-//            Log.d(TAG, "It is now the computer turn");
-//            playersTurn = false;
-//        } else {
-//            Log.d(TAG, "It is now the player's turn");
+        if (playersTurn) {
+            Log.d(TAG, "It is now the computer turn");
+            // If out of active pieces, reset all the pieces and try make move again
+            if (!boardLogic.makeComputerMove()) {
+                boardLogic.resetTurn();
+                boardLogic.makeComputerMove();
+            }
+            playersTurn = false;
+        } else {
+            Log.d(TAG, "It is now the player's turn");
             playersTurn = true;
             turnStatus = EnumFile.TurnStatus.CHARACTER;
-//        }
+        }
         selectedChar = -1;
         boardView.setCharacter(selectedChar);
         boardView.setTargets(null);
-//        boardView.eraseCircles();
         boardView.invalidate();
         /* Dead pieces are also removed in checkGameOver */
-//        checkGameOver();
-//      TODO make graphical change to board
-//        TODO erase targeted circles
-//        TODO call reset turn
+        Log.d(TAG, "Checking for winner");
+        boardLogic.checkGameOver();
     }
-
-
 
     /* Changes the available skill icon based on available characters */
     private void displaySkills(int row, int col) {
@@ -182,17 +184,12 @@ public class TacticsGame extends AppCompatActivity {
         return false;
     }
 
+    /* Circles available targets to use skill on */
     public void showTargets(boolean skillTime) {
         possibleTargets =
                 boardLogic.availableTargets(selectedCharRow, selectedCharCol, selectedSkill);
         boardView.setTargets(possibleTargets);
         boardView.invalidate();
-        String debug = "";
-        for (int target: possibleTargets) {
-            debug += (target + ", ");
-
-        }
-        Log.d(TAG, debug);
     }
 
     // Listen for touches on the board
@@ -205,6 +202,7 @@ public class TacticsGame extends AppCompatActivity {
             int col = (int) event.getX() / boardView.getBoardCellWidth();
             String log = "Clicked on row " + (row+1) + ", col " + (col+1);
             if (boardLogic.resolveGrid(row, col) == 0) {
+                /* If moving */
                 if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill == EnumFile.SkillsEnum.MOVE) {
                     if (possibleTargets.contains(row*3+col)) {
                         log += ", target is valid to use skill on";
@@ -215,12 +213,15 @@ public class TacticsGame extends AppCompatActivity {
                         log += ", target is not valid to use skill on";
                     }
                 }
+            /* Selecting an enemy's character */
             } else if (boardLogic.resolveGrid(row,col) == 1) {
-                log += ", Selected computer's character";
+                log += ", selected computer's character, using skill " + selectedSkill;
+                boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
+                changeTurn();
             } else if (boardLogic.resolveGrid(row, col) == 2) {
                 /* Selecting a character */
                 if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
-                    log += ", Selected player's character";
+                    log += ", selected player's character";
                     selectedCharRow = row;
                     selectedCharCol = col;
                     selectedChar = row*3+col;

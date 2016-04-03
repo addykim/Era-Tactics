@@ -101,7 +101,7 @@ public class BoardView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // Determine the width and height of the View
-        Log.d(TAG, "Drawing board");
+//        Log.d(TAG, "Drawing board");
         int boardWidth = getWidth();
         int boardHeight = getHeight();
         int cellWidth = getBoardCellWidth();
