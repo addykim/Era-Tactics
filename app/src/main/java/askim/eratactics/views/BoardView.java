@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -27,6 +29,8 @@ public class BoardView extends View {
 
     private Board boardLogic;
     private Paint mPaint;
+    private Paint tintPaint;
+    private ColorFilter filter;
 
     private int selectedChar;
     private ArrayList<Integer> targets;
@@ -53,6 +57,10 @@ public class BoardView extends View {
 
     public void initialize() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        tintPaint = new Paint(Color.GRAY);
+        filter = new LightingColorFilter(Color.GRAY, Color.BLUE);
+        // TODO change color of filter
+        tintPaint.setColorFilter(filter);
         selectedChar = -1;
         targets = new ArrayList<Integer>();
     }
@@ -103,10 +111,15 @@ public class BoardView extends View {
     public void drawChar(Canvas canvas, int cellWidth, int cellHeight) {
         Bitmap image;
         Piece occupant;
+        int left, top, bottom, right;
         int row, col;
         for (int i=0; i<18; i++) {
             row = i/3;
             col = i%3;
+            left = (col*cellWidth);
+            top = (row*cellHeight);
+            right = ((col+1)*cellWidth);
+            bottom = ((row+1)*cellHeight);
 //            Log.d(TAG, "Drawing character in grid " + row + ", " + col);
             occupant = boardLogic.getBoardOccupant(row, col);
             if (occupant != null) {
@@ -140,13 +153,15 @@ public class BoardView extends View {
                         image = BitmapFactory.decodeResource(getResources(), R.drawable.move);
                 }
                 if (image != null) {
-                    canvas.drawBitmap(image, null,
-                            new Rect(
-                                    (col * cellWidth),
-                                    (row * cellHeight),
-                                    (col + 1) * cellWidth,
-                                    (row + 1) * cellHeight),
-                            null);
+                    if (occupant.isHasMoved()) {
+                        canvas.drawBitmap(image, null,
+                                new Rect(left, top, right, bottom),
+                                tintPaint);
+                    } else {
+                        canvas.drawBitmap(image, null,
+                                new Rect(left, top, right, bottom),
+                                null);
+                    }
                 }
             }
         }
@@ -156,31 +171,26 @@ public class BoardView extends View {
     public void drawCircle(Canvas canvas, int cellWidth, int cellHeight) {
         mPaint.setStyle(Paint.Style.STROKE);
         int row, col, index;
+        int left, top, right, bottom;
         for (int i=0; i<18; i++) {
             row = i/3;
             col = i%3;
             index = row*3+col;
+            left = (col*cellWidth)+GRID_LINE_WIDTH/2;
+            top = (row*cellHeight)+GRID_LINE_WIDTH/2;
+            right = ((col+1)*cellWidth)-GRID_LINE_WIDTH/2;
+            bottom = ((row+1)*cellHeight)-GRID_LINE_WIDTH/2;
             /* Draw a circle around potential characters */
             // TODO
             /* Draws a circle around your selected character */
             if (index == selectedChar && selectedChar > -1) {
                 mPaint.setColor((Color.BLUE));
-                canvas.drawOval(new RectF(
-                                (col * cellWidth),
-                                (row * cellHeight),
-                                (col + 1) * cellWidth,
-                                (row + 1) * cellHeight),
-                        mPaint);
+                canvas.drawOval(new RectF(left, top, right, bottom), mPaint);
             }
             /* Potential targets */
             if (targets != null && targets.contains(index) && index > -1) {
                 mPaint.setColor((Color.RED));
-                canvas.drawOval(new RectF(
-                                (col * cellWidth),
-                                (row * cellHeight),
-                                (col + 1) * cellWidth,
-                                (row + 1) * cellHeight),
-                        mPaint);
+                canvas.drawOval(new RectF(left, top, right, bottom), mPaint);
             }
 //            TODO change color based on whehter it is enemy or your own character
         }
