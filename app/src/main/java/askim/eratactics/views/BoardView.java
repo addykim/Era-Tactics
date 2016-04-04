@@ -134,8 +134,11 @@ public class BoardView extends View {
 //                        TODO change civilian to fighter
                         image = BitmapFactory.decodeResource(getResources(), R.drawable.civilian_normal);
                         break;
-                    case ENEMY:
-                        image = BitmapFactory.decodeResource(getResources(), R.drawable.lightning);
+                    case BADTEETH:
+                        image = BitmapFactory.decodeResource(getResources(), R.drawable.enemy_badteeth);
+                        break;
+                    case HORNEDFROG:
+                        image = BitmapFactory.decodeResource(getResources(), R.drawable.enemy_hornedfrog);
                         break;
                     default:
                         image = BitmapFactory.decodeResource(getResources(), R.drawable.move);
