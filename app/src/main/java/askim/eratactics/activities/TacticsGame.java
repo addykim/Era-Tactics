@@ -1,5 +1,6 @@
 package askim.eratactics.activities;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -195,10 +196,19 @@ public class TacticsGame extends AppCompatActivity {
         int result = boardLogic.checkGameOver();
         if (result == 1) {
             //TODO replace with actual intent to win or lose screen
+            Intent results = new Intent(this, Result.class);
+            results.putExtra("win", true);
+            startActivity(results);
             Toast.makeText(getApplicationContext(), "You win!", Toast.LENGTH_LONG).show();
         } else if (result == 2) {
+            Intent results = new Intent(this, Result.class);
+            results.putExtra("win", false);
+            startActivity(results);
             Toast.makeText(getApplicationContext(), "You Lose!", Toast.LENGTH_LONG).show();
+        } else if (result == -1) {
+            Log.d(TAG, "SOMETHING WENT VERY VERY WRONG AHHHHHHHH");
         }
+        // else continue playing
     }
 
     /* Changes the available skill icon based on available characters */
@@ -241,29 +251,13 @@ public class TacticsGame extends AppCompatActivity {
             int col = (int) event.getX() / boardView.getBoardCellWidth();
             String log = "Clicked on row " + (row+1) + ", col " + (col+1);
             if (boardLogic.resolveGrid(row, col) == 0) {
-                /* If moving */
-                if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill == EnumFile.SkillsEnum.MOVE) {
-                    if (possibleTargets.contains(row*3+col)) {
-                        Log.d(TAG, log + ", target is valid spot to move to");
-                        boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
-//                        moveButton.setColorFilter(null, null);
-                        changeTurn();
-                    } else {
-                        Log.d(TAG, log + ", cannot move here");
-                    }
-                }
-            /* Selecting an enemy's character */
+                touchedEmpty(row, col, log);
             } else if (boardLogic.resolveGrid(row,col) == 1) {
-                if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill != EnumFile.SkillsEnum.INVALID) {
-                    Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
-                    boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
-                    changeTurn();
-                } else {
-                    Log.d(TAG, log + ", selected computer's character, cannot use skill");
-                }
+                touchedEnemy(row, col, log);
             } else if (boardLogic.resolveGrid(row, col) == 2) {
                 touchedCharacter(row, col, log);
             } else if (boardLogic.resolveGrid(row, col) == 3) {
+                /* Selected inactive enemy */
                 Toast.makeText(getApplicationContext(),
                         "You already used this character", Toast.LENGTH_SHORT).show();
             } else {
@@ -274,6 +268,33 @@ public class TacticsGame extends AppCompatActivity {
         }
     };
 
+    /* Clicked on empty spot on grid */
+    private void touchedEmpty(int row, int col, String log) {
+        /* If moving */
+        if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill == EnumFile.SkillsEnum.MOVE) {
+            if (possibleTargets.contains(row*3+col)) {
+                Log.d(TAG, log + ", target is valid spot to move to");
+                boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
+//                        moveButton.setColorFilter(null, null);
+                changeTurn();
+            } else {
+                Log.d(TAG, log + ", cannot move here");
+            }
+        }
+    }
+
+    /* Selected enemy's character */
+    private void touchedEnemy(int row, int col, String log) {
+        if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill != EnumFile.SkillsEnum.INVALID) {
+            Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
+            boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
+            changeTurn();
+        } else {
+            Log.d(TAG, log + ", selected computer's character, cannot use skill");
+        }
+    }
+
+    /* Selected character */
     private void touchedCharacter(int row, int col, String log) {
         /* Selecting a character */
         if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
