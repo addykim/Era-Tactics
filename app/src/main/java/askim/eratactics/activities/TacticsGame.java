@@ -1,7 +1,6 @@
 package askim.eratactics.activities;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
@@ -29,9 +28,14 @@ import askim.eratactics.views.BoardView;
  */
 public class TacticsGame extends AppCompatActivity {
 
+
     private BackgroundSound mBackgroundSound;
 
     private static final String TAG = "TacticsGame";
+
+    private static final float OPAQUE = 1;
+    private static final float HIGHLIGHT = (float) 0.75;
+
 
     /* Draws the board based on boardLogic */
     private BoardView boardView;
@@ -51,9 +55,12 @@ public class TacticsGame extends AppCompatActivity {
     private ArrayList<Integer> possibleTargets;
 
     /* Skill buttons */
-    private ImageView moveButton;
-    private ImageView punchButton;
-    private ImageView normalButton;
+    private ImageView firstSkillButton;
+    private EnumFile.SkillsEnum firstSkill;
+    private ImageView secondSkillButton;
+    private EnumFile.SkillsEnum secondSkill;
+    private ImageView thirdSkillButton;
+    private EnumFile.SkillsEnum thirdSkill;
 
 
     @Override
@@ -98,24 +105,29 @@ public class TacticsGame extends AppCompatActivity {
         boardView.setOnTouchListener(mTouchListener);
 
         // Setup click listener for each skill buttons
-        moveButton = (ImageView) findViewById(R.id.move);
-        moveButton.setOnClickListener(new View.OnClickListener() {
+        firstSkillButton = (ImageView) findViewById(R.id.move);
+        firstSkillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                executeSkill(EnumFile.SkillsEnum.MOVE, "Move");
+                highlightSkill(0);
+//                executeSkill(firstSkill);
+                executeSkill(EnumFile.SkillsEnum.MOVE);
+
             }
         });
-        punchButton = (ImageView) findViewById(R.id.punch);
-        punchButton.setOnClickListener(new View.OnClickListener() {
+        secondSkillButton = (ImageView) findViewById(R.id.punch);
+        secondSkillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                executeSkill(EnumFile.SkillsEnum.PUNCH, "Punch");
+                highlightSkill(1);
+                executeSkill(EnumFile.SkillsEnum.PUNCH);
             }
         });
-        normalButton = (ImageView) findViewById(R.id.thirdSkill);
-        normalButton.setOnClickListener(new View.OnClickListener() {
+        thirdSkillButton = (ImageView) findViewById(R.id.thirdSkill);
+        thirdSkillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                highlightSkill(2);
                 // TODO get skill
 //                executeSkill("Normal Skill");
 //                selectedSkill =
@@ -124,21 +136,43 @@ public class TacticsGame extends AppCompatActivity {
         });
     }
 
-    public void executeSkill(EnumFile.SkillsEnum skill, String skillName) {
-        // TODO tint button when clicked
-        //                moveButton.setImageTintList();
+    /* Send in a value 0 through 2, and boolean if we want to highlight or unhighlight */
+    private void highlightSkill(int skillNumber) {
+        /* Unhighlight everything */
+        for (int index = 0; index < 3; index++) {
+            firstSkillButton.setAlpha(OPAQUE);
+            secondSkillButton.setAlpha(OPAQUE);
+            thirdSkillButton.setAlpha(OPAQUE);
+        }
+        if (skillNumber == 0)
+            firstSkillButton.setAlpha(HIGHLIGHT);
+        else if (skillNumber == 1)
+            secondSkillButton.setAlpha(HIGHLIGHT);
+        else if (skillNumber == 2)
+            thirdSkillButton.setAlpha(HIGHLIGHT);
+        else
+            Log.d(TAG, "Un-highlighting all skill");
+    }
 
-        if ((checkSkillTime() || turnStatus == EnumFile.TurnStatus.SKILL) && validCharacter()) {
-            Log.d(TAG, skillName + " clicked");
+    /* Execute a skill if a valid character was selected
+     * Changes turn status to skill so another character can not be selected */
+    public void executeSkill(EnumFile.SkillsEnum skill) {
+        if (turnStatus == EnumFile.TurnStatus.CHARACTER && validCharacter()) {
+            turnStatus = EnumFile.TurnStatus.SKILL;
             selectedSkill = skill;
             showTargets();
+        } else {
+            Log.d(TAG, "Can not change turnstatus = skill");
+            highlightSkill(-1);
         }
     }
 
+    /* Return true if a piece is valid character */
     private boolean validCharacter() {
         return 0 <= selectedChar && selectedChar <= 17;
     }
 
+    /* Resume music onResume */
     public void onResume() {
         super.onResume();
         if (mBackgroundSound.isCancelled()) {
@@ -146,6 +180,7 @@ public class TacticsGame extends AppCompatActivity {
         }
     }
 
+    /* Pause music as needed */
     public void onPause() {
         super.onPause();
         mBackgroundSound.cancel(true);
@@ -155,18 +190,24 @@ public class TacticsGame extends AppCompatActivity {
     private void newGame() {
         Log.d(TAG, "Creating new game");
 //        TODO replace newBoard(new Team) with clearboard command
-        // Redraw//       boardView.invalidate();
-        playersTurn = true;
+//        playersTurn = true;
+        resetValues();
+        possibleTargets = new ArrayList<Integer>();
+    }
+
+    /* Call at new game and every time change turned */
+    private void resetValues() {
         turnStatus = EnumFile.TurnStatus.CHARACTER;
         selectedChar = -1;
-        selectedCharRow = -1;
         selectedCharCol = -1;
+        selectedCharRow = -1;
         selectedSkill = EnumFile.SkillsEnum.INVALID;
-        possibleTargets = new ArrayList<Integer>();
     }
 
     /* Switch player turn to computer turn or vice versa */
     private void changeTurn() {
+        /* Unhighlight skill */
+        highlightSkill(-1);
         // TODO future if the player or computer is out of moves but the other is not, then skip the person who is out of turn until the other is out also
         // If out of active pieces, reset all the pieces and try make move again
         do {
@@ -183,14 +224,11 @@ public class TacticsGame extends AppCompatActivity {
 
         Log.d(TAG, "It is now the player's turn");
         /* Reset everything for the player's turn */
-        turnStatus = EnumFile.TurnStatus.CHARACTER;
-        selectedChar = -1;
-        selectedCharCol = -1;
-        selectedCharRow = -1;
-        selectedSkill = EnumFile.SkillsEnum.INVALID;
-        boardView.setCharacter(selectedChar);
+        resetValues();
         boardView.setTargets(null);
+        boardView.setCharacter(selectedChar);
         boardView.invalidate();
+
         /* Dead pieces are also removed in checkGameOver */
         Log.d(TAG, "Checking for winner");
         int result = boardLogic.checkGameOver();
@@ -220,18 +258,6 @@ public class TacticsGame extends AppCompatActivity {
 //        skillButton =
     }
 
-    /* Check player's turn and if it is time to use a skill
-     * Increment turnStatus from player to skill so prevent going back
-     * Returns true if switching from character move to skill */
-    private boolean checkSkillTime() {
-        // Removed playersTurn boolean from here
-        if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
-            turnStatus = EnumFile.TurnStatus.SKILL;
-            return true;
-        }
-        Log.d(TAG, "Can not change to skill turn status");
-        return false;
-    }
 
     /* Circles available targets to use skill on */
     public void showTargets() {
@@ -261,7 +287,6 @@ public class TacticsGame extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "You already used this character", Toast.LENGTH_SHORT).show();
             } else {
-//            TODO what if -1 is returned from resolve grid
                 Log.d(TAG, log + "What");
             }
             return false;
@@ -275,7 +300,6 @@ public class TacticsGame extends AppCompatActivity {
             if (possibleTargets.contains(row*3+col)) {
                 Log.d(TAG, log + ", target is valid spot to move to");
                 boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
-//                        moveButton.setColorFilter(null, null);
                 changeTurn();
             } else {
                 Log.d(TAG, log + ", cannot move here");
@@ -285,7 +309,8 @@ public class TacticsGame extends AppCompatActivity {
 
     /* Selected enemy's character */
     private void touchedEnemy(int row, int col, String log) {
-        if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill != EnumFile.SkillsEnum.INVALID) {
+        if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill != EnumFile.SkillsEnum.INVALID
+                && selectedSkill != EnumFile.SkillsEnum.HEAL && selectedSkill != EnumFile.SkillsEnum.MOVE) {
             Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
             boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
             changeTurn();
@@ -304,9 +329,9 @@ public class TacticsGame extends AppCompatActivity {
             selectedChar = row*3+col;
             boardView.setCharacter(selectedChar);
             boardView.invalidate();
-                /* If it is time to select a target */
+        /* If it is time to select a target */
         } else if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill != EnumFile.SkillsEnum.INVALID) {
-                    /* Check if selected adventurer is in the target list */
+            /* Check if selected adventurer is in the target list */
             if (possibleTargets.contains(row*3+col)) {
                 Log.d(TAG, log + ", target is valid to use skill on");
                 boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
