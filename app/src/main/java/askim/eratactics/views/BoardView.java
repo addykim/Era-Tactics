@@ -107,12 +107,8 @@ public class BoardView extends View {
         for (int i=0; i<18; i++) {
             row = i/3;
             col = i%3;
-            Log.d(TAG, "Drawing character in grid " + row + ", " + col);
-//            try {
-                occupant = boardLogic.getBoardOccupant(row, col);
-//            } catch (Exception e) {
-//                Log.d(TAG, e.getMessage());
-//            }
+//            Log.d(TAG, "Drawing character in grid " + row + ", " + col);
+            occupant = boardLogic.getBoardOccupant(row, col);
             if (occupant != null) {
                 switch (occupant.getPieceClass()) {
                     case VILLAGER:
@@ -201,11 +197,6 @@ public class BoardView extends View {
     }
 
     public void setGame(Board logic) { boardLogic = logic; }
-
-//    public void moveBitmapImage(int srcRow, int srcCol, int destRow, int destCol) {
-//        piecesBitmaps[destRow][destCol] = piecesBitmaps[srcRow][srcCol];
-//        piecesBitmaps[srcRow][srcCol] = null;
-//    }
 
     /* Redraws the hp bar when necessary */
     public void drawHP() {
