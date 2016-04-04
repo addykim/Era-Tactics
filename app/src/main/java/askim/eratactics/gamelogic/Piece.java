@@ -90,7 +90,7 @@ public class Piece {
     }
 
     public EnumFile.ClassEnum getPieceClass() {
-        Log.d(TAG, "Getting the class of this piece: " + pieceClass);
+//        Log.d(TAG, "Getting the class of this piece: " + pieceClass);
 
         return pieceClass;
     }
