@@ -160,6 +160,7 @@ public class TacticsGame extends AppCompatActivity {
         selectedChar = -1;
         selectedCharRow = -1;
         selectedCharCol = -1;
+        selectedSkill = EnumFile.SkillsEnum.INVALID;
         possibleTargets = new ArrayList<Integer>();
     }
 
@@ -176,6 +177,7 @@ public class TacticsGame extends AppCompatActivity {
         if (boardLogic.getActiveEnemies() == 0 && boardLogic.getActivePlayers() == 0) {
             Log.d(TAG, "Resetting all the piece's turn");
             boardLogic.resetTurn();
+            Toast.makeText(getApplicationContext(), "New Round", Toast.LENGTH_SHORT).show();
         }
 
         Log.d(TAG, "It is now the player's turn");
@@ -184,12 +186,19 @@ public class TacticsGame extends AppCompatActivity {
         selectedChar = -1;
         selectedCharCol = -1;
         selectedCharRow = -1;
+        selectedSkill = EnumFile.SkillsEnum.INVALID;
         boardView.setCharacter(selectedChar);
         boardView.setTargets(null);
         boardView.invalidate();
         /* Dead pieces are also removed in checkGameOver */
         Log.d(TAG, "Checking for winner");
-        boardLogic.checkGameOver();
+        int result = boardLogic.checkGameOver();
+        if (result == 1) {
+            //TODO replace with actual intent to win or lose screen
+            Toast.makeText(getApplicationContext(), "You win!", Toast.LENGTH_LONG).show();
+        } else if (result == 2) {
+            Toast.makeText(getApplicationContext(), "You Lose!", Toast.LENGTH_LONG).show();
+        }
     }
 
     /* Changes the available skill icon based on available characters */
@@ -245,7 +254,7 @@ public class TacticsGame extends AppCompatActivity {
                 }
             /* Selecting an enemy's character */
             } else if (boardLogic.resolveGrid(row,col) == 1) {
-                if (turnStatus == EnumFile.TurnStatus.SKILL) {
+                if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill != EnumFile.SkillsEnum.INVALID) {
                     Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
                     boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
                     changeTurn();
@@ -275,7 +284,7 @@ public class TacticsGame extends AppCompatActivity {
             boardView.setCharacter(selectedChar);
             boardView.invalidate();
                 /* If it is time to select a target */
-        } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
+        } else if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill != EnumFile.SkillsEnum.INVALID) {
                     /* Check if selected adventurer is in the target list */
             if (possibleTargets.contains(row*3+col)) {
                 Log.d(TAG, log + ", target is valid to use skill on");
@@ -290,6 +299,8 @@ public class TacticsGame extends AppCompatActivity {
     /* Code from this stack overflow thread here http://stackoverflow.com/questions/7928803/background-music-android */
     public class BackgroundSound extends AsyncTask<Void, Void, Void> {
 
+        // TODO prepare beforehand
+
         @Override
         protected Void doInBackground(Void... params) {
             Log.d(TAG, "Starting bgm");
@@ -299,10 +310,6 @@ public class TacticsGame extends AppCompatActivity {
             player.start();
             return null;
         }
-
-
     }
-
-
 }
 
