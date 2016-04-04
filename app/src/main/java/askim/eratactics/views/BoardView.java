@@ -144,16 +144,17 @@ public class BoardView extends View {
         for (int i=0; i<18; i++) {
             row = i/3;
             col = i%3;
+            Log.d(TAG, "Drawing character in grid " + row + ", " + col);
             row_line = row*GRID_LINE_WIDTH;
             col_line = col*GRID_LINE_WIDTH;
             if (boardLogic.resolveGrid(row, col) != 0) {
 //                Log.d(TAG, "Drawing bitmap at row " + (row+1) + ", col " + (col+1));
                 canvas.drawBitmap(piecesBitmaps[row][col], null,
                         new Rect(
-                                (col*cellWidth),
-                                (row*cellHeight),
-                                (col+1)*cellWidth,
-                                (row+1)*cellHeight),
+                                (col * cellWidth),
+                                (row * cellHeight),
+                                (col + 1) * cellWidth,
+                                (row + 1) * cellHeight),
                         null);
             }
         }

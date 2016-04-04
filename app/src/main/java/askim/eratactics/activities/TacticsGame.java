@@ -181,7 +181,7 @@ public class TacticsGame extends AppCompatActivity {
             turnStatus = EnumFile.TurnStatus.SKILL;
             return true;
         }
-        Log.d(TAG, "Can not change to skill turnstatus");
+        Log.d(TAG, "Can not change to skill turn status");
         return false;
     }
 

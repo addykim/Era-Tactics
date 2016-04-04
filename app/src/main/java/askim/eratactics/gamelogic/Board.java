@@ -41,6 +41,7 @@ public class Board {
         pieces[0][2] = new Piece();
         pieces[1][1] = new Piece();
         pieces[2][2] = new Piece();
+        activeEnemies = 4;
     }
 
     // Returns who is in cell of grid
@@ -115,22 +116,22 @@ public class Board {
                         targets.add(row * 3 + col);
                         return targets;
                     case ENEMY:
-                        if (pieces[r][c] != null && !pieces[r][c].getIsPlayer()) {
+                        if (pieces[r][c] != null && pieces[r][c].getIsPlayer() != pieces[row][col].getIsPlayer()) {
                             targets.add(i);
                         }
                         break;
                     case ALLY:
-                        if (pieces[r][c] != null && pieces[r][c].getIsPlayer() && (row * 3 + col != i)) {
+                        if (pieces[r][c] != null && (pieces[r][c].getIsPlayer() == pieces[row][col].getIsPlayer()) && (row * 3 + col != i)) {
                             targets.add(i);
                         }
                         break;
                     case SELF_ALLY:
-                        if (pieces[r][c] != null && pieces[r][c].getIsPlayer()) {
+                        if (pieces[r][c] != null && (pieces[r][c].getIsPlayer() == pieces[row][col].getIsPlayer())) {
                             targets.add(i);
                         }
                         break;
                     case ENEMY_EMPTY:
-                        if (pieces[r][c] == null || !pieces[r][c].getIsPlayer()) {
+                        if (pieces[r][c] == null || pieces[r][c].getIsPlayer() != pieces[row][col].getIsPlayer()) {
                             targets.add(i);
                         }
                         break;
@@ -267,7 +268,8 @@ public class Board {
             Log.d(TAG, "OH NO Computer cannot move because the number of active enemies is <= 0!");
             return false;
         }
-        int enemyNumber = ((int)Math.random()*activeEnemies) +1;
+        int enemyNumber = ((int)(Math.random()*activeEnemies)) +1;
+        Log.d(TAG,"Randomly selected the enemy # " + enemyNumber);
         int enemiesEncountered = 0;
         int movingR = -1;
         int movingC = -1;
@@ -316,10 +318,12 @@ public class Board {
                     for (int t : targets) {
                         int tr = t / 3;
                         int tc = t % 3;
-                        if (target == -1) {
-                            target = t;
-                        } else if (pieces[tr][tc].hp < pieces[target / 3][target % 3].hp) {
-                            target = t;
+                        if (resolveGrid(tr, tc) == 2 || resolveGrid(tr, tc) == 3) {
+                            if (target == -1) {
+                                target = t;
+                            } else if (pieces[tr][tc].hp < pieces[target / 3][target % 3].hp) {
+                                target = t;
+                            }
                         }
                     }
                     if (target != -1) {
@@ -344,9 +348,9 @@ public class Board {
             return true;
         }
         int numTargets = targets.size();
-        int moveTo = (int)Math.random()*numTargets;
+        int moveTo = (int)(Math.random()*numTargets);
         resolveSkill(movingR, movingC, targets.get(moveTo), EnumFile.SkillsEnum.MOVE);
-        pieces[movingR][movingC].moved();
+        // pieces[moveTo / 3][moveTo % 3].moved();
         // If computer is not moving correctly visually I may have set the destination wrong
         boardView.moveBitmapImage(movingR, movingC, moveTo/3, moveTo%3);
         activeEnemies--;
