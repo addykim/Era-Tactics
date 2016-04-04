@@ -216,25 +216,32 @@ public class BoardView extends View {
             mPaint.setColor(Color.GREEN);
             hp_left = (col*cellWidth)+GRID_LINE_WIDTH/2;
             hp_top = ((row+1)*cellHeight)-HP_BAR_WIDTH-GRID_LINE_WIDTH/2;
-            hp_right = ((col+1)*cellWidth)-GRID_LINE_WIDTH/2;
+            hp_max_right = ((col+1)*cellWidth)-GRID_LINE_WIDTH/2;
             hp_bottom = hp_top+HP_BAR_WIDTH;
-            canvas.drawRect(new RectF(
-                    (hp_left),
-                    (hp_top),
-                    (hp_right),
-                    (hp_bottom)),
-                    mPaint);
             /* Draw empty portion of HP */
-            if (percentHP != (double) 1) {
+            if (percentHP == (double) 1) {
+                canvas.drawRect(new RectF(
+                                (hp_left),
+                                (hp_top),
+                                (hp_max_right),
+                                (hp_bottom)),
+                        mPaint);
+            } else {
+                hp_right = (int)(((double)(hp_max_right-hp_left))*percentHP);
+                canvas.drawRect(new RectF(
+                                (hp_left),
+                                (hp_top),
+                                (hp_right),
+                                (hp_bottom)),
+                        mPaint);
                 mPaint.setColor(Color.GRAY);
                 canvas.drawRect(new RectF(
-                                (10),
-                                (row * cellHeight),
-                                ((col + 1) * cellWidth),
-                                ((row + 1) * cellHeight)),
+                                (hp_right),
+                                (hp_top),
+                                (hp_max_right),
+                                (hp_bottom)),
                         mPaint);
             }
-
         }
     }
 
