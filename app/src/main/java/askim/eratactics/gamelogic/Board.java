@@ -372,12 +372,21 @@ public class Board {
      * moved pieces can take moves again.
      */
     public void resetTurn() {
+        activePlayers = 0;
+        activeEnemies = 0;
         for (int r = 0; r < 6; r++) {
             for (int c = 0; c < 3; c++) {
-                if (pieces[r][c] != null)
+                if (pieces[r][c] != null) {
                     pieces[r][c].resetPiece();
+                    if (pieces[r][c].getIsPlayer()) {
+                        activePlayers++;
+                    }
+                    else
+                        activeEnemies++;
+                }
             }
         }
+
     }
 
     public Piece getBoardOccupant(int row, int col) {
