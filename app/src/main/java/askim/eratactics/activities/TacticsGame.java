@@ -234,29 +234,15 @@ public class TacticsGame extends AppCompatActivity {
                 }
             /* Selecting an enemy's character */
             } else if (boardLogic.resolveGrid(row,col) == 1) {
-                Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
-                boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
-                changeTurn();
-            } else if (boardLogic.resolveGrid(row, col) == 2) {
-                /* Selecting a character */
-                if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
-                    log += ", selected player's character";
-                    selectedCharRow = row;
-                    selectedCharCol = col;
-                    selectedChar = row*3+col;
-                    boardView.setCharacter(selectedChar);
-                    boardView.invalidate();
-                /* If it is time to select a target */
-                } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
-                    /* Check if selected adventurer is in the target list */
-                    if (possibleTargets.contains(row*3+col)) {
-                        Log.d(TAG, log + ", target is valid to use skill on");
-                        boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
-                        changeTurn();
-                    } else {
-                        Log.d(TAG, log + ", target is not valid to use skill on");
-                    }
+                if (turnStatus == EnumFile.TurnStatus.SKILL) {
+                    Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
+                    boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
+                    changeTurn();
+                } else {
+                    Log.d(TAG, log + ", selected computer's character, cannot use skill");
                 }
+            } else if (boardLogic.resolveGrid(row, col) == 2) {
+                touchedCharacter(row, col, log);
             } else if (boardLogic.resolveGrid(row, col) == 3) {
                 Toast.makeText(getApplicationContext(),
                         "You already used this character", Toast.LENGTH_SHORT).show();
@@ -267,6 +253,28 @@ public class TacticsGame extends AppCompatActivity {
             return false;
         }
     };
+
+    private void touchedCharacter(int row, int col, String log) {
+        /* Selecting a character */
+        if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
+            log += ", selected player's character";
+            selectedCharRow = row;
+            selectedCharCol = col;
+            selectedChar = row*3+col;
+            boardView.setCharacter(selectedChar);
+            boardView.invalidate();
+                /* If it is time to select a target */
+        } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
+                    /* Check if selected adventurer is in the target list */
+            if (possibleTargets.contains(row*3+col)) {
+                Log.d(TAG, log + ", target is valid to use skill on");
+                boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
+                changeTurn();
+            } else {
+                Log.d(TAG, log + ", target is not valid to use skill on");
+            }
+        }
+    }
 
     /* Code from this stack overflow thread here http://stackoverflow.com/questions/7928803/background-music-android */
     public class BackgroundSound extends AsyncTask<Void, Void, Void> {
