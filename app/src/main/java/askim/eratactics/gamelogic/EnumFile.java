@@ -7,7 +7,6 @@ public class EnumFile {
     public enum TurnStatus {
         CHARACTER,
         SKILL,
-        TARGET
     }
 
     public enum SkillsEnum {
@@ -17,7 +16,8 @@ public class EnumFile {
         MOVE,
         PUNCH,
         STRIKE,
-        BLOCK
+        BLOCK,
+        INVALID
     }
 
     public enum ClassEnum {
