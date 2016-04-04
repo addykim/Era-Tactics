@@ -65,12 +65,23 @@ public class Board {
             return -1;
     }
 
-
+    /**
+     * Get the skills of a given adventurer
+     * @param row - the current row of requested piece
+     * @param col - the current col of requested piece
+     * @return an arraylist of skills that the adventurer has
+     */
     public ArrayList<EnumFile.SkillsEnum> getAdventurerSkills(int row, int col) {
         return pieces[row][col].getSkills();
     }
 
-    // return a list of integers between 0-17 corresponding to the 18 grids on the board.
+    /**
+     * Get the available targets of a given adventurer and skill
+     * @param row
+     * @param col
+     * @param skill
+     * @return
+     */
     public ArrayList<Integer> availableTargets(int row, int col, EnumFile.SkillsEnum skill) {
         int range;
         EnumFile.TargetType targetType;
