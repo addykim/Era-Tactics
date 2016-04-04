@@ -99,7 +99,7 @@ public class TacticsGame extends AppCompatActivity {
         boardLogic = new Board(alphaTeam);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
-        boardLogic.setBoardView(boardView);
+//        boardLogic.setBoardView(boardView);
 
         // Listen for touches on the board
         boardView.setOnTouchListener(mTouchListener);

@@ -36,15 +36,16 @@ public class Piece {
         leader = isLeader;
         skills = adv.getSkills(isLeader);
         hasMoved = false;
-        maxHp = adv.getHp(leader);
+        boolean[] includeEquipments = new boolean[]{true, true, true, true};
+        maxHp = adv.getHp(leader, includeEquipments);
         hp = maxHp;
-        atk = adv.getAtk(leader);
-        def = adv.getDef(leader);
-        mag = adv.getMag(leader);
-        res = adv.getRes(leader);
-        mrg = adv.getMrg(leader);
-        atr = adv.getAtr(leader);
-        agi = adv.getAgi(leader);
+        atk = adv.getAtk(leader, includeEquipments);
+        def = adv.getDef(leader, includeEquipments);
+        mag = adv.getMag(leader, includeEquipments);
+        res = adv.getRes(leader, includeEquipments);
+        mrg = adv.getMrg(leader, includeEquipments);
+        atr = adv.getAtr(leader, includeEquipments);
+        agi = adv.getAgi(leader, includeEquipments);
         pieceClass = adv.adventurerClass.className;
         Log.d(TAG, "The class of this piece is " + pieceClass);
     }

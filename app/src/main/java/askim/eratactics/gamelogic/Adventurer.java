@@ -55,15 +55,26 @@ public class Adventurer {
         return false;
     }
 
+
+// Stats getters that do calculations according to adventurers' base stats,
+// equipments enhancements, and their leader status
+
     /**
-     * Stats getters that do calculations according to Adventurers' base stats,
-     * equipment enhancements, and leader status
+     * The following 8 methods are stats getters that calculate according to adventurers' base
+     * stats, equipments enhancements, and their leader status
+     * @param isLeader - whether the adventurer is a leader
+     * @param equips - a list of booleans telling if an equipment is in effect
+     *               [0] - head
+     *               [1] - left hand
+     *               [2] - right hand
+     *               [3] - body
+     * @return
      */
-    public int getHp(boolean isLeader) {
+    public int getHp(boolean isLeader, boolean[] equips) {
         int hp = (int)adventurerClass.stats[0];
-        for (Equipment e : equipments) {
-            if (e != null) {
-                hp += e.stats[0];
+        for (int i = 0; i < 4; i++) {
+            if (equipments[i] != null && equips[i] == true) {
+                hp += equipments[i].stats[0];
             }
         }
         if (isLeader)
@@ -71,11 +82,11 @@ public class Adventurer {
         return hp;
     }
 
-    public int getAtk(boolean isLeader) {
+    public int getAtk(boolean isLeader, boolean[] equips) {
         int atk = (int)adventurerClass.stats[1];
-        for (Equipment e : equipments) {
-            if (e != null) {
-                atk += e.stats[1];
+        for (int i = 0; i < 4; i++) {
+            if (equipments[i] != null && equips[i] == true) {
+                atk += equipments[i].stats[1];
             }
         }
         if (isLeader)
@@ -83,11 +94,11 @@ public class Adventurer {
         return atk;
     }
 
-    public int getDef(boolean isLeader) {
+    public int getDef(boolean isLeader, boolean[] equips) {
         int def = (int)adventurerClass.stats[2];
-        for (Equipment e : equipments) {
-            if (e != null) {
-                def += e.stats[2];
+        for (int i = 0; i < 4; i++) {
+            if (equipments[i] != null && equips[i] == true) {
+                def += equipments[i].stats[2];
             }
         }
         if (isLeader)
@@ -95,11 +106,11 @@ public class Adventurer {
         return def;
     }
 
-    public int getMag(boolean isLeader) {
+    public int getMag(boolean isLeader, boolean[] equips) {
         int mag = (int)adventurerClass.stats[3];
-        for (Equipment e : equipments) {
-            if (e != null) {
-                mag += e.stats[3];
+        for (int i = 0; i < 4; i++) {
+            if (equipments[i] != null && equips[i] == true) {
+                mag += equipments[i].stats[3];
             }
         }
         if (isLeader)
@@ -107,11 +118,11 @@ public class Adventurer {
         return mag;
     }
 
-    public int getRes(boolean isLeader) {
+    public int getRes(boolean isLeader, boolean[] equips) {
         int res = (int)adventurerClass.stats[4];
-        for (Equipment e : equipments) {
-            if (e != null) {
-                res += e.stats[4];
+        for (int i = 0; i < 4; i++) {
+            if (equipments[i] != null && equips[i] == true) {
+                res += equipments[i].stats[4];
             }
         }
         if (isLeader)
@@ -119,14 +130,11 @@ public class Adventurer {
         return res;
     }
 
-    public int getMrg(boolean isLeader) {
+    public int getMrg(boolean isLeader, boolean[] equips) {
         int mrg = (int)adventurerClass.stats[5];
-        for (Equipment e : equipments) {
-            if (e != null) {
-                Log.d(TAG, "not null");
-                mrg += e.stats[5];
-            } else {
-                Log.d(TAG, "equipment is null");
+        for (int i = 0; i < 4; i++) {
+            if (equipments[i] != null && equips[i] == true) {
+                mrg += equipments[i].stats[5];
             }
         }
         if (isLeader)
@@ -134,11 +142,11 @@ public class Adventurer {
         return mrg;
     }
 
-    public int getAtr(boolean isLeader) {
+    public int getAtr(boolean isLeader, boolean[] equips) {
         int atr = (int)adventurerClass.stats[6];
-        for (Equipment e : equipments) {
-            if (e != null) {
-                atr += e.stats[6];
+        for (int i = 0; i < 4; i++) {
+            if (equipments[i] != null && equips[i] == true) {
+                atr += equipments[i].stats[6];
             }
         }
         if (isLeader)
@@ -146,11 +154,11 @@ public class Adventurer {
         return atr;
     }
 
-    public double getAgi(boolean isLeader) {
+    public double getAgi(boolean isLeader, boolean[] equips) {
         double agi = adventurerClass.stats[7];
-        for (Equipment e : equipments) {
-            if (e != null) {
-                agi += e.stats[7];
+        for (int i = 0; i < 4; i++) {
+            if (equipments[i] != null && equips[i] == true) {
+                agi += equipments[i].stats[7];
             }
         }
         if (isLeader)
