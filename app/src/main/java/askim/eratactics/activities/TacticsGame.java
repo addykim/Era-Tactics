@@ -318,7 +318,7 @@ public class TacticsGame extends AppCompatActivity {
     /* Selected enemy's character */
     private void touchedEnemy(int row, int col, String log) {
         if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill != EnumFile.SkillsEnum.INVALID
-                && selectedSkill != EnumFile.SkillsEnum.HEAL && selectedSkill != EnumFile.SkillsEnum.MOVE) {
+                && possibleTargets.contains(row*3+col)) {
             Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
             boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
             changeTurn();
