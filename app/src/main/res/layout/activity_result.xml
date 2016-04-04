@@ -6,23 +6,36 @@
     android:background="#0099cc"
     tools:context="askim.eratactics.activities.Result">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--android:orientation="vertical">-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/result_text"/>
-            <!--android:textSize="@dimen/results"/>-->
+            android:id="@+id/result_header"
+            android:text="@string/dummy"
+            android:textSize="@dimen/post_game_header"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="20dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/result_image"
+            android:src="@drawable/lightning"
+            android:layout_below="@id/result_header"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/back_to_splash"/>
-        <!--android:textSize="@dimen/back_button"/>-->
+            android:id="@+id/back_to_splash"
+            android:text="@string/backButton"
+            android:textSize="@dimen/post_game_back_button"
+            android:layout_below="@id/result_image"
+            android:layout_centerHorizontal="true" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

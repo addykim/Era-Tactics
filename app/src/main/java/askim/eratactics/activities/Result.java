@@ -1,8 +1,9 @@
 package askim.eratactics.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
-import android.widget.Button;
+import android.view.View;
 import android.widget.TextView;
 
 import askim.eratactics.R;
@@ -17,16 +18,23 @@ public class Result extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        text = (TextView) findViewById(R.id.result_text);
+        Intent results = getIntent(); // gets the previously created intent
+
+        text = (TextView) findViewById(R.id.result_header);
         backButton = (TextView) findViewById(R.id.back_to_splash);
-        //TODO grab win status from last activity
+        boolean win = results.getBooleanExtra("win", false);
+        if (win) {
+            text.setText(R.string.postGameCleared);
+        } else {
+            text.setText(R.string.postGameLose);
+        }
 
-        // if win
-        text.setText(R.string.postGameCleared);
-        // else
-        text.setText(R.string.postGameLose);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            //TODO back button go back to splash screen
 
-
+            }
+        });
     }
-
 }

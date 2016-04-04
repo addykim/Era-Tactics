@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Era Tactics</string>
     <string name="title_activity_tactics_game">Settings</string>
+    <string name="dummy">Dummy Text</string>
 
     <string name="adventure">Adventure</string>
     <string name="teams">Teams</string>
@@ -26,6 +27,7 @@
     <!--Game play-->
     <string name="postGameCleared">Level Cleared!</string>
     <string name="postGameLose">Defeated :(</string>
+    <string name="backButton">Back</string>
 
     <!--Post game dialogue-->
 
