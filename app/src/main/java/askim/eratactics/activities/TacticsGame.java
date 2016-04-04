@@ -140,19 +140,14 @@ public class TacticsGame extends AppCompatActivity {
 
     /* Switch player turn to computer turn or vice versa */
     private void changeTurn() {
-        if (playersTurn) {
-            Log.d(TAG, "It is now the computer turn");
-            // If out of active pieces, reset all the pieces and try make move again
-            if (!boardLogic.makeComputerMove()) {
-                boardLogic.resetTurn();
-                boardLogic.makeComputerMove();
-            }
-            playersTurn = false;
-        } else {
-            Log.d(TAG, "It is now the player's turn");
-            playersTurn = true;
-            turnStatus = EnumFile.TurnStatus.CHARACTER;
+        Log.d(TAG, "It is now the computer turn");
+        // If out of active pieces, reset all the pieces and try make move again
+        if (!boardLogic.makeComputerMove()) {
+            boardLogic.resetTurn();
+            boardLogic.makeComputerMove();
         }
+        Log.d(TAG, "It is now the player's turn");
+        turnStatus = EnumFile.TurnStatus.CHARACTER;
         selectedChar = -1;
         selectedCharCol = -1;
         selectedCharRow = -1;
@@ -214,17 +209,17 @@ public class TacticsGame extends AppCompatActivity {
                 /* If moving */
                 if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill == EnumFile.SkillsEnum.MOVE) {
                     if (possibleTargets.contains(row*3+col) && row>=3) {
-                        log += ", target is valid spot to move to";
+                        Log.d(TAG, log + ", target is valid spot to move to");
                         boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
                         boardView.moveBitmapImage(selectedCharRow, selectedCharCol, row, col);
                         changeTurn();
                     } else {
-                        log += ", cannot move here";
+                        Log.d(TAG, log + ", cannot move here");
                     }
                 }
             /* Selecting an enemy's character */
             } else if (boardLogic.resolveGrid(row,col) == 1) {
-                log += ", selected computer's character, using skill " + selectedSkill;
+                Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
                 boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
                 changeTurn();
             } else if (boardLogic.resolveGrid(row, col) == 2) {
@@ -240,11 +235,11 @@ public class TacticsGame extends AppCompatActivity {
                 } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
                     /* Check if selected adventurer is in the target list */
                     if (possibleTargets.contains(row*3+col)) {
-                        log += ", target is valid to use skill on";
-                        boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
+                        Log.d(TAG, log + ", target is valid to use skill on");
+                        boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
                         changeTurn();
                     } else {
-                        log += ", target is not valid to use skill on";
+                        Log.d(TAG, log + ", target is not valid to use skill on");
                     }
                 }
             } else if (boardLogic.resolveGrid(row, col) == 3) {
@@ -252,9 +247,8 @@ public class TacticsGame extends AppCompatActivity {
                         "You already used this character", Toast.LENGTH_SHORT).show();
             } else {
 //            TODO what if -1 is returned from resolve grid
-                log = "What";
+                Log.d(TAG, log + "What");
             }
-            Log.d(TAG, log);
             return false;
         }
     };
