@@ -299,6 +299,8 @@ public class TacticsGame extends AppCompatActivity {
     /* Code from this stack overflow thread here http://stackoverflow.com/questions/7928803/background-music-android */
     public class BackgroundSound extends AsyncTask<Void, Void, Void> {
 
+        // TODO prepare beforehand
+
         @Override
         protected Void doInBackground(Void... params) {
             Log.d(TAG, "Starting bgm");
@@ -308,10 +310,6 @@ public class TacticsGame extends AppCompatActivity {
             player.start();
             return null;
         }
-
-
     }
-
-
 }
 
