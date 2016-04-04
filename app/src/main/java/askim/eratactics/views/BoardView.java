@@ -57,45 +57,6 @@ public class BoardView extends View {
         targets = new ArrayList<Integer>();
     }
 
-    public void setGame(Board boardLogic) {
-        this.boardLogic = boardLogic;
-        // DEBUG
-        int row, col;
-        Piece occupant;
-        for (int i=0; i<18; i++) {
-            row = i / 3;
-            col = i % 3;
-            occupant = boardLogic.getBoardOccupant(row, col);
-            if (occupant != null) {
-                switch(occupant.getPieceClass()) {
-                    case VILLAGER:
-                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.villager_normal);
-                        break;
-                    case MAGICIAN:
-                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.wizard_normal);
-                        break;
-                    case KNIGHT:
-                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.knight_normal);
-                        break;
-                    case ARCHER:
-                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.archer_normal);
-                        break;
-                    case APPRENTICE:
-                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.apprentice_normal);
-                        break;
-                    case FIGHTER:
-//                        TODO change civilian to fighter
-                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.civilian_normal);
-                        break;
-                    default:
-                        piecesBitmaps[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.lightning);
-                }
-
-//                Log.d(TAG, "Placing bitmap at row " + (row + 1) + ", col " + (col + 1));
-
-            }
-        }
-    }
     /* Draws the lines on the board */
     @Override
     public void onDraw(Canvas canvas) {
@@ -140,25 +101,59 @@ public class BoardView extends View {
 
     /* Draws character bitmaps */
     public void drawChar(Canvas canvas, int cellWidth, int cellHeight) {
-        int row, col, row_line, col_line;
+        Bitmap image;
+        Piece occupant;
+        int row, col;
         for (int i=0; i<18; i++) {
             row = i/3;
             col = i%3;
             Log.d(TAG, "Drawing character in grid " + row + ", " + col);
-            row_line = row*GRID_LINE_WIDTH;
-            col_line = col*GRID_LINE_WIDTH;
-            if (boardLogic.resolveGrid(row, col) != 0) {
-//                Log.d(TAG, "Drawing bitmap at row " + (row+1) + ", col " + (col+1));
-                canvas.drawBitmap(piecesBitmaps[row][col], null,
-                        new Rect(
-                                (col * cellWidth),
-                                (row * cellHeight),
-                                (col + 1) * cellWidth,
-                                (row + 1) * cellHeight),
-                        null);
+//            try {
+                occupant = boardLogic.getBoardOccupant(row, col);
+//            } catch (Exception e) {
+//                Log.d(TAG, e.getMessage());
+//            }
+            if (occupant != null) {
+                switch (occupant.getPieceClass()) {
+                    case VILLAGER:
+                        image = BitmapFactory.decodeResource(getResources(), R.drawable.villager_normal);
+                        break;
+                    case MAGICIAN:
+                        image = BitmapFactory.decodeResource(getResources(), R.drawable.wizard_normal);
+                        break;
+                    case KNIGHT:
+                        image = BitmapFactory.decodeResource(getResources(), R.drawable.knight_normal);
+                        break;
+                    case ARCHER:
+                        image = BitmapFactory.decodeResource(getResources(), R.drawable.archer_normal);
+                        break;
+                    case APPRENTICE:
+                        image = BitmapFactory.decodeResource(getResources(), R.drawable.apprentice_normal);
+                        break;
+                    case FIGHTER:
+//                        TODO change civilian to fighter
+                        image = BitmapFactory.decodeResource(getResources(), R.drawable.civilian_normal);
+                        break;
+                    case ENEMY:
+                        image = BitmapFactory.decodeResource(getResources(), R.drawable.lightning);
+                        break;
+                    default:
+                        image = BitmapFactory.decodeResource(getResources(), R.drawable.move);
+                }
+                if (image != null) {
+                    canvas.drawBitmap(image, null,
+                            new Rect(
+                                    (col * cellWidth),
+                                    (row * cellHeight),
+                                    (col + 1) * cellWidth,
+                                    (row + 1) * cellHeight),
+                            null);
+                }
             }
         }
     }
+
+
 
     /* Draws circles around characters when aiming to use a skill */
     public void drawCircle(Canvas canvas, int cellWidth, int cellHeight) {
@@ -202,10 +197,12 @@ public class BoardView extends View {
         this.targets = targets;
     }
 
-    public void moveBitmapImage(int srcRow, int srcCol, int destRow, int destCol) {
-        piecesBitmaps[destRow][destCol] = piecesBitmaps[srcRow][srcCol];
-        piecesBitmaps[srcRow][srcCol] = null;
-    }
+    public void setGame(Board logic) { boardLogic = logic; }
+
+//    public void moveBitmapImage(int srcRow, int srcCol, int destRow, int destCol) {
+//        piecesBitmaps[destRow][destCol] = piecesBitmaps[srcRow][srcCol];
+//        piecesBitmaps[srcRow][srcCol] = null;
+//    }
 
     /* Redraws the hp bar when necessary */
     public void drawHP() {

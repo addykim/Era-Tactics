@@ -352,7 +352,7 @@ public class Board {
         resolveSkill(movingR, movingC, targets.get(moveTo), EnumFile.SkillsEnum.MOVE);
         // pieces[moveTo / 3][moveTo % 3].moved();
         // If computer is not moving correctly visually I may have set the destination wrong
-        boardView.moveBitmapImage(movingR, movingC, moveTo/3, moveTo%3);
+//        boardView.moveBitmapImage(movingR, movingC, moveTo/3, moveTo%3);
         activeEnemies--;
         Log.d(TAG,"Moved to grid number " + targets.get(moveTo)
                 + ". Number of active enemies is now " + activeEnemies);

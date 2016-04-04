@@ -1,5 +1,7 @@
 package askim.eratactics.activities;
 
+import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +27,8 @@ import askim.eratactics.views.BoardView;
  * status bar and navigation/system bar) with user interaction.
  */
 public class TacticsGame extends AppCompatActivity {
+
+    private BackgroundSound mBackgroundSound = new BackgroundSound();
 
     private static final String TAG = "TacticsGame";
 
@@ -60,6 +64,7 @@ public class TacticsGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_tactics_game);
+
 
         /* Hide action bar */
         ActionBar actionBar = getSupportActionBar();
@@ -123,6 +128,16 @@ public class TacticsGame extends AppCompatActivity {
                 Log.d(TAG, "Third skill clicked");
             }
         });
+    }
+
+    public void onResume() {
+        super.onResume();
+        mBackgroundSound.execute();
+    }
+
+    public void onPause() {
+        super.onPause();
+        mBackgroundSound.cancel(true);
     }
 
     /* Creates a new game */
@@ -210,8 +225,8 @@ public class TacticsGame extends AppCompatActivity {
                 if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill == EnumFile.SkillsEnum.MOVE) {
                     if (possibleTargets.contains(row*3+col) && row>=3) {
                         Log.d(TAG, log + ", target is valid spot to move to");
-                        boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
-                        boardView.moveBitmapImage(selectedCharRow, selectedCharCol, row, col);
+                        boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
+//                        boardView.moveBitmapImage(selectedCharRow, selectedCharCol, row, col);
                         changeTurn();
                     } else {
                         Log.d(TAG, log + ", cannot move here");
@@ -219,29 +234,15 @@ public class TacticsGame extends AppCompatActivity {
                 }
             /* Selecting an enemy's character */
             } else if (boardLogic.resolveGrid(row,col) == 1) {
-                Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
-                boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
-                changeTurn();
-            } else if (boardLogic.resolveGrid(row, col) == 2) {
-                /* Selecting a character */
-                if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
-                    log += ", selected player's character";
-                    selectedCharRow = row;
-                    selectedCharCol = col;
-                    selectedChar = row*3+col;
-                    boardView.setCharacter(selectedChar);
-                    boardView.invalidate();
-                /* If it is time to select a target */
-                } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
-                    /* Check if selected adventurer is in the target list */
-                    if (possibleTargets.contains(row*3+col)) {
-                        Log.d(TAG, log + ", target is valid to use skill on");
-                        boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
-                        changeTurn();
-                    } else {
-                        Log.d(TAG, log + ", target is not valid to use skill on");
-                    }
+                if (turnStatus == EnumFile.TurnStatus.SKILL) {
+                    Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
+                    boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
+                    changeTurn();
+                } else {
+                    Log.d(TAG, log + ", selected computer's character, cannot use skill");
                 }
+            } else if (boardLogic.resolveGrid(row, col) == 2) {
+                touchedCharacter(row, col, log);
             } else if (boardLogic.resolveGrid(row, col) == 3) {
                 Toast.makeText(getApplicationContext(),
                         "You already used this character", Toast.LENGTH_SHORT).show();
@@ -252,4 +253,44 @@ public class TacticsGame extends AppCompatActivity {
             return false;
         }
     };
+
+    private void touchedCharacter(int row, int col, String log) {
+        /* Selecting a character */
+        if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
+            log += ", selected player's character";
+            selectedCharRow = row;
+            selectedCharCol = col;
+            selectedChar = row*3+col;
+            boardView.setCharacter(selectedChar);
+            boardView.invalidate();
+                /* If it is time to select a target */
+        } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
+                    /* Check if selected adventurer is in the target list */
+            if (possibleTargets.contains(row*3+col)) {
+                Log.d(TAG, log + ", target is valid to use skill on");
+                boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
+                changeTurn();
+            } else {
+                Log.d(TAG, log + ", target is not valid to use skill on");
+            }
+        }
+    }
+
+    /* Code from this stack overflow thread here http://stackoverflow.com/questions/7928803/background-music-android */
+    public class BackgroundSound extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Log.d(TAG, "Starting bgm");
+            MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.bgm);
+            player.setLooping(true); // Set looping
+            player.setVolume(1.0f, 1.0f);
+            player.start();
+            return null;
+        }
+
+    }
+
+
 }
+
