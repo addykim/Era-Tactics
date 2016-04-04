@@ -1,5 +1,6 @@
 package askim.eratactics.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.widget.Button;
@@ -17,12 +18,12 @@ public class Result extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-//        Intent myIntent = getIntent(); // gets the previously created intent
-//        String firstKeyName = myIntent.getStringExtra("firstKeyName");
+        Intent results = getIntent(); // gets the previously created intent
+
         text = (TextView) findViewById(R.id.result_text);
         backButton = (TextView) findViewById(R.id.back_to_splash);
         //TODO grab win status from last activity
-        boolean win = true;
+        boolean win = results.getBooleanExtra("win", false);
         if (win) {
             text.setText(R.string.postGameCleared);
         } else {
