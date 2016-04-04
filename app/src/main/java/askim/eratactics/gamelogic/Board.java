@@ -15,6 +15,7 @@ public class Board {
     private BoardView boardView;
     private Piece[][] pieces;
     int activeEnemies = 0;
+    int activePlayers = 0;
 
 
     public Board(Team team) {
@@ -29,6 +30,7 @@ public class Board {
                     p = new Piece(temp, false);
                 }
                 pieces[i / 3 + 3][i % 3] = p;
+                activePlayers++;
             }
         }
         generateEnemies();
@@ -215,6 +217,8 @@ public class Board {
                 break;
         }
 
+        if (pieces[row][col].getIsPlayer())
+            activePlayers--;
         pieces[row][col].moved();
     }
 
@@ -229,6 +233,7 @@ public class Board {
         int playerCount = 0;
         int enemyCount = 0;
         activeEnemies = 0;
+        activePlayers = 0;
 
         // remove dead pieces
         for (int r = 0; r < 6; r++) {
@@ -240,6 +245,9 @@ public class Board {
                     else {
                         if (pieces[r][c].getIsPlayer()) {
                             playerCount++;
+                            if (!pieces[r][c].isHasMoved()) {
+                                activePlayers++;
+                            }
                         }
                         else {
                             enemyCount++;
@@ -389,4 +397,12 @@ public class Board {
 
     /* This will be used in order to call boardview changes whenever enemy moves */
     public void setBoardView(BoardView view) { boardView = view; }
+
+    public int getActiveEnemies() {
+        return activeEnemies;
+    }
+
+    public int getActivePlayers() {
+        return activePlayers;
+    }
 }
