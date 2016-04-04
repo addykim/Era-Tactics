@@ -10,6 +10,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!--Post game-->
+    <dimen name="post_game_header">50sp</dimen>
+    <dimen name="post_game_back_button">30sp</dimen>
 
     <!--Settings-->
     <dimen name="setting_header">50sp</dimen>
