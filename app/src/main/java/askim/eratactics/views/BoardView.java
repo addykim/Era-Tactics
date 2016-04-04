@@ -27,13 +27,13 @@ public class BoardView extends View {
 
     private Board boardLogic;
     private Paint mPaint;
-    private Bitmap piecesBitmaps[][] = new Bitmap[6][3];
 
     private int selectedChar;
     private ArrayList<Integer> targets;
 
     /* Used to determine stroke width of board lines */
     private static final int GRID_LINE_WIDTH = 6;
+    private static final int HP_BAR_WIDTH = 10;
 
     /* Constructor code based on Spring 2016 CS 371M tutorial code */
     public BoardView(Context context) {
@@ -78,7 +78,7 @@ public class BoardView extends View {
             canvas.drawLine(yLine, 0, yLine, boardHeight, mPaint);
         }
         // Horizontal lines
-        for (int i = 1; i < 6; i++) {
+        for (int i = 1; i < 7; i++) {
             // Change line color in the middle of board
             //TODO change this color based on UI
             if (i == 3)
@@ -95,8 +95,8 @@ public class BoardView extends View {
         /* Draw characters */
         drawChar(canvas, cellWidth, cellHeight);
         /* Draw circles on top of characters */
-        mPaint.setStyle(Paint.Style.STROKE);
         drawCircle(canvas, cellWidth, cellHeight);
+        drawHP(canvas, cellWidth, cellHeight);
     }
 
     /* Draws character bitmaps */
@@ -152,15 +152,17 @@ public class BoardView extends View {
         }
     }
 
-
-
     /* Draws circles around characters when aiming to use a skill */
     public void drawCircle(Canvas canvas, int cellWidth, int cellHeight) {
+        mPaint.setStyle(Paint.Style.STROKE);
         int row, col, index;
         for (int i=0; i<18; i++) {
             row = i/3;
             col = i%3;
             index = row*3+col;
+            /* Draw a circle around potential characters */
+            // TODO
+            /* Draws a circle around your selected character */
             if (index == selectedChar && selectedChar > -1) {
                 mPaint.setColor((Color.BLUE));
                 canvas.drawOval(new RectF(
@@ -199,9 +201,41 @@ public class BoardView extends View {
     public void setGame(Board logic) { boardLogic = logic; }
 
     /* Redraws the hp bar when necessary */
-    public void drawHP() {
+    public void drawHP(Canvas canvas, int cellWidth, int cellHeight) {
         // Future TODO add fancy animation of hp bar dropping
+        mPaint.setStyle(Paint.Style.FILL);
+        int row, col;
+        int hp_left, hp_right, hp_bottom, hp_top, hp_max_right;
+        for (int i=0; i<18; i++) {
+            row = i / 3;
+            col = i % 3;
+            double percentHP = boardLogic.getHp(row,col)/boardLogic.getMaxHp(row, col);
+            Log.d(TAG, "percent hp: " + percentHP);
 
+            /* Draw remaining hp */
+            mPaint.setColor(Color.GREEN);
+            hp_left = (col*cellWidth)+GRID_LINE_WIDTH/2;
+            hp_top = ((row+1)*cellHeight)-HP_BAR_WIDTH-GRID_LINE_WIDTH/2;
+            hp_right = ((col+1)*cellWidth)-GRID_LINE_WIDTH/2;
+            hp_bottom = hp_top+HP_BAR_WIDTH;
+            canvas.drawRect(new RectF(
+                    (hp_left),
+                    (hp_top),
+                    (hp_right),
+                    (hp_bottom)),
+                    mPaint);
+            /* Draw empty portion of HP */
+            if (percentHP != (double) 1) {
+                mPaint.setColor(Color.GRAY);
+                canvas.drawRect(new RectF(
+                                (10),
+                                (row * cellHeight),
+                                ((col + 1) * cellWidth),
+                                ((row + 1) * cellHeight)),
+                        mPaint);
+            }
+
+        }
     }
 
     /* Call this method whenever a character(enemy or player) is hit
