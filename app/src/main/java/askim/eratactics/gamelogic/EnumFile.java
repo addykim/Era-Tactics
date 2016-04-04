@@ -21,13 +21,18 @@ public class EnumFile {
     }
 
     public enum ClassEnum {
-        ENEMY,
+        BADTEETH,
+        HORNEDFROG,
         VILLAGER,
         MAGICIAN,
         FIGHTER,
         ARCHER,
         KNIGHT,
         APPRENTICE
+    }
+
+    public enum EnemyClasses {
+
     }
 
     public enum TargetType {

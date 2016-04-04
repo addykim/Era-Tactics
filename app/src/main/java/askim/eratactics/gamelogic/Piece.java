@@ -50,7 +50,7 @@ public class Piece {
     }
 
     // Generate generic enemies with 10 hp, 5 atk
-    public Piece() {
+    public Piece(EnumFile.ClassEnum enemyClass) {
         isPlayer = false;
         hasMoved = false;
         maxHp = 10;
@@ -66,7 +66,7 @@ public class Piece {
         skills.add(EnumFile.SkillsEnum.PUNCH);
         skills.add(EnumFile.SkillsEnum.MOVE);
         skills.add(EnumFile.SkillsEnum.HEAL);
-        pieceClass = EnumFile.ClassEnum.ENEMY;
+        pieceClass = enemyClass;
     }
 
     public boolean getIsPlayer() {

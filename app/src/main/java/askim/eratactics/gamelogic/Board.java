@@ -37,10 +37,10 @@ public class Board {
 
     private void generateEnemies() {
         // 4 enemies
-        pieces[0][0] = new Piece();
-        pieces[0][2] = new Piece();
-        pieces[1][1] = new Piece();
-        pieces[2][2] = new Piece();
+        pieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG);
+        pieces[0][2] = new Piece(EnumFile.ClassEnum.BADTEETH);
+        pieces[1][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG);
+        pieces[2][2] = new Piece(EnumFile.ClassEnum.BADTEETH);
         activeEnemies = 4;
     }
 
