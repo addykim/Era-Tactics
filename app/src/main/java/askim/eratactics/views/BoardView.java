@@ -205,42 +205,42 @@ public class BoardView extends View {
         // Future TODO add fancy animation of hp bar dropping
         mPaint.setStyle(Paint.Style.FILL);
         int row, col;
-        int hp_left, hp_right, hp_bottom, hp_top, hp_max_right;
+        float hp_left, hp_right, hp_bottom, hp_top, hp_max_right;
         for (int i=0; i<18; i++) {
             row = i / 3;
             col = i % 3;
-            double percentHP = boardLogic.getHp(row,col)/boardLogic.getMaxHp(row, col);
-            Log.d(TAG, "percent hp: " + percentHP);
-
-            /* Draw remaining hp */
-            mPaint.setColor(Color.GREEN);
-            hp_left = (col*cellWidth)+GRID_LINE_WIDTH/2;
-            hp_top = ((row+1)*cellHeight)-HP_BAR_WIDTH-GRID_LINE_WIDTH/2;
-            hp_max_right = ((col+1)*cellWidth)-GRID_LINE_WIDTH/2;
-            hp_bottom = hp_top+HP_BAR_WIDTH;
-            /* Draw empty portion of HP */
-            if (percentHP == (double) 1) {
-                canvas.drawRect(new RectF(
-                                (hp_left),
-                                (hp_top),
-                                (hp_max_right),
-                                (hp_bottom)),
-                        mPaint);
-            } else {
-                hp_right = (int)(((double)(hp_max_right-hp_left))*percentHP);
-                canvas.drawRect(new RectF(
-                                (hp_left),
-                                (hp_top),
-                                (hp_right),
-                                (hp_bottom)),
-                        mPaint);
-                mPaint.setColor(Color.GRAY);
-                canvas.drawRect(new RectF(
-                                (hp_right),
-                                (hp_top),
-                                (hp_max_right),
-                                (hp_bottom)),
-                        mPaint);
+            if (boardLogic.resolveGrid(row, col) != 0) {
+                float percentHP = (float)boardLogic.getHp(row,col)/(float)boardLogic.getMaxHp(row, col);
+                /* Draw remaining hp */
+                mPaint.setColor(Color.GREEN);
+                hp_left = (col*cellWidth)+GRID_LINE_WIDTH/2;
+                hp_top = ((row+1)*cellHeight)-HP_BAR_WIDTH-GRID_LINE_WIDTH/2;
+                hp_max_right = ((col+1)*cellWidth)-GRID_LINE_WIDTH/2;
+                hp_bottom = hp_top+HP_BAR_WIDTH;
+                if (percentHP == (float)1) {
+                    canvas.drawRect(new RectF(
+                                    (hp_left),
+                                    (hp_top),
+                                    (hp_max_right),
+                                    (hp_bottom)),
+                            mPaint);
+                } else {
+                    hp_right = hp_left+((hp_max_right-hp_left)*percentHP);
+                    canvas.drawRect(new RectF(
+                                    (hp_left),
+                                    (hp_top),
+                                    (hp_right),
+                                    (hp_bottom)),
+                            mPaint);
+                /* Draw empty portion of HP */
+                    mPaint.setColor(Color.GRAY);
+                    canvas.drawRect(new RectF(
+                                    (hp_right),
+                                    (hp_top),
+                                    (hp_max_right),
+                                    (hp_bottom)),
+                            mPaint);
+                }
             }
         }
     }

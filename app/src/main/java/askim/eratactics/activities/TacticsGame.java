@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Adventurer;
@@ -99,7 +100,6 @@ public class TacticsGame extends AppCompatActivity {
         boardLogic = new Board(alphaTeam);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
-        boardLogic.setBoardView(boardView);
 
         // Listen for touches on the board
         boardView.setOnTouchListener(mTouchListener);
@@ -157,12 +157,20 @@ public class TacticsGame extends AppCompatActivity {
     /* Execute a skill if a valid character was selected
      * Changes turn status to skill so another character can not be selected */
     public void executeSkill(EnumFile.SkillsEnum skill) {
-        if (turnStatus == EnumFile.TurnStatus.CHARACTER && validCharacter()) {
-            turnStatus = EnumFile.TurnStatus.SKILL;
-            selectedSkill = skill;
-            showTargets();
+        if (validCharacter()) {
+            if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
+                turnStatus = EnumFile.TurnStatus.SKILL;
+                selectedSkill = skill;
+                showTargets();
+            } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
+                selectedSkill = skill;
+                showTargets();
+            } else {
+                Log.d(TAG, "Can not change turnstatus = skill");
+                highlightSkill(-1);
+            }
         } else {
-            Log.d(TAG, "Can not change turnstatus = skill");
+            Log.d(TAG, "Choose a character first to select a skill");
             highlightSkill(-1);
         }
     }
