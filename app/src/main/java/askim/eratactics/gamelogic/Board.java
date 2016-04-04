@@ -12,7 +12,6 @@ public class Board {
 
     private final String TAG = "BoardLogic";
 
-    private BoardView boardView;
     private Piece[][] pieces;
     int activeEnemies = 0;
     int activePlayers = 0;
@@ -416,7 +415,7 @@ public class Board {
     }
 
     /* This will be used in order to call boardview changes whenever enemy moves */
-    public void setBoardView(BoardView view) { boardView = view; }
+//    public void setBoardView(BoardView view) { boardView = view; }
 
     public int getActiveEnemies() {
         return activeEnemies;
@@ -424,5 +423,35 @@ public class Board {
 
     public int getActivePlayers() {
         return activePlayers;
+    }
+
+    /**
+     * Get the current hp of a given adventurer or enemy
+     * @param row - current row position of the requested piece
+     * @param col - current col position of the requested piece
+     * @return hp - if given position has a valid piece
+     *         -1 - if the given position is empty
+     */
+    public int getHp(int row, int col) {
+        if (pieces[row][col] != null){
+            return pieces[row][col].hp;
+        }
+        else
+            return -1;
+    }
+
+    /**
+     * Get the current max hp of a given adventurer or enemy
+     * @param row - current row position of the requested piece
+     * @param col - current col position of the requested piece
+     * @return hp - if given position has a valid piece
+     *         -1 - if the given position is empty
+     */
+    public int getMaxHp(int row, int col) {
+        if (pieces[row][col] != null){
+            return pieces[row][col].maxHp;
+        }
+        else
+            return -1;
     }
 }
