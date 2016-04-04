@@ -61,8 +61,8 @@ public class TacticsGame extends AppCompatActivity {
 
         setContentView(R.layout.activity_tactics_game);
 
-//        mBackgroundSound = new BackgroundSound();
-
+        mBackgroundSound = new BackgroundSound();
+        mBackgroundSound.execute();
         /* Hide action bar */
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
@@ -127,22 +127,27 @@ public class TacticsGame extends AppCompatActivity {
         // TODO tint button when clicked
         //                moveButton.setImageTintList();
 
-        if (checkSkillTime()) {
+        if ((checkSkillTime() || turnStatus == EnumFile.TurnStatus.SKILL) && validCharacter()) {
             Log.d(TAG, skillName + " clicked");
             selectedSkill = skill;
             showTargets();
         }
+    }
 
+    private boolean validCharacter() {
+        return 0 <= selectedChar && selectedChar <= 17;
     }
 
     public void onResume() {
         super.onResume();
-//        mBackgroundSound.execute();
+        if (mBackgroundSound.isCancelled()) {
+            mBackgroundSound.execute();
+        }
     }
 
     public void onPause() {
         super.onPause();
-//        mBackgroundSound.cancel(true);
+        mBackgroundSound.cancel(true);
     }
 
     /* Creates a new game */
@@ -201,7 +206,7 @@ public class TacticsGame extends AppCompatActivity {
      * Returns true if switching from character move to skill */
     private boolean checkSkillTime() {
         // Removed playersTurn boolean from here
-        if (turnStatus == EnumFile.TurnStatus.CHARACTER && selectedChar >= 0 && selectedChar <= 17) {
+        if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
             turnStatus = EnumFile.TurnStatus.SKILL;
             return true;
         }
@@ -294,6 +299,7 @@ public class TacticsGame extends AppCompatActivity {
             player.start();
             return null;
         }
+
 
     }
 
