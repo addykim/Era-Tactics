@@ -345,7 +345,6 @@ public class TacticsGame extends AppCompatActivity {
             } else if (boardLogic.resolveGrid(row, col) == 2) {
                 touchedCharacter(row, col, log);
             } else if (boardLogic.resolveGrid(row, col) == 3) {
-                /* Selected inactive enemy */
                 touchedInactiveCharacter(row, col);
             } else {
                 Log.d(TAG, log + "What");
@@ -356,8 +355,9 @@ public class TacticsGame extends AppCompatActivity {
 
     /* Touched an inactive character */
     private void touchedInactiveCharacter(int row, int col) {
-        if (selectedSkill == EnumFile.SkillsEnum.HEAL) {
-            boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
+        if (selectedSkill == EnumFile.SkillsEnum.HEAL && turnStatus == EnumFile.TurnStatus.SKILL) {
+            boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
+            delayCleanUp();
         } else {
             Toast.makeText(getApplicationContext(),
                     "You already used this character", Toast.LENGTH_SHORT).show();
