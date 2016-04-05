@@ -206,16 +206,20 @@ public class Board {
                 else
                     damage = 0;
                 if (destRow > 0 && resolveGrid(row, col) != resolveGrid(destRow - 1, destCol)) {
-                    pieces[destRow - 1][destCol].hp -= damage;
+                    if (pieces[destRow - 1][destCol] != null)
+                        pieces[destRow - 1][destCol].hp -= damage;
                 }
                 if (destCol > 0 && resolveGrid(row, col) != resolveGrid(destRow, destCol - 1)) {
-                    pieces[destRow][destCol - 1].hp -= damage;
+                    if (pieces[destRow][destCol - 1] != null)
+                        pieces[destRow][destCol - 1].hp -= damage;
                 }
                 if (destRow < 5 && resolveGrid(row, col) != resolveGrid(destRow + 1, destCol)) {
-                    pieces[destRow + 1][destCol].hp -= damage;
+                    if (pieces[destRow + 1][destCol] != null)
+                        pieces[destRow + 1][destCol].hp -= damage;
                 }
                 if (destCol < 2 && resolveGrid(row, col) != resolveGrid(destRow, destCol + 1)) {
-                    pieces[destRow][destCol + 1].hp -= damage;
+                    if (pieces[destRow][destCol + 1] != null)
+                        pieces[destRow][destCol + 1].hp -= damage;
                 }
                 break;
 
