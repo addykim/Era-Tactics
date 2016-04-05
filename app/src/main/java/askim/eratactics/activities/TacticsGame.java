@@ -256,12 +256,10 @@ public class TacticsGame extends AppCompatActivity {
             Intent results = new Intent(this, Result.class);
             results.putExtra("win", true);
             startActivity(results);
-            Toast.makeText(getApplicationContext(), "You win!", Toast.LENGTH_LONG).show();
         } else if (result == 2) {
             Intent results = new Intent(this, Result.class);
             results.putExtra("win", false);
             startActivity(results);
-            Toast.makeText(getApplicationContext(), "You Lose!", Toast.LENGTH_LONG).show();
         } else if (result == -1) {
             Log.d(TAG, "SOMETHING WENT VERY VERY WRONG AHHHHHHHH");
         }
@@ -346,14 +344,23 @@ public class TacticsGame extends AppCompatActivity {
                 touchedCharacter(row, col, log);
             } else if (boardLogic.resolveGrid(row, col) == 3) {
                 /* Selected inactive enemy */
-                Toast.makeText(getApplicationContext(),
-                        "You already used this character", Toast.LENGTH_SHORT).show();
+                touchedInactiveCharacter(row, col);
             } else {
                 Log.d(TAG, log + "What");
             }
             return false;
         }
     };
+
+    /* Touched an inactive character */
+    private void touchedInactiveCharacter(int row, int col) {
+        if (selectedSkill == EnumFile.SkillsEnum.HEAL) {
+            boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "You already used this character", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     /* Clicked on empty spot on grid */
     private void touchedEmpty(int row, int col, String log) {
