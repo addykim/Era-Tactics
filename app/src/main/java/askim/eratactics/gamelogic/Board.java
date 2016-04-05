@@ -97,7 +97,7 @@ public class Board {
                 break;
             case FIREBALL:
                 range = 2;
-                targetType = EnumFile.TargetType.ENEMY_EMPTY;
+                targetType = EnumFile.TargetType.ENEMY;
                 break;
             case STRIKE:
                 range = pieces[row][col].atr + 1;
