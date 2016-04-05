@@ -180,20 +180,6 @@ public class TacticsGame extends AppCompatActivity {
         return 0 <= selectedChar && selectedChar <= 17;
     }
 
-    /* Resume music onResume */
-    public void onResume() {
-        super.onResume();
-        if (mBackgroundSound.isCancelled()) {
-            mBackgroundSound.execute();
-        }
-    }
-
-    /* Pause music as needed */
-    public void onPause() {
-        super.onPause();
-        mBackgroundSound.cancel(true);
-    }
-
     /* Creates a new game */
     private void newGame() {
         Log.d(TAG, "Creating new game");
@@ -350,19 +336,82 @@ public class TacticsGame extends AppCompatActivity {
         }
     }
 
-    /* Code from this stack overflow thread here http://stackoverflow.com/questions/7928803/background-music-android */
+    @Override
+    protected void onResume(){
+        super.onResume();
+//        mBackgroundSound = new BackgroundSound();
+//        mBackgroundSound.execute();
+        Log.d(TAG, "RESUME");
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d(TAG, "STOP");
+        mBackgroundSound.end();
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        mBackgroundSound = new BackgroundSound();
+        mBackgroundSound.execute();
+        Log.d(TAG, "RESTART");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Log.d(TAG, "STARTING");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBackgroundSound.cancel(true);
+        Log.d(TAG, "DESTROY");
+    }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.d(TAG, "Back pressed");
+        return;
+    }
+
+    /* Code from this stack overflow thread here http://stackoverflow.com/questions/12241474/asynctask-music-not-stopping-when-power-button-pressed */
     public class BackgroundSound extends AsyncTask<Void, Void, Void> {
 
-        // TODO prepare beforehand
+        private MediaPlayer player;
+
+        protected void onPreExecute() {
+//            if (playMusic)
+            player = MediaPlayer.create(TacticsGame.this, R.raw.bgm);
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mp.release();
+                }
+
+            });
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
-            Log.d(TAG, "Starting bgm");
-            MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.bgm);
             player.setLooping(true); // Set looping
             player.setVolume(1.0f, 1.0f);
             player.start();
             return null;
+        }
+
+        public void end(){
+            player.stop();
+            player.release();
         }
     }
 }
