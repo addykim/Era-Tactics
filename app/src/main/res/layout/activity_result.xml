@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/result_image"
-            android:src="@drawable/lightning"
+            android:src="@drawable/win_game"
             android:layout_below="@id/result_header"/>
 
         <TextView
