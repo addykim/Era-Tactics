@@ -3,6 +3,7 @@ package askim.eratactics.activities;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,6 +64,9 @@ public class TacticsGame extends AppCompatActivity {
     private ImageView thirdSkillButton;
     private EnumFile.SkillsEnum thirdSkill;
 
+    private Handler mPauseHandler;
+    private Runnable myRunnable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,7 @@ public class TacticsGame extends AppCompatActivity {
         if (actionBar != null)
             actionBar.hide();
 
+        mPauseHandler = new Handler();
 
         //if savestate exists
         //else
@@ -294,7 +299,7 @@ public class TacticsGame extends AppCompatActivity {
             if (possibleTargets.contains(row*3+col)) {
                 Log.d(TAG, log + ", target is valid spot to move to");
                 boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
-                changeTurn();
+                delayCleanUp();
             } else {
                 Log.d(TAG, log + ", cannot move here");
             }
@@ -307,7 +312,7 @@ public class TacticsGame extends AppCompatActivity {
                 && possibleTargets.contains(row*3+col)) {
             Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
             boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
-            changeTurn();
+            delayCleanUp();
         } else {
             Log.d(TAG, log + ", selected computer's character, cannot use skill");
         }
@@ -329,11 +334,33 @@ public class TacticsGame extends AppCompatActivity {
             if (possibleTargets.contains(row*3+col)) {
                 Log.d(TAG, log + ", target is valid to use skill on");
                 boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
-                changeTurn();
+                delayCleanUp();
             } else {
                 Log.d(TAG, log + ", target is not valid to use skill on");
             }
         }
+    }
+
+    private Runnable createRunnable() {
+        return new Runnable() {
+            @Override
+            public void run() {
+                changeTurn();
+                boardView.invalidate();
+            }
+        };
+    }
+
+    /* Computer clean up method */
+    private void delayCleanUp() {
+//        turnStatus = EnumFile.TurnStatus.ENEMY;
+        boardView.setTargets(null);
+        boardView.setCharacter(-1);
+        boardLogic.checkGameOver();
+        boardView.invalidate();
+        myRunnable = createRunnable();
+        mPauseHandler.postDelayed(myRunnable, 1000);
+//                changeTurn();
     }
 
     @Override
