@@ -256,10 +256,12 @@ public class TacticsGame extends AppCompatActivity {
             Intent results = new Intent(this, Result.class);
             results.putExtra("win", true);
             startActivity(results);
+            finish();
         } else if (result == 2) {
             Intent results = new Intent(this, Result.class);
             results.putExtra("win", false);
             startActivity(results);
+            finish();
         } else if (result == -1) {
             Log.d(TAG, "SOMETHING WENT VERY VERY WRONG AHHHHHHHH");
         }
