@@ -6,6 +6,7 @@ package askim.eratactics.gamelogic;
 public class EnumFile {
     public enum TurnStatus {
         CHARACTER,
+        ENEMY,
         SKILL,
     }
 
