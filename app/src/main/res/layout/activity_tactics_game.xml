@@ -21,19 +21,17 @@
 
                 <!--TODO replace these images with dummy images later-->
                 <ImageView
-                    android:id="@+id/move"
+                    android:id="@+id/firstSkill"
                     android:layout_width="@dimen/skillBoxSize"
                     android:layout_height="@dimen/skillBoxSize"
-                    android:src="@drawable/move"
                     android:background="@color/white"
                     android:layout_marginLeft="@dimen/skillMarginLR"
                     android:layout_marginRight="@dimen/skillMarginLR"
                     android:layout_marginBottom="@dimen/skillMarginLR"/>
                 <ImageView
-                    android:id="@+id/punch"
+                    android:id="@+id/secondSkill"
                     android:layout_width="@dimen/skillBoxSize"
                     android:layout_height="@dimen/skillBoxSize"
-                    android:src="@drawable/punch"
                     android:background="@color/white"
                     android:layout_marginLeft="@dimen/skillMarginLR"
                     android:layout_marginBottom="@dimen/skillMarginLR"/>
@@ -42,16 +40,16 @@
                     android:layout_width="@dimen/skillBoxSize"
                     android:layout_height="@dimen/skillBoxSize"
                     android:background="@color/white"
-                    android:layout_marginLeft="@dimen/skillMarginLR"/>
-                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
-                <!--<ImageView-->
-                    <!--android:id="@+id/fourSkill"-->
-                    <!--android:layout_width="@dimen/skillBoxSize"-->
-                    <!--android:layout_height="@dimen/skillBoxSize"-->
-                    <!--android:src="@drawable/punch"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:layout_marginLeft="@dimen/skillMarginLR"-->
-                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
+                    android:layout_marginLeft="@dimen/skillMarginLR"
+                    android:layout_marginBottom="@dimen/skillMarginLR"/>
+
+                <ImageView
+                    android:id="@+id/fourthSkill"
+                    android:layout_width="@dimen/skillBoxSize"
+                    android:layout_height="@dimen/skillBoxSize"
+                    android:background="@color/white"
+                    android:layout_marginLeft="@dimen/skillMarginLR"
+                    android:layout_marginBottom="@dimen/skillMarginLR"/>
                 <!--<ImageView-->
                     <!--android:id="@+id/fifthSkill"-->
                     <!--android:layout_width="@dimen/skillBoxSize"-->

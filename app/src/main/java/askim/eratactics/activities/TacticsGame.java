@@ -63,6 +63,8 @@ public class TacticsGame extends AppCompatActivity {
     private EnumFile.SkillsEnum secondSkill;
     private ImageView thirdSkillButton;
     private EnumFile.SkillsEnum thirdSkill;
+    private ImageView fourthSkillButton;
+    private EnumFile.SkillsEnum fourthSkill;
 
     private Handler mPauseHandler;
     private Runnable myRunnable;
@@ -110,22 +112,21 @@ public class TacticsGame extends AppCompatActivity {
         boardView.setOnTouchListener(mTouchListener);
 
         // Setup click listener for each skill buttons
-        firstSkillButton = (ImageView) findViewById(R.id.move);
+        firstSkillButton = (ImageView) findViewById(R.id.firstSkill);
         firstSkillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 highlightSkill(0);
-//                executeSkill(firstSkill);
-                executeSkill(EnumFile.SkillsEnum.MOVE);
+                executeSkill(firstSkill);
 
             }
         });
-        secondSkillButton = (ImageView) findViewById(R.id.punch);
+        secondSkillButton = (ImageView) findViewById(R.id.secondSkill);
         secondSkillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 highlightSkill(1);
-                executeSkill(EnumFile.SkillsEnum.PUNCH);
+                executeSkill(secondSkill);
             }
         });
         thirdSkillButton = (ImageView) findViewById(R.id.thirdSkill);
@@ -133,12 +134,27 @@ public class TacticsGame extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 highlightSkill(2);
-                // TODO get skill
-//                executeSkill("Normal Skill");
-//                selectedSkill =
-
+                executeSkill(thirdSkill);
             }
         });
+
+        fourthSkillButton = (ImageView) findViewById(R.id.fourthSkill);
+        fourthSkillButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                highlightSkill(3);
+                executeSkill(fourthSkill);
+            }
+        });
+
+    }
+
+    private void resetSkills() {
+        firstSkillButton.setImageResource(0);
+        secondSkillButton.setImageResource(0);
+        thirdSkillButton.setImageResource(0);
+        fourthSkillButton.setImageResource(0);
+
     }
 
     /* Send in a value 0 through 2, and boolean if we want to highlight or unhighlight */
@@ -148,6 +164,7 @@ public class TacticsGame extends AppCompatActivity {
             firstSkillButton.setAlpha(OPAQUE);
             secondSkillButton.setAlpha(OPAQUE);
             thirdSkillButton.setAlpha(OPAQUE);
+            fourthSkillButton.setAlpha(OPAQUE);
         }
         if (skillNumber == 0)
             firstSkillButton.setAlpha(HIGHLIGHT);
@@ -155,6 +172,8 @@ public class TacticsGame extends AppCompatActivity {
             secondSkillButton.setAlpha(HIGHLIGHT);
         else if (skillNumber == 2)
             thirdSkillButton.setAlpha(HIGHLIGHT);
+        else if (skillNumber == 3)
+            fourthSkillButton.setAlpha(HIGHLIGHT);
         else
             Log.d(TAG, "Un-highlighting all skill");
     }
@@ -185,20 +204,6 @@ public class TacticsGame extends AppCompatActivity {
         return 0 <= selectedChar && selectedChar <= 17;
     }
 
-    /* Resume music onResume */
-    public void onResume() {
-        super.onResume();
-        if (mBackgroundSound.isCancelled()) {
-            mBackgroundSound.execute();
-        }
-    }
-
-    /* Pause music as needed */
-    public void onPause() {
-        super.onPause();
-        mBackgroundSound.cancel(true);
-    }
-
     /* Creates a new game */
     private void newGame() {
         Log.d(TAG, "Creating new game");
@@ -220,6 +225,7 @@ public class TacticsGame extends AppCompatActivity {
     /* Switch player turn to computer turn or vice versa */
     private void changeTurn() {
         /* Unhighlight skill */
+        resetSkills();
         highlightSkill(-1);
         // TODO future if the player or computer is out of moves but the other is not, then skip the person who is out of turn until the other is out also
         // If out of active pieces, reset all the pieces and try make move again
@@ -264,13 +270,56 @@ public class TacticsGame extends AppCompatActivity {
 
     /* Changes the available skill icon based on available characters */
     private void displaySkills(int row, int col) {
-        boardLogic.getAdventurerSkills(row, col);
-
-//      TODO based on the ArrayList<EnumFile.SkillsEnum> returned, iterate through the ImageViews to change the source
-//        skillButton.setImageResource(R.drawable.new_image);
-//        skillButton =
+        ArrayList<EnumFile.SkillsEnum> skillList = boardLogic.getAdventurerSkills(row, col);
+        int skillListSize = skillList.size();
+        Log.d(TAG, "Skill list size: " + skillList.size());
+        if (skillListSize >= 1) {
+            firstSkillButton.setImageResource(selectSkill(skillList.get(0)));
+            firstSkill = skillList.get(0);
+        }
+        if (skillListSize >= 2) {
+            secondSkillButton.setImageResource(selectSkill(skillList.get(1)));
+            secondSkill = skillList.get(1);
+        }
+        if (skillListSize >= 3) {
+            thirdSkillButton.setImageResource(selectSkill(skillList.get(2)));
+            thirdSkill = skillList.get(2);
+        }
+        if (skillListSize >=4) {
+            fourthSkillButton.setImageResource(selectSkill(skillList.get(3)));
+            fourthSkill = skillList.get(3);
+        }
     }
 
+    private int selectSkill(EnumFile.SkillsEnum skill) {
+        int image = -1;
+        switch(skill) {
+            case FIREBALL:
+                Log.d(TAG, "Changing skill image to fireball");
+                return R.drawable.fireball;
+            case HEAL:
+                Log.d(TAG, "Changing skill image to heal");
+                return R.drawable.first_aid;
+            case LIGHTNING:
+                Log.d(TAG, "Changing skill image to lightning");
+                return R.drawable.lightning;
+            case MOVE:
+                Log.d(TAG, "Changing skill image to move");
+                return R.drawable.move;
+            case PUNCH:
+                Log.d(TAG, "Changing skill image to punch");
+                return R.drawable.punch;
+            case STRIKE:
+                Log.d(TAG, "Changing skill image to melee");
+                return R.drawable.melee;
+            case BLOCK:
+                Log.d(TAG, "Changing skill image to shield");
+                return R.drawable.shield;
+            default:
+                Log.d(TAG, "Something went wrong when selecting a skill!");
+        }
+        return image;
+    }
 
     /* Circles available targets to use skill on */
     public void showTargets() {
@@ -341,6 +390,7 @@ public class TacticsGame extends AppCompatActivity {
             selectedCharCol = col;
             selectedChar = row*3+col;
             boardView.setCharacter(selectedChar);
+            displaySkills(row, col);
             boardView.invalidate();
         /* If it is time to select a target */
         } else if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill != EnumFile.SkillsEnum.INVALID) {
@@ -365,6 +415,7 @@ public class TacticsGame extends AppCompatActivity {
         };
     }
 
+    /* Computer clean up method */
     private void delayCleanUp() {
 //        turnStatus = EnumFile.TurnStatus.ENEMY;
         boardView.setTargets(null);
@@ -376,19 +427,82 @@ public class TacticsGame extends AppCompatActivity {
 //                changeTurn();
     }
 
-    /* Code from this stack overflow thread here http://stackoverflow.com/questions/7928803/background-music-android */
+    @Override
+    protected void onResume(){
+        super.onResume();
+//        mBackgroundSound = new BackgroundSound();
+//        mBackgroundSound.execute();
+        Log.d(TAG, "RESUME");
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d(TAG, "STOP");
+        mBackgroundSound.end();
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        mBackgroundSound = new BackgroundSound();
+        mBackgroundSound.execute();
+        Log.d(TAG, "RESTART");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Log.d(TAG, "STARTING");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBackgroundSound.cancel(true);
+        Log.d(TAG, "DESTROY");
+    }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.d(TAG, "Back pressed");
+        return;
+    }
+
+    /* Code from this stack overflow thread here http://stackoverflow.com/questions/12241474/asynctask-music-not-stopping-when-power-button-pressed */
     public class BackgroundSound extends AsyncTask<Void, Void, Void> {
 
-        // TODO prepare beforehand
+        private MediaPlayer player;
+
+        protected void onPreExecute() {
+//            if (playMusic)
+            player = MediaPlayer.create(TacticsGame.this, R.raw.bgm);
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mp.release();
+                }
+
+            });
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
-            Log.d(TAG, "Starting bgm");
-            MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.bgm);
             player.setLooping(true); // Set looping
             player.setVolume(1.0f, 1.0f);
             player.start();
             return null;
+        }
+
+        public void end(){
+            player.stop();
+            player.release();
         }
     }
 }
