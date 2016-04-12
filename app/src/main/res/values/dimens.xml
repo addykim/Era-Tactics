@@ -4,6 +4,7 @@
     <dimen name="skillBoxSize">65dp</dimen>
 
     <dimen name="skillMarginLR">15dp</dimen>
+    <dimen name="skillMargin">15dp</dimen>
 
     <dimen name="boardMargin">15dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->

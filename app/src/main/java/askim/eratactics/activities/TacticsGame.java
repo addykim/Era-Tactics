@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Adventurer;
@@ -23,6 +22,7 @@ import askim.eratactics.gamelogic.EnumFile;
 import askim.eratactics.gamelogic.Equipment;
 import askim.eratactics.gamelogic.Team;
 import askim.eratactics.views.BoardView;
+import askim.eratactics.views.SkillView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -41,6 +41,9 @@ public class TacticsGame extends AppCompatActivity {
 
     /* Draws the board based on boardLogic */
     private BoardView boardView;
+
+    /* Draws the skills based on character selected */
+    private SkillView skillView;
 
     /* Actual game logic related to the board */
     private Board boardLogic;
@@ -109,43 +112,48 @@ public class TacticsGame extends AppCompatActivity {
         boardView.setGame(boardLogic);
 
         // Listen for touches on the board
-        boardView.setOnTouchListener(mTouchListener);
+        boardView.setOnTouchListener(boardTouchListener);
 
-        // Setup click listener for each skill buttons
-        firstSkillButton = (ImageView) findViewById(R.id.firstSkill);
-        firstSkillButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                highlightSkill(0);
-                executeSkill(firstSkill);
+        skillView = (SkillView) findViewById(R.id.skillList);
+        skillView.setGame(boardLogic);
 
-            }
-        });
-        secondSkillButton = (ImageView) findViewById(R.id.secondSkill);
-        secondSkillButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                highlightSkill(1);
-                executeSkill(secondSkill);
-            }
-        });
-        thirdSkillButton = (ImageView) findViewById(R.id.thirdSkill);
-        thirdSkillButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                highlightSkill(2);
-                executeSkill(thirdSkill);
-            }
-        });
+        skillView.setOnTouchListener(skillTouchListener);
 
-        fourthSkillButton = (ImageView) findViewById(R.id.fourthSkill);
-        fourthSkillButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                highlightSkill(3);
-                executeSkill(fourthSkill);
-            }
-        });
+//        // Setup click listener for each skill buttons
+//        firstSkillButton = (ImageView) findViewById(R.id.firstSkill);
+//        firstSkillButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                highlightSkill(0);
+//                executeSkill(firstSkill);
+//
+//            }
+//        });
+//        secondSkillButton = (ImageView) findViewById(R.id.secondSkill);
+//        secondSkillButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                highlightSkill(1);
+//                executeSkill(secondSkill);
+//            }
+//        });
+//        thirdSkillButton = (ImageView) findViewById(R.id.thirdSkill);
+//        thirdSkillButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                highlightSkill(2);
+//                executeSkill(thirdSkill);
+//            }
+//        });
+//
+//        fourthSkillButton = (ImageView) findViewById(R.id.fourthSkill);
+//        fourthSkillButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                highlightSkill(3);
+//                executeSkill(fourthSkill);
+//            }
+//        });
 
     }
 
@@ -329,9 +337,23 @@ public class TacticsGame extends AppCompatActivity {
         boardView.invalidate();
     }
 
+    // Listen for touches on the skill list
+    // Adapted from in class code
+    private View.OnTouchListener skillTouchListener = new View.OnTouchListener() {
+        /* Rows 1-3 are for the enemies, 4-6 are for the player */
+        public boolean onTouch(View v, MotionEvent event) {
+            // Determine which cell was touched
+            int skill = (int) event.getY() / skillView.getSkillListHeight();
+            String log = "Clicked on " + skill + " skill";
+
+            return false;
+        }
+    };
+
+
     // Listen for touches on the board
     // Adapted from in class code
-    private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
+    private View.OnTouchListener boardTouchListener = new View.OnTouchListener() {
         /* Rows 1-3 are for the enemies, 4-6 are for the player */
         public boolean onTouch(View v, MotionEvent event) {
             // Determine which cell was touched
