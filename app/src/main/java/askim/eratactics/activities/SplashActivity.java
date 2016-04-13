@@ -35,27 +35,26 @@ public class SplashActivity extends AppCompatActivity {
         adventureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), TacticsGame.class);
-                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
                 Log.d(TAG, "Adventure button clicked");
+                startActivity(intent);
             }
         });
         membersButton = (Button) findViewById(R.id.membersButton);
         membersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Members is not available in this version", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(v.getContext(), MembersActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), MembersActivity.class);
                 Log.d(TAG, "Members button clicked");
+                startActivity(intent);
             }
         });
         teamsButton = (Button) findViewById(R.id.teamsButton);
         teamsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Teams Customization is not available in this version", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(v.getContext(), TeamsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), TeamsActivity.class);
+                Log.d(TAG, "Teams button clicked");
                 startActivity(intent);
             }
         });
@@ -63,10 +62,9 @@ public class SplashActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "SettingsActivity is not available in this version", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(v.getContext(), SettingsActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                 Log.d(TAG, "SettingsActivity button clicked");
+                startActivity(intent);
             }
         });
         ActionBar actionBar = getSupportActionBar();
