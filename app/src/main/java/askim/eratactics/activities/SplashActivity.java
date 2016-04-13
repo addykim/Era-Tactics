@@ -62,10 +62,10 @@ public class SplashActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Settings is not available in this version", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(v.getContext(), Settings.class);
+                Toast.makeText(getApplicationContext(), "SettingsActivity is not available in this version", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(v.getContext(), SettingsActivity.class);
 //                startActivity(intent);
-                Log.d(TAG, "Settings button clicked");
+                Log.d(TAG, "SettingsActivity button clicked");
             }
         });
         ActionBar actionBar = getSupportActionBar();

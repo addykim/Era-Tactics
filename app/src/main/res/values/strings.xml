@@ -31,7 +31,7 @@
 
     <!--Post game dialogue-->
 
-    <!--Settings-->
+    <!--SettingsActivity-->
     <string name="music">Music</string>
     <string name="soundFx">Sound Fx</string>
     <string name="vibration">Vibration</string>

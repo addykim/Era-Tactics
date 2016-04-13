@@ -28,13 +28,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme"></activity>
         <activity
-            android:name=".activities.Settings"
+            android:name=".activities.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_tactics_game"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme"></activity>
         <activity
-            android:name=".activities.Result"
+            android:name=".activities.ResultActivity"
             android:label="@string/title_activity_result"></activity>
     </application>
 

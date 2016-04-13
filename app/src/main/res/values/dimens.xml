@@ -15,7 +15,7 @@
     <dimen name="post_game_header">50sp</dimen>
     <dimen name="post_game_back_button">30sp</dimen>
 
-    <!--Settings-->
+    <!--SettingsActivity-->
     <dimen name="setting_header">50sp</dimen>
     <dimen name="options_text">30sp</dimen>
 </resources>

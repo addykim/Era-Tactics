@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import askim.eratactics.R;
 
-public class Result extends Activity {
+public class ResultActivity extends Activity {
 
     private TextView text;
     private ImageView image;

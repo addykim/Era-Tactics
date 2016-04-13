@@ -261,12 +261,12 @@ public class TacticsGame extends AppCompatActivity {
         int result = boardLogic.checkGameOver();
         if (result == 1) {
             //TODO replace with actual intent to win or lose screen
-            Intent results = new Intent(this, Result.class);
+            Intent results = new Intent(this, ResultActivity.class);
             results.putExtra("win", true);
             startActivity(results);
             finish();
         } else if (result == 2) {
-            Intent results = new Intent(this, Result.class);
+            Intent results = new Intent(this, ResultActivity.class);
             results.putExtra("win", false);
             startActivity(results);
             finish();

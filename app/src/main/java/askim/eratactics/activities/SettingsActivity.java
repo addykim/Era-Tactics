@@ -11,7 +11,7 @@ import android.widget.ToggleButton;
 
 import askim.eratactics.R;
 
-public class Settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     SharedPreferences settings;
     SharedPreferences.Editor editor;
