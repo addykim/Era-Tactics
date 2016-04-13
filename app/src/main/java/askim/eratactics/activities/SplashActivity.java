@@ -45,8 +45,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Members is not available in this version", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(v.getContext(), MembersActivity.class);
+                startActivity(intent);
                 Log.d(TAG, "Members button clicked");
-//                TODO start members intent
             }
         });
         teamsButton = (Button) findViewById(R.id.teamsButton);
@@ -54,8 +55,8 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Teams Customization is not available in this version", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Teams button clicked");
-//                TODO start team intent
+                Intent intent = new Intent(v.getContext(), TeamsActivity.class);
+                startActivity(intent);
             }
         });
         settingsButton = (Button) findViewById(R.id.settingsButton);
@@ -63,8 +64,8 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "SettingsActivity is not available in this version", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(v.getContext(), SettingsActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(v.getContext(), SettingsActivity.class);
+                startActivity(intent);
                 Log.d(TAG, "SettingsActivity button clicked");
             }
         });
