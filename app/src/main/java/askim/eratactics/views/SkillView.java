@@ -21,6 +21,8 @@ import askim.eratactics.gamelogic.EnumFile;
  */
 public class SkillView extends View {
 
+    private static final String TAG = "SkillView";
+
     private static final int SKILL_DIFF = 15;
 
     private int selectedChar;
@@ -28,8 +30,6 @@ public class SkillView extends View {
     private Board boardLogic;
     private TacticsGame game;
     private Paint mPaint;
-
-    private int width;
 
     /* Constructor code based on Spring 2016 CS 371M tutorial code */
     public SkillView(Context context) {
@@ -49,29 +49,32 @@ public class SkillView extends View {
 
     public void initialize() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        width = getSkillListWidth();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        mPaint.setColor(Color.LTGRAY);
+        mPaint.setColor(getResources().getColor(R.color.mainBackground));
         mPaint.setStrokeWidth(SKILL_DIFF);
 
-        int skillHeight = (getSkillListHeight()-(5*SKILL_DIFF))/6;
-        // Draw the spacing between boxes
-        for (int i = 1; i<=6; i++) {
-            int xLine = skillHeight*i+SKILL_DIFF/2;
-            canvas.drawLine(0, xLine, width, xLine, mPaint);
-        }
+        int width = getSkillListWidth();
+
+        int height = (getSkillListHeight()-6*SKILL_DIFF)/6;
         Bitmap image;
-        int top, left, right, bottom;
-        // Draw the character bitmaps
-        for (int i=0; i<=6; i++) {
-            top = i*width;
+        int top, left, right, bottom, xLine;
+        for (int i=0; i<6; i++) {
+            // Draw the line
+            xLine = (height+SKILL_DIFF)*(i+1);
+            canvas.drawLine(0, xLine, width, xLine, mPaint);
+
+
+            // Draw the bitmap
             left = 0;
+            top = i*(height+SKILL_DIFF);
+            bottom = top+height;
             right = width;
-            bottom = (i+1)*width;
+            Log.d(TAG, "Drawing skill at " + left + ", " + top + ", " + ", " + right + ", " + bottom);
+            // TODO method to select appropriate skill image
             image = BitmapFactory.decodeResource(getResources(), R.drawable.move);
             canvas.drawBitmap(image, null,
                     new Rect(left, top, right, bottom),
