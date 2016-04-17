@@ -119,27 +119,6 @@ public class TacticsGame extends AppCompatActivity {
         // TODO save instance state
     }
 
-    /* Execute a skill if a valid character was selected
-     * Changes turn status to skill so another character can not be selected */
-    public void executeSkill(EnumFile.SkillsEnum skill) {
-        if (validCharacter()) {
-            if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
-                turnStatus = EnumFile.TurnStatus.SKILL;
-                selectedSkill = skill;
-                showTargets();
-            } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
-                selectedSkill = skill;
-                showTargets();
-            } else {
-                Log.d(TAG, "Can not change turnstatus = skill");
-//                highlightSkill(-1);
-            }
-        } else {
-            Log.d(TAG, "Choose a character first to select a skill");
-//            highlightSkill(-1);
-        }
-    }
-
     /* Return true if a piece is valid character */
     private boolean validCharacter() {
         return 0 <= selectedChar && selectedChar <= 17;
@@ -165,9 +144,6 @@ public class TacticsGame extends AppCompatActivity {
 
     /* Switch player turn to computer turn or vice versa */
     private void changeTurn() {
-        /* Unhighlight skill */
-//        resetSkills();
-//        highlightSkill(-1);
         // TODO future if the player or computer is out of moves but the other is not, then skip the person who is out of turn until the other is out also
         // If out of active pieces, reset all the pieces and try make move again
         do {
@@ -222,19 +198,31 @@ public class TacticsGame extends AppCompatActivity {
     private View.OnTouchListener skillTouchListener = new View.OnTouchListener() {
         /* Rows 1-3 are for the enemies, 4-6 are for the player */
         public boolean onTouch(View v, MotionEvent event) {
-            // Iteratively figure out which panel was touched cause lazy.
-            int skill = (int) event.getY() / skillView.getSkillListHeight();
-            int top = 0, i = 0;
-            int bottom = skillView.getSkillCellHeight();
-            while (i < 6 && !(skill <= top && skill <= bottom)) {
-                top = i*(skillView.getSkillCellHeight()+skillView.SKILL_DIFF);
-                bottom = top+skillView.getSkillCellHeight();
-                i++;
-            }
-            Log.d(TAG, "Clicked on " + i + " skill");
+            int skillNum = (int) event.getY() / skillView.getSkillCellHeight();
+            selectedSkill = skillView.setSkill(skillNum);
+            executeSkill(selectedSkill);
             return false;
         }
     };
+
+    /* Execute a skill if a valid character was selected
+     * Changes turn status to skill so another character can not be selected */
+    public void executeSkill(EnumFile.SkillsEnum skill) {
+        if (validCharacter() && skill != null) {
+            if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
+                turnStatus = EnumFile.TurnStatus.SKILL;
+                selectedSkill = skill;
+                showTargets();
+            } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
+                selectedSkill = skill;
+                showTargets();
+            } else {
+                Log.d(TAG, "Can not change turnstatus = skill");
+            }
+        } else {
+            Log.d(TAG, "Choose a character first to select a skill");
+        }
+    }
 
 
     // Listen for touches on the board
@@ -339,6 +327,7 @@ public class TacticsGame extends AppCompatActivity {
         boardView.setCharacter(-1);
         boardLogic.checkGameOver();
         boardView.invalidate();
+        skillView.nullifySkills();
         myRunnable = createRunnable();
         mPauseHandler.postDelayed(myRunnable, 1000);
     }

@@ -27,8 +27,6 @@ public class SkillView extends View {
 
     private static final String TAG = "SkillView";
 
-
-
     public static final int SKILL_DIFF = 15;
 
     private int height;
@@ -63,6 +61,7 @@ public class SkillView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         tintPaint = new Paint(Color.GRAY);
         filter = new LightingColorFilter(Color.GRAY, Color.BLUE);
+        tintPaint.setColorFilter(filter);
     }
 
     @Override
@@ -86,13 +85,13 @@ public class SkillView extends View {
             top = i*(height+SKILL_DIFF);
             bottom = top+height;
             right = width;
-            Log.d(TAG, "Drawing skill at " + left + ", " + top + ", " + right + ", " + bottom);
-            // TODO method to select appropriate skill image
+//            Log.d(TAG, "Drawing skill at " + left + ", " + top + ", " + right + ", " + bottom);
             // TODO make sure skillIst is set to null when finshed resolving
             if (skillList != null && i < skillList.size()) {
                 image = getImageBitmap(skillList.get(i));
                 /* Highlights the skill if it is the selected skill */
                 if (skillList.get(i) == selectedSkill) {
+                    // TODO not tinting correctly why :()
                     Log.d(TAG, "Tinting skill " + selectedSkill.toString());
                     canvas.drawBitmap(image, null,
                             new Rect(left, top, right, bottom),
@@ -139,7 +138,7 @@ public class SkillView extends View {
             default:
                 image = BitmapFactory.decodeResource(getResources(), R.drawable.wizard_hit);
         }
-        Log.d(TAG, "Returning skill " + skill.toString());
+//        Log.d(TAG, "Returning skill " + skill.toString());
         return image;
     }
 
@@ -147,15 +146,28 @@ public class SkillView extends View {
     /* Assigns boardlogic object to this skillView */
     public void setGame(Board logic) { logic = boardLogic; }
 
-    /* Sets the skill and redraws the */
-    public void setSkill(EnumFile.SkillsEnum skill) {
-        selectedSkill = skill;
-        invalidate();
+    /* Sets the skill and redraws the appropriate skill with a highlight, return true if the skill was set properly */
+    public EnumFile.SkillsEnum setSkill(int skillNum) {
+        if (skillList != null && skillNum < skillList.size()) {
+            selectedSkill = skillList.get(skillNum);
+            invalidate();
+            return selectedSkill;
+        }
+        return null;
     }
 
     /* Sets the skill list and displays the skills */
     public void setSkillList(ArrayList<EnumFile.SkillsEnum> list) {
-        skillList = list;
+        if (list != null) {
+            skillList = list;
+            invalidate();
+        }
+    }
+
+    /* When called, this method will nullify skillList and skills */
+    public void nullifySkills() {
+        selectedSkill = null;
+        skillList = null;
         invalidate();
     }
 
