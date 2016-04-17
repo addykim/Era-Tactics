@@ -120,33 +120,12 @@ public class TacticsGame extends AppCompatActivity {
         skillView.setOnTouchListener(skillTouchListener);
     }
 
-    private void resetSkills() {
-        firstSkillButton.setImageResource(0);
-        secondSkillButton.setImageResource(0);
-        thirdSkillButton.setImageResource(0);
-        fourthSkillButton.setImageResource(0);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-    }
-
-    /* Send in a value 0 through 2, and boolean if we want to highlight or unhighlight */
-    private void highlightSkill(int skillNumber) {
-        /* Unhighlight everything */
-        for (int index = 0; index < 3; index++) {
-            firstSkillButton.setAlpha(OPAQUE);
-            secondSkillButton.setAlpha(OPAQUE);
-            thirdSkillButton.setAlpha(OPAQUE);
-            fourthSkillButton.setAlpha(OPAQUE);
-        }
-        if (skillNumber == 0)
-            firstSkillButton.setAlpha(HIGHLIGHT);
-        else if (skillNumber == 1)
-            secondSkillButton.setAlpha(HIGHLIGHT);
-        else if (skillNumber == 2)
-            thirdSkillButton.setAlpha(HIGHLIGHT);
-        else if (skillNumber == 3)
-            fourthSkillButton.setAlpha(HIGHLIGHT);
-        else
-            Log.d(TAG, "Un-highlighting all skill");
+        Log.d(TAG, "onSaveInstanceState");
+        // TODO save instance state
     }
 
     /* Execute a skill if a valid character was selected
@@ -162,11 +141,11 @@ public class TacticsGame extends AppCompatActivity {
                 showTargets();
             } else {
                 Log.d(TAG, "Can not change turnstatus = skill");
-                highlightSkill(-1);
+//                highlightSkill(-1);
             }
         } else {
             Log.d(TAG, "Choose a character first to select a skill");
-            highlightSkill(-1);
+//            highlightSkill(-1);
         }
     }
 
@@ -196,8 +175,8 @@ public class TacticsGame extends AppCompatActivity {
     /* Switch player turn to computer turn or vice versa */
     private void changeTurn() {
         /* Unhighlight skill */
-        resetSkills();
-        highlightSkill(-1);
+//        resetSkills();
+//        highlightSkill(-1);
         // TODO future if the player or computer is out of moves but the other is not, then skip the person who is out of turn until the other is out also
         // If out of active pieces, reset all the pieces and try make move again
         do {
@@ -237,36 +216,6 @@ public class TacticsGame extends AppCompatActivity {
             Log.d(TAG, "SOMETHING WENT VERY VERY WRONG AHHHHHHHH");
         }
         // else continue playing
-    }
-
-    private int selectSkill(EnumFile.SkillsEnum skill) {
-        int image = -1;
-        switch(skill) {
-            case FIREBALL:
-                Log.d(TAG, "Changing skill image to fireball");
-                return R.drawable.fireball;
-            case HEAL:
-                Log.d(TAG, "Changing skill image to heal");
-                return R.drawable.first_aid;
-            case LIGHTNING:
-                Log.d(TAG, "Changing skill image to lightning");
-                return R.drawable.lightning;
-            case MOVE:
-                Log.d(TAG, "Changing skill image to move");
-                return R.drawable.move;
-            case PUNCH:
-                Log.d(TAG, "Changing skill image to punch");
-                return R.drawable.punch;
-            case STRIKE:
-                Log.d(TAG, "Changing skill image to melee");
-                return R.drawable.melee;
-            case BLOCK:
-                Log.d(TAG, "Changing skill image to shield");
-                return R.drawable.shield;
-            default:
-                Log.d(TAG, "Something went wrong when selecting a skill!");
-        }
-        return image;
     }
 
     /* Circles available targets to use skill on */
