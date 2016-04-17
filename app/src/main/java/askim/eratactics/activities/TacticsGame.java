@@ -118,43 +118,6 @@ public class TacticsGame extends AppCompatActivity {
         skillView.setGame(boardLogic);
 
         skillView.setOnTouchListener(skillTouchListener);
-
-//        // Setup click listener for each skill buttons
-//        firstSkillButton = (ImageView) findViewById(R.id.firstSkill);
-//        firstSkillButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                highlightSkill(0);
-//                executeSkill(firstSkill);
-//
-//            }
-//        });
-//        secondSkillButton = (ImageView) findViewById(R.id.secondSkill);
-//        secondSkillButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                highlightSkill(1);
-//                executeSkill(secondSkill);
-//            }
-//        });
-//        thirdSkillButton = (ImageView) findViewById(R.id.thirdSkill);
-//        thirdSkillButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                highlightSkill(2);
-//                executeSkill(thirdSkill);
-//            }
-//        });
-//
-//        fourthSkillButton = (ImageView) findViewById(R.id.fourthSkill);
-//        fourthSkillButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                highlightSkill(3);
-//                executeSkill(fourthSkill);
-//            }
-//        });
-
     }
 
     private void resetSkills() {
@@ -274,29 +237,6 @@ public class TacticsGame extends AppCompatActivity {
             Log.d(TAG, "SOMETHING WENT VERY VERY WRONG AHHHHHHHH");
         }
         // else continue playing
-    }
-
-    /* Changes the available skill icon based on available characters */
-    private void displaySkills(int row, int col) {
-        ArrayList<EnumFile.SkillsEnum> skillList = boardLogic.getAdventurerSkills(row, col);
-        int skillListSize = skillList.size();
-        Log.d(TAG, "Skill list size: " + skillList.size());
-        if (skillListSize >= 1) {
-            firstSkillButton.setImageResource(selectSkill(skillList.get(0)));
-            firstSkill = skillList.get(0);
-        }
-        if (skillListSize >= 2) {
-            secondSkillButton.setImageResource(selectSkill(skillList.get(1)));
-            secondSkill = skillList.get(1);
-        }
-        if (skillListSize >= 3) {
-            thirdSkillButton.setImageResource(selectSkill(skillList.get(2)));
-            thirdSkill = skillList.get(2);
-        }
-        if (skillListSize >=4) {
-            fourthSkillButton.setImageResource(selectSkill(skillList.get(3)));
-            fourthSkill = skillList.get(3);
-        }
     }
 
     private int selectSkill(EnumFile.SkillsEnum skill) {
@@ -427,7 +367,7 @@ public class TacticsGame extends AppCompatActivity {
             selectedCharCol = col;
             selectedChar = row*3+col;
             boardView.setCharacter(selectedChar);
-            displaySkills(row, col);
+            skillView.setSkillList(boardLogic.getAdventurerSkills(row, col));
             boardView.invalidate();
         /* If it is time to select a target */
         } else if (turnStatus == EnumFile.TurnStatus.SKILL && selectedSkill != EnumFile.SkillsEnum.INVALID) {
@@ -461,29 +401,26 @@ public class TacticsGame extends AppCompatActivity {
         boardView.invalidate();
         myRunnable = createRunnable();
         mPauseHandler.postDelayed(myRunnable, 1000);
-//                changeTurn();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-//        mBackgroundSound = new BackgroundSound();
-//        mBackgroundSound.execute();
         Log.d(TAG, "RESUME");
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
         Log.d(TAG, "STOP");
-        mBackgroundSound.end();
+//        mBackgroundSound.end();
     }
 
     @Override
     protected void onRestart(){
         super.onRestart();
-        mBackgroundSound = new BackgroundSound();
-        mBackgroundSound.execute();
+//        mBackgroundSound = new BackgroundSound();
+//        mBackgroundSound.execute();
         Log.d(TAG, "RESTART");
     }
 
@@ -501,7 +438,7 @@ public class TacticsGame extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mBackgroundSound.cancel(true);
+//        mBackgroundSound.cancel(true);
         Log.d(TAG, "DESTROY");
     }
 
