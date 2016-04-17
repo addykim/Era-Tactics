@@ -208,19 +208,25 @@ public class TacticsGame extends AppCompatActivity {
     /* Execute a skill if a valid character was selected
      * Changes turn status to skill so another character can not be selected */
     public void executeSkill(EnumFile.SkillsEnum skill) {
-        if (validCharacter() && skill != null) {
-            if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
-                turnStatus = EnumFile.TurnStatus.SKILL;
-                selectedSkill = skill;
-                showTargets();
-            } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
-                selectedSkill = skill;
-                showTargets();
+        if (validCharacter()) {
+            if (skill != null) {
+                if (turnStatus == EnumFile.TurnStatus.CHARACTER) {
+                    turnStatus = EnumFile.TurnStatus.SKILL;
+                    selectedSkill = skill;
+                    showTargets();
+                } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
+                    selectedSkill = skill;
+                    showTargets();
+                } else {
+                    Log.d(TAG, "Can not change turnstatus = skill");
+                }
             } else {
-                Log.d(TAG, "Can not change turnstatus = skill");
+                Toast.makeText(this, "This is not a valid skill!", Toast.LENGTH_SHORT).show();
+                //TODO select a valid skill, then select invalid skill causes crash
             }
         } else {
             Log.d(TAG, "Choose a character first to select a skill");
+            Toast.makeText(this, "Select a character before selecting a skill", Toast.LENGTH_LONG).show();
         }
     }
 
