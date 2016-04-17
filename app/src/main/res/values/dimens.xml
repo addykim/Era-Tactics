@@ -18,4 +18,7 @@
     <!--SettingsActivity-->
     <dimen name="setting_header">50sp</dimen>
     <dimen name="options_text">30sp</dimen>
+    <dimen name="helper_text">20sp</dimen>
+    <dimen name="toggle_width">100dp</dimen>
+    <dimen name="toggle_margin">10dp</dimen>
 </resources>

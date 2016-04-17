@@ -1,6 +1,7 @@
 package askim.eratactics.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -10,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,13 +31,10 @@ import askim.eratactics.views.SkillView;
 public class TacticsGame extends AppCompatActivity {
 
 
+    private boolean playMusic;
     private BackgroundSound mBackgroundSound;
 
     private static final String TAG = "TacticsGame";
-
-    private static final float OPAQUE = 1;
-    private static final float HIGHLIGHT = (float) 0.75;
-
 
     /* Draws the board based on boardLogic */
     private BoardView boardView;
@@ -59,16 +56,6 @@ public class TacticsGame extends AppCompatActivity {
     private EnumFile.SkillsEnum selectedSkill;
     private ArrayList<Integer> possibleTargets;
 
-    /* Skill buttons */
-    private ImageView firstSkillButton;
-    private EnumFile.SkillsEnum firstSkill;
-    private ImageView secondSkillButton;
-    private EnumFile.SkillsEnum secondSkill;
-    private ImageView thirdSkillButton;
-    private EnumFile.SkillsEnum thirdSkill;
-    private ImageView fourthSkillButton;
-    private EnumFile.SkillsEnum fourthSkill;
-
     private Handler mPauseHandler;
     private Runnable myRunnable;
 
@@ -79,8 +66,14 @@ public class TacticsGame extends AppCompatActivity {
 
         setContentView(R.layout.activity_tactics_game);
 
-//        mBackgroundSound = new BackgroundSound();
-//        mBackgroundSound.execute();
+        SharedPreferences mPrefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE);
+
+        /* Initialize music */
+        playMusic = mPrefs.getBoolean("music", false);
+        mBackgroundSound = new BackgroundSound();
+        if (playMusic) {
+            mBackgroundSound.execute();
+        }
         /* Hide action bar */
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
@@ -88,8 +81,6 @@ public class TacticsGame extends AppCompatActivity {
 
         mPauseHandler = new Handler();
 
-        //if savestate exists
-        //else
         newGame();
         Team alphaTeam = new Team();
         Adventurer villager1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.VILLAGER)});
