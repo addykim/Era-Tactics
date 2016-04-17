@@ -79,8 +79,8 @@ public class TacticsGame extends AppCompatActivity {
 
         setContentView(R.layout.activity_tactics_game);
 
-        mBackgroundSound = new BackgroundSound();
-        mBackgroundSound.execute();
+//        mBackgroundSound = new BackgroundSound();
+//        mBackgroundSound.execute();
         /* Hide action bar */
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
@@ -342,10 +342,16 @@ public class TacticsGame extends AppCompatActivity {
     private View.OnTouchListener skillTouchListener = new View.OnTouchListener() {
         /* Rows 1-3 are for the enemies, 4-6 are for the player */
         public boolean onTouch(View v, MotionEvent event) {
-            // Determine which cell was touched
+            // Iteratively figure out which panel was touched cause lazy.
             int skill = (int) event.getY() / skillView.getSkillListHeight();
-            String log = "Clicked on " + skill + " skill";
-
+            int top = 0, i = 0;
+            int bottom = skillView.getSkillCellHeight();
+            while (i < 6 && !(skill <= top && skill <= bottom)) {
+                top = i*(skillView.getSkillCellHeight()+skillView.SKILL_DIFF);
+                bottom = top+skillView.getSkillCellHeight();
+                i++;
+            }
+            Log.d(TAG, "Clicked on " + i + " skill");
             return false;
         }
     };
