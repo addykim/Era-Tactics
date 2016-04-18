@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="askim.eratactics">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/archer_normal"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activities.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.TacticsGame"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_tactics_game"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity
+            android:name=".activities.TeamsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_tactics_game"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity
+            android:name=".activities.MembersActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_tactics_game"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_tactics_game"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity
+            android:name=".activities.ResultActivity"
+            android:label="@string/title_activity_result"></activity>
+    </application>
+
+</manifest>
