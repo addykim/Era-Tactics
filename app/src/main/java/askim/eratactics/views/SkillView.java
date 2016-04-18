@@ -31,12 +31,9 @@ public class SkillView extends View {
 
     private int height;
 
-    private int selectedChar;
     private ArrayList<EnumFile.SkillsEnum> skillList;
     private EnumFile.SkillsEnum selectedSkill;
 
-    private Board boardLogic;
-    private TacticsGame game;
     private Paint mPaint;
     private Paint tintPaint;
     private ColorFilter filter;
@@ -102,9 +99,7 @@ public class SkillView extends View {
                             null);
                 }
             }
-            // TODO will I need to actually draw a null bitmap?
             // else draw nothing
-
         }
     }
 
@@ -142,10 +137,6 @@ public class SkillView extends View {
         return image;
     }
 
-
-    /* Assigns boardlogic object to this skillView */
-    public void setGame(Board logic) { logic = boardLogic; }
-
     /* Sets the skill and redraws the appropriate skill with a highlight, return true if the skill was set properly */
     public EnumFile.SkillsEnum setSkill(int skillNum) {
         if (skillList != null && skillNum < skillList.size()) {
@@ -180,9 +171,6 @@ public class SkillView extends View {
         }
         invalidate();
     }
-
-    // TODO not sure if this class is needed quite yet
-    public void setCharacter(int character) { selectedChar = character; }
 
     public int getSkillListHeight() { return getHeight(); }
     public int getSkillListWidth() { return getWidth(); }
