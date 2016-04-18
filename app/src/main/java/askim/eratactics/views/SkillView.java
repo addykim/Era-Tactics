@@ -171,6 +171,16 @@ public class SkillView extends View {
         invalidate();
     }
 
+    /* Dulls the skills to indicate that the user cannot click on anything */
+    public void dullSkills(boolean dull) {
+        if (dull) {
+            setBackgroundColor(Color.GRAY);
+        } else {
+            setBackgroundColor(Color.WHITE);
+        }
+        invalidate();
+    }
+
     // TODO not sure if this class is needed quite yet
     public void setCharacter(int character) { selectedChar = character; }
 

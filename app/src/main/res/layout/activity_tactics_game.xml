@@ -7,10 +7,22 @@
 
     <!--Insert content here or inside linearlayout-->
 
+    <TextView
+        android:id="@+id/textPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/playersTurn"
+        android:textSize="@dimen/options_text"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
     <RelativeLayout
+        android:id="@+id/views"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp">
+
+
 
         <askim.eratactics.views.SkillView
             android:id="@+id/skillList"
@@ -22,60 +34,6 @@
             android:layout_marginLeft="@dimen/skillMargin"
             android:layout_marginRight="@dimen/skillMargin"
             />
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="@dimen/boardMargin"-->
-            <!--android:orientation="vertical"-->
-            <!--android:layout_alignParentBottom="true">-->
-
-                <!--&lt;!&ndash;TODO replace these images with dummy images later&ndash;&gt;-->
-                <!--<ImageView-->
-                    <!--android:id="@+id/firstSkill"-->
-                    <!--android:layout_width="@dimen/skillBoxSize"-->
-                    <!--android:layout_height="@dimen/skillBoxSize"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:layout_marginLeft="@dimen/skillMarginLR"-->
-                    <!--android:layout_marginRight="@dimen/skillMarginLR"-->
-                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
-                <!--<ImageView-->
-                    <!--android:id="@+id/secondSkill"-->
-                    <!--android:layout_width="@dimen/skillBoxSize"-->
-                    <!--android:layout_height="@dimen/skillBoxSize"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:layout_marginLeft="@dimen/skillMarginLR"-->
-                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
-                <!--<ImageView-->
-                    <!--android:id="@+id/thirdSkill"-->
-                    <!--android:layout_width="@dimen/skillBoxSize"-->
-                    <!--android:layout_height="@dimen/skillBoxSize"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:layout_marginLeft="@dimen/skillMarginLR"-->
-                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/fourthSkill"-->
-                    <!--android:layout_width="@dimen/skillBoxSize"-->
-                    <!--android:layout_height="@dimen/skillBoxSize"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:layout_marginLeft="@dimen/skillMarginLR"-->
-                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
-                <!--<ImageView-->
-                    <!--android:id="@+id/fifthSkill"-->
-                    <!--android:layout_width="@dimen/skillBoxSize"-->
-                    <!--android:layout_height="@dimen/skillBoxSize"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:layout_marginLeft="@dimen/skillMarginLR"-->
-                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
-                <!--<ImageView-->
-                    <!--android:id="@+id/sixthSkill"-->
-                    <!--android:layout_width="@dimen/skillBoxSize"-->
-                    <!--android:layout_height="@dimen/skillBoxSize"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:layout_marginLeft="@dimen/skillMarginLR"-->
-                    <!--android:layout_marginBottom="@dimen/skillMarginLR"/>-->
-        <!--</LinearLayout>-->
 
         <askim.eratactics.views.BoardView
             android:id="@+id/board"

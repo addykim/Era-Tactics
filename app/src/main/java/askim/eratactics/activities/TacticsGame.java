@@ -2,6 +2,7 @@ package askim.eratactics.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -45,9 +47,6 @@ public class TacticsGame extends AppCompatActivity {
     /* Actual game logic related to the board */
     private Board boardLogic;
 
-    /* True when it is player's turn, false when it is computer's turn */
-    private boolean playersTurn;
-
     private EnumFile.TurnStatus turnStatus;
 
     private int selectedChar;
@@ -56,32 +55,36 @@ public class TacticsGame extends AppCompatActivity {
     private EnumFile.SkillsEnum selectedSkill;
     private ArrayList<Integer> possibleTargets;
 
+    /* Creates delay for during computer's turn */
     private Handler mPauseHandler;
     private Runnable myRunnable;
+
+    private TextView prompt;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_tactics_game);
+
+        /* Hide action bar */
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            actionBar.hide();
 
         SharedPreferences mPrefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE);
 
         /* Initialize music */
         playMusic = mPrefs.getBoolean("music", false);
         mBackgroundSound = new BackgroundSound();
-        if (playMusic) {
-            mBackgroundSound.execute();
-        }
-        /* Hide action bar */
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            actionBar.hide();
+        mBackgroundSound.execute();
 
         mPauseHandler = new Handler();
 
+        prompt = (TextView) findViewById(R.id.textPrompt);
         newGame();
+
+        /* Hard coded team composition */
         Team alphaTeam = new Team();
         Adventurer villager1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.VILLAGER)});
         Adventurer apprentice1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.APPRENTICE),
@@ -128,7 +131,6 @@ public class TacticsGame extends AppCompatActivity {
     private void newGame() {
         Log.d(TAG, "Creating new game");
 //        TODO replace newBoard(new Team) with clearboard command
-//        playersTurn = true;
         resetValues();
         possibleTargets = new ArrayList<Integer>();
     }
@@ -147,9 +149,7 @@ public class TacticsGame extends AppCompatActivity {
         // TODO future if the player or computer is out of moves but the other is not, then skip the person who is out of turn until the other is out also
         // If out of active pieces, reset all the pieces and try make move again
         do {
-            Log.d(TAG, "It is now the computer turn");
             boardLogic.makeComputerMove();
-
         } while (boardLogic.getActivePlayers() == 0 && boardLogic.getActiveEnemies() != 0);
 
         if (boardLogic.getActiveEnemies() == 0 && boardLogic.getActivePlayers() == 0) {
@@ -158,7 +158,6 @@ public class TacticsGame extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "New Round", Toast.LENGTH_SHORT).show();
         }
 
-        Log.d(TAG, "It is now the player's turn");
         /* Reset everything for the player's turn */
         resetValues();
         boardView.setTargets(null);
@@ -166,7 +165,7 @@ public class TacticsGame extends AppCompatActivity {
         boardView.invalidate();
 
         /* Dead pieces are also removed in checkGameOver */
-        Log.d(TAG, "Checking for winner");
+//        Log.d(TAG, "Checking for winner");
         int result = boardLogic.checkGameOver();
         if (result == 1) {
             //TODO replace with actual intent to win or lose screen
@@ -217,6 +216,8 @@ public class TacticsGame extends AppCompatActivity {
                 } else if (turnStatus == EnumFile.TurnStatus.SKILL) {
                     selectedSkill = skill;
                     showTargets();
+                } else if (turnStatus == EnumFile.TurnStatus.ENEMY) {
+                    Log.d(TAG, "Enemy's turn cannot execute skill");
                 } else {
                     Log.d(TAG, "Can not change turnstatus = skill");
                 }
@@ -321,22 +322,43 @@ public class TacticsGame extends AppCompatActivity {
             @Override
             public void run() {
                 changeTurn();
-                boardView.invalidate();
+                changePrompt(false);
+//                boardView.invalidate();
             }
         };
     }
 
     /* Computer clean up method */
     private void delayCleanUp() {
-//        turnStatus = EnumFile.TurnStatus.ENEMY;
+        turnStatus = EnumFile.TurnStatus.ENEMY;
+
+        // Nullify everything
         boardView.setTargets(null);
         boardView.setCharacter(-1);
         boardLogic.checkGameOver();
         boardView.invalidate();
         skillView.nullifySkills();
+
+        // Do delay for computer
+        changePrompt(true);
         myRunnable = createRunnable();
         mPauseHandler.postDelayed(myRunnable, 1000);
     }
+
+    /* Manages the changePrompt for the game. */
+    public void changePrompt(boolean dull) {
+        String text = getResources().getString(R.string.playersTurn);
+        if (turnStatus == EnumFile.TurnStatus.ENEMY) {
+            text = getResources().getString(R.string.computersTurn);
+            Log.d(TAG, "Computer's turn");
+        }
+        // Set things back to normal to indicate it is now the character's turn
+        boardView.dullBoard(dull);
+        skillView.dullSkills(dull);
+        prompt.setText(text);
+        prompt.invalidate();
+    }
+
 
     @Override
     protected void onResume(){
@@ -389,7 +411,6 @@ public class TacticsGame extends AppCompatActivity {
         private MediaPlayer player;
 
         protected void onPreExecute() {
-//            if (playMusic)
             player = MediaPlayer.create(TacticsGame.this, R.raw.bgm);
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
@@ -403,9 +424,11 @@ public class TacticsGame extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            player.setLooping(true); // Set looping
-            player.setVolume(1.0f, 1.0f);
-            player.start();
+            if (playMusic) {
+                player.setLooping(true); // Set looping
+                player.setVolume(1.0f, 1.0f);
+                player.start();
+            }
             return null;
         }
 

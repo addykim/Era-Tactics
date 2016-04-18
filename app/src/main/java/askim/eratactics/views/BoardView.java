@@ -255,6 +255,19 @@ public class BoardView extends View {
         }
     }
 
+    /* Dulls the skills to indicate that the user cannot click on anything */
+    public void dullBoard(boolean dull) {
+
+        if (dull) {
+            setBackgroundColor(Color.GRAY);
+            Log.d(TAG, "Dulling board");
+        } else {
+            setBackgroundColor(Color.WHITE);
+            Log.d(TAG, "Board set back to normal");
+        }
+        invalidate();
+    }
+
     /* Call this method whenever a character(enemy or player) is hit
         TODO
      */

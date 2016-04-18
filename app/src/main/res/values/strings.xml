@@ -25,6 +25,8 @@
     <string name="startStage">Fight</string>
 
     <!--Game play-->
+    <string name="playersTurn">Player\'s turn</string>
+    <string name="computersTurn">Computer\'s turn</string>
     <string name="postGameCleared">Level Cleared!</string>
     <string name="postGameLose">Defeated :(</string>
     <string name="backButton">Back</string>
