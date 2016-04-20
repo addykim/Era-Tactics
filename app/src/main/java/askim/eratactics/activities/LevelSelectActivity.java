@@ -15,7 +15,12 @@ public class LevelSelectActivity extends AppCompatActivity {
 
     private static final String TAG = "Level select";
 
+
+     // TODO replace with a level select button views
     private Button firstLevel;
+    private Button secondLevel;
+    private Button thirdLevel;
+    private Button forthLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +32,40 @@ public class LevelSelectActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.hide();
 
+
+        // TODO programmatically create list of levels
         firstLevel = (Button) findViewById(R.id.firstLevel);
         firstLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
+                Log.d(TAG, "First level button clicked");
+                startActivity(intent);
+            }
+        });
+
+        secondLevel = (Button) findViewById(R.id.secondLevel);
+        secondLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
+                Log.d(TAG, "First level button clicked");
+                startActivity(intent);
+            }
+        });
+
+        thirdLevel = (Button) findViewById(R.id.thirdLevel);
+        thirdLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
+                Log.d(TAG, "First level button clicked");
+                startActivity(intent);
+            }
+        });
+
+        forthLevel = (Button) findViewById(R.id.forthLevel);
+        forthLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
