@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
         adventureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
+                Intent intent = new Intent(getApplicationContext(), LevelSelectActivity.class);
                 Log.d(TAG, "Adventure button clicked");
                 startActivity(intent);
             }

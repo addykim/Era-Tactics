@@ -31,6 +31,11 @@
     <string name="clearedLevel">Cleared!</string>
     <string name="newLevel">New!</string>
 
+    <string name="firstLevel">First Level</string>
+    <string name="secondLevel">Second Level</string>
+    <string name="thirdLevel">Third Level</string>
+    <string name="forthLevel">Forth Level</string>
+
     <!--Team selection-->
     <string name="startStage">Fight</string>
 
@@ -51,4 +56,5 @@
     <string name="left_handed_helper">Turn this off if you prefer to play left handed.</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_result">Result</string>
+    <string name="title_activity_level_select">LevelSelectActivity</string>
 </resources>

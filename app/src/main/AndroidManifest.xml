@@ -3,6 +3,7 @@
     package="askim.eratactics">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/archer_normal"
@@ -26,28 +27,31 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_tactics_game"
             android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activities.TeamsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_tactics_game"
             android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activities.MembersActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_tactics_game"
             android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activities.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_tactics_game"
             android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activities.ResultActivity"
-            android:label="@string/title_activity_result"></activity>
+            android:label="@string/title_activity_result" />
+        <activity
+            android:name=".activities.LevelSelectActivity"
+            android:label="@string/title_activity_level_select"></activity>
     </application>
 
 </manifest>
