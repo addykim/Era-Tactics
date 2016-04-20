@@ -2,7 +2,6 @@ package askim.eratactics.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -96,10 +95,10 @@ public class TacticsGame extends AppCompatActivity {
                                                               new Equipment(EnumFile.Equipments.BASIC_POTION)});
         Adventurer archer1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.ARCHER),
                                                             new Equipment(EnumFile.Equipments.BASIC_ARROW)});
-        alphaTeam.addAdventurer(villager1, 2, false);
-        alphaTeam.addAdventurer(apprentice1, 6, false);
-        alphaTeam.addAdventurer(magician1, 3, false);
-        alphaTeam.addAdventurer(archer1, 5, false);
+        alphaTeam.putAdventurer(villager1, 2, false);
+        alphaTeam.putAdventurer(apprentice1, 6, false);
+        alphaTeam.putAdventurer(magician1, 3, false);
+        alphaTeam.putAdventurer(archer1, 5, false);
 
 
 //        boardLogic = new Board(new Team());
