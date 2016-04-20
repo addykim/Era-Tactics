@@ -14,7 +14,7 @@
             android:id="@+id/settingsHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/setting_header"
+            android:textSize="@dimen/activity_header_text"
             android:text="@string/settings"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/toggle_margin"/>

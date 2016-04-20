@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--Used throughout the app-->
+    <dimen name="activity_header_text">50sp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--Members-->
+
+    <!--Equipment-->
+    <dimen name="equipment_display_size">100dp</dimen>
+    <dimen name="equipment_header_text">40sp</dimen>
+    <dimen name="equipment_normal_text">25sp</dimen>
+
+    <!--Inventory-->
+
     <!--Size of skill images inside activity_tactics_game.xml-->
     <dimen name="skillBoxSize">65dp</dimen>
 
@@ -7,16 +24,12 @@
     <dimen name="skillMargin">15dp</dimen>
 
     <dimen name="boardMargin">15dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!--Post game-->
     <dimen name="post_game_header">50sp</dimen>
     <dimen name="post_game_back_button">30sp</dimen>
 
     <!--SettingsActivity-->
-    <dimen name="setting_header">50sp</dimen>
     <dimen name="options_text">30sp</dimen>
     <dimen name="helper_text">20sp</dimen>
     <dimen name="toggle_width">100dp</dimen>

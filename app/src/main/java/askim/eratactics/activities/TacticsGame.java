@@ -109,7 +109,6 @@ public class TacticsGame extends AppCompatActivity {
         boardView.setOnTouchListener(boardTouchListener);
 
         skillView = (SkillView) findViewById(R.id.skillList);
-        skillView.setGame(boardLogic);
 
         skillView.setOnTouchListener(skillTouchListener);
     }
@@ -130,7 +129,6 @@ public class TacticsGame extends AppCompatActivity {
     /* Creates a new game */
     private void newGame() {
         Log.d(TAG, "Creating new game");
-//        TODO replace newBoard(new Team) with clearboard command
         resetValues();
         possibleTargets = new ArrayList<Integer>();
     }
