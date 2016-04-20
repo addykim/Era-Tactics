@@ -49,7 +49,9 @@ public class Adventurer {
      */
     public boolean changeEquipment (Equipment e, int pos) {
         if (e.compatibleClasses.contains(adventurerClass)) {
+            equipments[pos].setEquipped(false);
             equipments[pos] = e;
+            equipments[pos].setEquipped(true);
             return true;
         }
         return false;
@@ -164,6 +166,25 @@ public class Adventurer {
         if (isLeader)
             agi += 0;
         return agi;
+    }
+
+    public ArrayList<Equipment> availableEquipment(int pos, ArrayList<Equipment> allEquipment) {
+        ArrayList<Equipment> results = new ArrayList<Equipment>();
+
+        for (Equipment e : allEquipment) {
+            if (!e.isEquipped() && e.isCompatible(adventurerClass.className) && e.pos == pos)
+                results.add(e);
+        }
+
+        return results;
+    }
+
+    public void setLeaderEquipment(int pos) {
+        for (Equipment e : equipments) {
+            if (e.isLeaderSkillActivated())
+                e.setLeaderEquipment(false);
+        }
+        equipments[pos].setLeaderEquipment(true);
     }
 
 //GETTER METHODS:

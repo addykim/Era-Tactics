@@ -29,6 +29,7 @@ public class Equipment {
 
     // making sure that the equipment goes with the adventurer's class
     public ArrayList<EnumFile.ClassEnum> compatibleClasses;
+    private boolean equipped;
 
     public Equipment() {
         stats = new double[]{3, 0, 0, 0, 0, 0, 0, 0};
@@ -38,7 +39,7 @@ public class Equipment {
         name = "SuperShield";
         pos = 1;
         leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
-        leaderSkillActivated = true;
+        leaderSkillActivated = false;
     }
 
     public Equipment(EnumFile.ClassEnum className) {
@@ -75,6 +76,7 @@ public class Equipment {
                 pos = 3;
                 break;
         }
+        leaderSkillActivated = false;
     }
 
     public Equipment(EnumFile.Equipments equipment) {
@@ -120,8 +122,23 @@ public class Equipment {
                 compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
                 skill = EnumFile.SkillsEnum.HEAL;
                 break;
-        }    }
+        }
+        leaderSkillActivated = false;
+    }
 
+    public boolean isCompatible(EnumFile.ClassEnum className) {
+        if (compatibleClasses.contains(className))
+            return true;
+        return false;
+    }
+
+    public void setEquipped(boolean equip) {
+        equipped = equip;
+    }
+
+    public void setLeaderEquipment(boolean leader) {
+        leaderSkillActivated = leader;
+    }
 
 //GETTER METHODS:
     public EnumFile.SkillsEnum getSkill() {
@@ -134,6 +151,10 @@ public class Equipment {
 
     public EnumFile.SkillsEnum getLeaderSkill() {
         return leaderSkill;
+    }
+
+    public boolean isEquipped() {
+        return equipped;
     }
 
 }

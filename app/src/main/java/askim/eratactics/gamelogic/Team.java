@@ -1,5 +1,7 @@
 package askim.eratactics.gamelogic;
 
+import java.util.ArrayList;
+
 /**
  * Created by nunuloop on 3/24/16.
  */
@@ -13,6 +15,7 @@ public class Team {
      */
 
     public Adventurer[] adventurers;
+    public ArrayList<Adventurer> teamMembers;
     public Adventurer leader;
     public int advCount;
 
@@ -27,15 +30,45 @@ public class Team {
     public Team(boolean debugMode) {
         adventurers = new Adventurer[9];
         debugMode = true;
-        addAdventurer(new Adventurer(new Equipment[3]), 0, true);
+        putAdventurer(new Adventurer(new Equipment[3]), 0, true);
     }
 
-    public void addAdventurer(Adventurer adv, int pos, boolean isLeader) {
-        adventurers[pos] = adv;
-        if (isLeader) {
-            leader = adv;
+    public boolean addTeamMember(Adventurer adv) {
+        if (teamMembers.size() < 5 && !teamMembers.contains(adv)) {
+            teamMembers.add(adv);
+            return true;
         }
-        advCount++;
+        return false;
+    }
+
+    public boolean putAdventurer(Adventurer adv, int pos, boolean isLeader) {
+        if (teamMembers.contains(adv)) {
+            for (int i = 0; i < 9; i++) {
+                if (adventurers[i] == adv) {
+                    adventurers[i] = null;
+                    advCount--;
+                }
+            }
+            adventurers[pos] = adv;
+            if (isLeader) {
+                leader = adv;
+            }
+            advCount++;
+            return true;
+        }
+        return false;
+    }
+
+    public void swapAdventurer(int from, int to) {
+        if (adventurers[to] != null) {
+            Adventurer temp = adventurers[to];
+            adventurers[to] = adventurers[from];
+            adventurers[from] = temp;
+        }
+        else {
+            adventurers[to] = adventurers[from];
+            adventurers[from] = null;
+        }
     }
 
     public Adventurer getAdventurer(int pos) {
