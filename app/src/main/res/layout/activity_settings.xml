@@ -93,6 +93,7 @@
             android:layout_above="@+id/leftHandedHelper"
             android:layout_alignRight="@+id/leftHandedHelper"
             android:layout_alignEnd="@+id/leftHandedHelper" />
+
         <TextView
             android:id="@+id/leftHandedHelper"
             android:layout_width="wrap_content"
