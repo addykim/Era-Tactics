@@ -1,8 +1,11 @@
 package askim.eratactics.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +24,7 @@ public class ResultActivity extends Activity {
         setContentView(R.layout.activity_result);
 
         Intent results = getIntent(); // gets the previously created intent
+        SharedPreferences mPrefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE);
 
         text = (TextView) findViewById(R.id.result_header);
         image = (ImageView) findViewById(R.id.result_image);
@@ -28,6 +32,10 @@ public class ResultActivity extends Activity {
         boolean win = results.getBooleanExtra("win", false);
         if (win) {
             text.setText(R.string.postGameCleared);
+            if (mPrefs.getBoolean("vibration", false)) {
+                Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+                v.vibrate(500);
+            }
         } else {
             text.setText(R.string.postGameLose);
             image.setImageResource(R.drawable.lose_game);

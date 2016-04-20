@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,8 +112,18 @@ public class TacticsGame extends AppCompatActivity {
         boardView.setOnTouchListener(boardTouchListener);
 
         skillView = (SkillView) findViewById(R.id.skillList);
-
         skillView.setOnTouchListener(skillTouchListener);
+
+        Button instaWin = (Button) findViewById(R.id.instaWin);
+        instaWin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent results = new Intent(getApplicationContext(), ResultActivity.class);
+                results.putExtra("win", true);
+                startActivity(results);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -146,6 +157,7 @@ public class TacticsGame extends AppCompatActivity {
 
     /* Switch player turn to computer turn or vice versa */
     private void changeTurn() {
+        checkForWinner();
         // TODO future if the player or computer is out of moves but the other is not, then skip the person who is out of turn until the other is out also
         // If out of active pieces, reset all the pieces and try make move again
         do {
@@ -164,7 +176,11 @@ public class TacticsGame extends AppCompatActivity {
         boardView.setCharacter(selectedChar);
         boardView.invalidate();
 
-        /* Dead pieces are also removed in checkGameOver */
+        checkForWinner();
+    }
+
+    /* Dead pieces are also removed in checkGameOver */
+    public void checkForWinner() {
 //        Log.d(TAG, "Checking for winner");
         int result = boardLogic.checkGameOver();
         if (result == 1) {
@@ -287,6 +303,7 @@ public class TacticsGame extends AppCompatActivity {
                 && possibleTargets.contains(row*3+col)) {
             Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
             boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
+            playSFX();
             delayCleanUp();
         } else {
             Log.d(TAG, log + ", selected computer's character, cannot use skill");
@@ -345,6 +362,30 @@ public class TacticsGame extends AppCompatActivity {
         mPauseHandler.postDelayed(myRunnable, 1000);
     }
 
+
+    public void playSFX() {
+
+        switch (selectedSkill) {
+            case INVALID:
+                // DEBUG
+                Toast.makeText(getApplicationContext(), "Something terrible has happened while trying to play sfx", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Something terrible has happened");
+                break;
+            case PUNCH:
+                break;
+            case LIGHTNING:
+                break;
+            default:
+                Log.d(TAG, "Have not made a case yet for this skill");
+//                invalid
+        }
+//        if (sfxToPlay != null) {
+        // soundID, leftVolume, rightVolume, priority, loop, rate
+        //mSounds.play(mHumanMoveSoundID, 1, 1, 1, 0, 1);
+    gi//    }
+    }
+
+
     /* Manages the changePrompt for the game. */
     public void changePrompt(boolean dull) {
         String text = getResources().getString(R.string.playersTurn);
@@ -361,16 +402,33 @@ public class TacticsGame extends AppCompatActivity {
 
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "in onPause");
+//        if(mSounds != null) {
+//            mSounds.release();
+//            mSounds = null;
+//        }
+    }
+
+    @Override
     protected void onResume(){
         super.onResume();
         Log.d(TAG, "RESUME");
+//        mSounds = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
+        // 2 = maximum sounds ot play at the same time,
+        // AudioManager.STREAM_MUSIC is the stream type typically used for games
+        // 0 is the "the sample-rate converter quality. Currently has no effect. Use 0 for the default."
+//        mHumanMoveSoundID = mSounds.load(this, R.raw.human_move, 1);
+        // Context, id of resource, priority (currently no effect)
+//        mComputerMoveSoundID = mSounds.load(this, R.raw.computer_move, 1);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "STOP");
-//        mBackgroundSound.end();
+        mBackgroundSound.end();
     }
 
     @Override
@@ -382,11 +440,6 @@ public class TacticsGame extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
     protected void onStart(){
         super.onStart();
         Log.d(TAG, "STARTING");
@@ -395,7 +448,7 @@ public class TacticsGame extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        mBackgroundSound.cancel(true);
+        mBackgroundSound.cancel(true);
         Log.d(TAG, "DESTROY");
     }
 
