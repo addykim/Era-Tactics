@@ -21,4 +21,6 @@ public class TeamsActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.hide();
     }
+
+    // TODO method to save changes to team
 }

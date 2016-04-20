@@ -21,7 +21,7 @@
     <string name="equipmentLeaderSkillLabel">Leader Skill</string>
     <string name="dummySkill">Dummy Skill</string>
     <string name="dummyLeaderSkill">Dummy Leader Skill</string>
-    <string name="dummyCharacterName">Wizard Dummy</string>
+    <string name="dummyCharacterName">Dummy</string>
     <string name="equipmentAttack">ATK</string>
     <string name="equipmentDefense">DEF</string>
 
