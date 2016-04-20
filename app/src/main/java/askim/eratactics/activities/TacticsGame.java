@@ -101,7 +101,8 @@ public class TacticsGame extends AppCompatActivity {
 
 
 //        boardLogic = new Board(new Team());
-        boardLogic = new Board(alphaTeam);
+        // TODO: add level tracker and keep going to next level after beating the previous one
+        boardLogic = new Board(alphaTeam, 2);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
 
