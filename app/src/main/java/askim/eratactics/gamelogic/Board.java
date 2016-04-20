@@ -17,7 +17,7 @@ public class Board {
     int activePlayers = 0;
 
 
-    public Board(Team team) {
+    public Board(Team team, int lvl) {
         pieces = new Piece[6][3];
         for (int i = 0; i < 9; i++) {
             Adventurer temp = team.getAdventurer(i);
@@ -32,17 +32,21 @@ public class Board {
                 activePlayers++;
             }
         }
-        generateEnemies();
+        generateEnemies(lvl);
         Log.d(TAG, "Current board status:\n" + printBoard());
     }
 
-    private void generateEnemies() {
-        // 4 enemies
-        pieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG);
-        pieces[0][2] = new Piece(EnumFile.ClassEnum.BADTEETH);
-        pieces[1][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG);
-        pieces[2][2] = new Piece(EnumFile.ClassEnum.BADTEETH);
-        activeEnemies = 4;
+    private void generateEnemies(int lvl) {
+        Piece[][] temp = LevelGenerator.generate(lvl);
+        activeEnemies = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                pieces[i][j] = temp[i][j];
+                if (pieces[i][j] != null) {
+                    activeEnemies++;
+                }
+            }
+        }
     }
 
     // Returns who is in cell of grid
@@ -104,7 +108,7 @@ public class Board {
                 targetType = EnumFile.TargetType.ENEMY;
                 break;
             case LIGHTNING:
-                range = 4;
+                range = pieces[row][col].atr + 4;
                 targetType = EnumFile.TargetType.ENEMY;
                 break;
             case HEAL:
