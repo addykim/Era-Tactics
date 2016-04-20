@@ -76,6 +76,7 @@ public class TacticsGame extends AppCompatActivity {
 
         /* Initialize music */
         playMusic = mPrefs.getBoolean("music", false);
+        Log.d(TAG, "Play music? " + playMusic);
         mBackgroundSound = new BackgroundSound();
         mBackgroundSound.execute();
 
