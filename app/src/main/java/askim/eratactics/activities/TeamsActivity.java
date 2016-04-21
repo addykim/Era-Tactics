@@ -20,6 +20,8 @@ public class TeamsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.hide();
+
+        // TODO tabbed view
     }
 
     // TODO method to save changes to team

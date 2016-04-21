@@ -33,10 +33,12 @@ public class ResultActivity extends Activity {
         if (win) {
             text.setText(R.string.postGameCleared);
             if (mPrefs.getBoolean("vibration", false)) {
+                // TODO play winning sound
                 Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
                 v.vibrate(500);
             }
         } else {
+            // TODO play sad sound :(
             text.setText(R.string.postGameLose);
             image.setImageResource(R.drawable.lose_game);
         }
