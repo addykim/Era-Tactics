@@ -41,6 +41,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
         <activity
+            android:name=".activities.EquipmentActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_tactics_game"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme" />
+        <activity
             android:name=".activities.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_tactics_game"

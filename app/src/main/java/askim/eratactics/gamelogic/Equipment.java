@@ -21,6 +21,7 @@ public class Equipment {
     public String name;
 
     // 0 = head, 1 = hands, 2 = body, 3 = class
+    // NOTE: pos in equipment is DIFFERENT than pos in Adventurer's equipment list, DO NOT MIX UP
     public int pos;
     private EnumFile.SkillsEnum skill;
     private EnumFile.SkillsEnum leaderSkill;
@@ -112,6 +113,7 @@ public class Equipment {
                 pos = 1;compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
                 compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
                 skill = EnumFile.SkillsEnum.LIGHTNING;
+                leaderSkill = EnumFile.SkillsEnum.FIREBALL;
                 break;
             case BASIC_POTION:
                 stats = new double[]{0, 0, 0, 0, 0, 0, 0, 0};
@@ -121,6 +123,24 @@ public class Equipment {
                 compatibleClasses.add(EnumFile.ClassEnum.APPRENTICE);
                 compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
                 skill = EnumFile.SkillsEnum.HEAL;
+                break;
+            case BASIC_ARMOR:
+                stats = new double[]{0, 0, 3, 0, 0, 0, 0, 0};
+                name = "Basic Armor";
+                pos = 2;
+                compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
+                compatibleClasses.add(EnumFile.ClassEnum.APPRENTICE);
+                compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
+                skill = EnumFile.SkillsEnum.NOSKILL;
+                break;
+            case BASIC_HELMET:
+                stats = new double[]{0, 0, 3, 0, 0, 0, 0, 0};
+                name = "Basic Helmet";
+                pos = 0;
+                compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
+                compatibleClasses.add(EnumFile.ClassEnum.APPRENTICE);
+                compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
+                skill = EnumFile.SkillsEnum.NOSKILL;
                 break;
         }
         leaderSkillActivated = false;
