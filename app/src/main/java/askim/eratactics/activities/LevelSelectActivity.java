@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import askim.eratactics.R;
 
@@ -75,5 +77,9 @@ public class LevelSelectActivity extends AppCompatActivity {
             }
         });
     }
+
+//    this.imageView = (ImageView) view.findViewById(R.id.levelCompletionStatus);
+//    this.textView = (TextView) view.findViewById(R.id.levelName);
+
 
 }

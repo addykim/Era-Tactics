@@ -44,7 +44,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.CustomView
 //                .into(customViewHolder.imageView);
 
         //Setting text view title
-//        customViewHolder.textView.setText(Html.fromHtml(MemberView.getTitle()));
+        customViewHolder.textView.setText("Meow");
     }
 
     @Override
@@ -58,8 +58,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.CustomView
 
         public CustomViewHolder(View view) {
             super(view);
-            this.imageView = (ImageView) view.findViewById(R.id.thumbnail);
-            this.textView = (TextView) view.findViewById(R.id.title);
+            this.imageView = (ImageView) view.findViewById(R.id.levelCompletionStatus);
+            this.textView = (TextView) view.findViewById(R.id.levelName);
         }
     }
 }

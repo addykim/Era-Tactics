@@ -472,12 +472,12 @@ public class TacticsGame extends AppCompatActivity {
                 }
 
             });
+            player.setLooping(true); // Set looping
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             if (playMusic) {
-                player.setLooping(true); // Set looping
                 player.setVolume(1.0f, 1.0f);
                 player.start();
             }
