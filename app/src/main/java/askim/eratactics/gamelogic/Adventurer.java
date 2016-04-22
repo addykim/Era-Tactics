@@ -192,6 +192,8 @@ public class Adventurer {
         return results;
     }
 
+    public String getAdventurerName() { return name; }
+
     public void setLeaderEquipment(int pos) {
         for (Equipment e : equipments) {
             if (e.isLeaderSkillActivated())

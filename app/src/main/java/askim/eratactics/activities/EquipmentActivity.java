@@ -40,19 +40,24 @@ public class EquipmentActivity extends AppCompatActivity {
         mImageView[2] = (ImageView)findViewById(R.id.equipment_right);
         mImageView[3] = (ImageView)findViewById(R.id.equipment_armor);
 
-        mTextView = new TextView[6];
+        mTextView = new TextView[7];
         mTextView[0] = (TextView)findViewById(R.id.equipment_character_atk_value);
         mTextView[1] = (TextView)findViewById(R.id.equipment_character_def_value);
         mTextView[2] = (TextView)findViewById(R.id.equipment_character_mag_value);
         mTextView[3] = (TextView)findViewById(R.id.equipment_character_res_value);
         mTextView[4] = (TextView)findViewById(R.id.equipment_skills_text);
         mTextView[5] = (TextView)findViewById(R.id.equipment_leader_skills_text);
+        mTextView[6] = (TextView) findViewById(R.id.equipment_character_name);
+
 
         adv = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.MAGICIAN),
                                              new Equipment(EnumFile.Equipments.BASIC_WAND),
                                              new Equipment(EnumFile.Equipments.BASIC_POTION),
                                              new Equipment(EnumFile.Equipments.BASIC_ARMOR),
                                              new Equipment(EnumFile.Equipments.BASIC_HELMET)});
+
+        // Set adventurer's name
+        mTextView[6].setText(adv.getAdventurerName());
 
         for (int i = 0; i < 4; i++) {
             mImageView[i].setOnClickListener(new EquipmentClickListener(i));
