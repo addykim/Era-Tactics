@@ -13,8 +13,9 @@ public class Adventurer {
     private static final String TAG = "Adventurer";
     public String name;
     public Equipment adventurerClass;
-    // 0 = head, 1,2 = hand, 3 = body
+    // 0 = head, 1 = left hand, 2 = right hand, 3 = body
     public Equipment[] equipments = new Equipment[4];
+    private String leaderSkillDiscription;
 
     public int lvl;
 
@@ -23,21 +24,33 @@ public class Adventurer {
 
         // TODO: Right now we're assuming that the equipments passed in are the correct numbers and types. Later need to check these and throw exceptions if necessary.
         for (Equipment e : equips) {
-            if (e.pos == 3)
+            if (e.pos == 3) {
+                Log.d(TAG, "Setting adventurer class as " + e.name);
                 adventurerClass = e;
-            else if (e.pos == 0)
-                equipments[0] = e;
-            else if (e.pos == 1) {
-                if (equipments[1] == null)
-                    equipments[1] = e;
-                else
-                    equipments[2] = e;
             }
-            else
+            else if (e.pos == 0) {
+                Log.d(TAG, "Setting adventurer helmet as " + e.name);
+                equipments[0] = e;
+            }
+            else if (e.pos == 1) {
+                if (equipments[1] == null) {
+                    Log.d(TAG, "Setting adventurer left hand as " + e.name);
+                    equipments[1] = e;
+                }
+                else {
+                    Log.d(TAG, "Setting adventurer right hand as " + e.name);
+                    equipments[2] = e;
+                }
+            }
+            else {
+                Log.d(TAG, "Setting adventurer armor as " + e.name);
                 equipments[3] = e;
+            }
         }
 
         lvl = 1;
+
+        leaderSkillDiscription = "No Leader Equipment Selected.";
     }
 
     /**
@@ -185,6 +198,7 @@ public class Adventurer {
                 e.setLeaderEquipment(false);
         }
         equipments[pos].setLeaderEquipment(true);
+        leaderSkillDiscription = name + " has " + equipments[pos].name + " as the leader skill!";
     }
 
 //GETTER METHODS:
@@ -201,6 +215,10 @@ public class Adventurer {
             }
         }
         return skills;
+    }
+
+    public String getLeaderSkillDiscription() {
+        return leaderSkillDiscription;
     }
 
 }

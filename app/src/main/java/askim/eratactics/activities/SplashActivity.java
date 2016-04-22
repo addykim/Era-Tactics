@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         membersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MembersActivity.class);
+                Intent intent = new Intent(getApplicationContext(), EquipmentActivity.class);
                 Log.d(TAG, "Members button clicked");
                 startActivity(intent);
             }

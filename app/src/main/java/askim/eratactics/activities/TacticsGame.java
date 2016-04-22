@@ -381,7 +381,7 @@ public class TacticsGame extends AppCompatActivity {
 //        if (sfxToPlay != null) {
         // soundID, leftVolume, rightVolume, priority, loop, rate
         //mSounds.play(mHumanMoveSoundID, 1, 1, 1, 0, 1);
-    gi//    }
+    //    }
     }
 
 

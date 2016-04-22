@@ -18,6 +18,7 @@ public class EnumFile {
         PUNCH,
         STRIKE,
         BLOCK,
+        NOSKILL,
         INVALID
     }
 
@@ -50,6 +51,8 @@ public class EnumFile {
         BASIC_SWORD,
         BASIC_SHIELD,
         BASIC_ARROW,
-        BASIC_POTION
+        BASIC_POTION,
+        BASIC_ARMOR,
+        BASIC_HELMET
     }
 }

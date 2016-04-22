@@ -24,6 +24,8 @@
     <string name="dummyCharacterName">Dummy</string>
     <string name="equipmentAttack">ATK</string>
     <string name="equipmentDefense">DEF</string>
+    <string name="equipmentMagic">MAG</string>
+    <string name="equipmentResistence">RES</string>
 
     <!--Stage selection-->
     <string name="selectStage">Pick a level</string>
