@@ -1,6 +1,7 @@
 package askim.eratactics.activities;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,10 +23,16 @@ public class MembersActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MemberAdapter adapter;
 
+    // Recycler view https://developer.android.com/training/material/lists-cards.html#RecyclerView
+    // Recycler view http://javatechig.com/android/android-recyclerview-example
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_members);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
 
         // Initialize recycler view
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -36,17 +43,15 @@ public class MembersActivity extends AppCompatActivity {
         adapter = new MemberAdapter(MembersActivity.this, memberList);
         mRecyclerView.setAdapter(adapter);
 
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
+//        membersButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), MembersActivity.class);
+//                Log.d(TAG, "Members button clicked");
+//                startActivity(intent);
+//            }
+//        });
 
     }
 }

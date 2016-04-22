@@ -20,7 +20,10 @@ import askim.eratactics.R;
 
 public class InventoryActivity extends FragmentActivity {
 
+    // Tabbed view http://developer.android.com/training/implementing-navigation/lateral.html
+
     /**
+     *
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments representing
      * each object in a collection. We use a {@link android.support.v4.app.FragmentStatePagerAdapter}
      * derivative, which will destroy and re-create fragments as needed, saving and restoring their
@@ -60,32 +63,6 @@ public class InventoryActivity extends FragmentActivity {
         mViewPager.setAdapter(mInventoryPagerAdapter);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // This is called when the Home (Up) button is pressed in the action bar.
-                // Create a simple intent that starts the hierarchical parent activity and
-                // use NavUtils in the Support Package to ensure proper handling of Up.
-                Intent upIntent = new Intent(this, TacticsGame.class);
-                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-                    // This activity is not part of the application's task, so create a new task
-                    // with a synthesized back stack.
-                    TaskStackBuilder.from(this)
-                            // If there are ancestor activities, they should be added here.
-                            .addNextIntent(upIntent)
-                            .startActivities();
-                    finish();
-                } else {
-                    // This activity is part of the application's task, so simply
-                    // navigate up to the hierarchical parent activity.
-                    NavUtils.navigateUpTo(this, upIntent);
-                }
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * A {@link android.support.v4.app.FragmentStatePagerAdapter} that returns a fragment
      * representing an object in the collection.
@@ -108,7 +85,7 @@ public class InventoryActivity extends FragmentActivity {
         @Override
         public int getCount() {
             // For this contrived example, we have a 100-object collection.
-            return 100;
+            return 4;
         }
 
         @Override
@@ -117,23 +94,26 @@ public class InventoryActivity extends FragmentActivity {
         }
     }
 
-    /**
-     * A dummy fragment representing a section of the app, but that simply displays dummy text.
-     */
-    public static class DemoObjectFragment extends Fragment {
+    // Instances of this class are fragments representing a single
+// object in our collection.s
 
+    public static class DemoObjectFragment extends Fragment {
         public static final String ARG_OBJECT = "object";
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.activity_level_select, container, false);
+        public View onCreateView(LayoutInflater inflater,
+                                 ViewGroup container, Bundle savedInstanceState) {
+            // The last two arguments ensure LayoutParams are inflated
+            // properly.
+            View rootView = inflater.inflate(
+                    R.layout.view_inventory, container, false);
             Bundle args = getArguments();
 //            ((TextView) rootView.findViewById(android.R.id.text1)).setText(
 //                    Integer.toString(args.getInt(ARG_OBJECT)));
             return rootView;
         }
     }
+
 }
 
 

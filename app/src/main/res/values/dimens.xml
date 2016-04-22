@@ -16,6 +16,9 @@
     <dimen name="equipment_header_text">40sp</dimen>
     <dimen name="equipment_normal_text">25sp</dimen>
 
+    <!--Inventory-->
+    <dimen name="inventory_square">75dp</dimen>
+    <dimen name="inventory_square_margin">12dp</dimen>
     <!--Team-->
     <dimen name="team_character_size">75dp</dimen>
     <dimen name="team_board_size">300dp</dimen>
