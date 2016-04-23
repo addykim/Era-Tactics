@@ -35,7 +35,7 @@ public class MembersActivity extends AppCompatActivity {
         if (actionBar != null)
 
         // Initialize recycler view
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.member_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         memberList = new ArrayList<>();

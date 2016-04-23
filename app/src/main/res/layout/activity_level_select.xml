@@ -17,6 +17,12 @@
         android:text="@string/selectStage"
         android:textSize="@dimen/activity_header_text"/>
 
+    <view
+        android:id="@+id/level_select_recycler_view"
+        class="android.support.v7.widget.RecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
 
     <!--TODO change button to some layout file that will show whether or not the stage has been cleared-->
     <Button
