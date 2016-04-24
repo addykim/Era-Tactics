@@ -9,7 +9,7 @@
         android:id="@+id/member_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/selectStage"
+        android:text="@string/members"
         android:textSize="@dimen/activity_header_text"/>
 
     <view

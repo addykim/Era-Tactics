@@ -51,7 +51,6 @@ public class LevelSelectActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.hide();
 
-        // TODO programmatically create list of levels
         // TODO hook up buttons so they select the various levels
 
         // Initialize recycler view

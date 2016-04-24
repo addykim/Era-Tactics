@@ -19,7 +19,8 @@ import askim.eratactics.views.MemberView;
 public class MembersActivity extends AppCompatActivity {
 
     private static final String TAG = "Members";
-    private List<MemberView> memberList;
+//    private List<MemberView> memberList;
+    private List<String> memberList;
     private RecyclerView mRecyclerView;
     private MemberAdapter adapter;
 
@@ -33,26 +34,19 @@ public class MembersActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
+            actionBar.hide();
 
         // Initialize recycler view
         mRecyclerView = (RecyclerView) findViewById(R.id.member_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         memberList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            memberList.add(Integer.toString(i));
+        }
 
         adapter = new MemberAdapter(MembersActivity.this, memberList);
         mRecyclerView.setAdapter(adapter);
-
-
-//        membersButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), MembersActivity.class);
-//                Log.d(TAG, "Members button clicked");
-//                startActivity(intent);
-//            }
-//        });
-
     }
 }
 
