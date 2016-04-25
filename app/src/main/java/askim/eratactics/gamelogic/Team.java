@@ -23,12 +23,14 @@ public class Team {
 
     public Team() {
         adventurers = new Adventurer[9];
+        teamMembers = new ArrayList<Adventurer>();
         debugMode = false;
     }
 
     /* Creates a single leader */
     public Team(boolean debugMode) {
         adventurers = new Adventurer[9];
+        teamMembers = new ArrayList<Adventurer>();
         debugMode = true;
         putAdventurer(new Adventurer(new Equipment[3]), 0, true);
     }

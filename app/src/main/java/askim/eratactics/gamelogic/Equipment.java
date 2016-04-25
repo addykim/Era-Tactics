@@ -134,7 +134,7 @@ public class Equipment {
                 skill = EnumFile.SkillsEnum.NOSKILL;
                 break;
             case BASIC_HELMET:
-                stats = new double[]{0, 0, 3, 0, 0, 0, 0, 0};
+                stats = new double[]{0, 0, 2, 0, 0, 0, 0, 0};
                 name = "Basic Helmet";
                 pos = 0;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();

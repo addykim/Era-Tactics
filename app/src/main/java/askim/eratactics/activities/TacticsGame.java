@@ -95,9 +95,13 @@ public class TacticsGame extends AppCompatActivity {
                                                               new Equipment(EnumFile.Equipments.BASIC_POTION)});
         Adventurer archer1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.ARCHER),
                                                             new Equipment(EnumFile.Equipments.BASIC_ARROW)});
+        alphaTeam.addTeamMember(villager1);
         alphaTeam.putAdventurer(villager1, 2, false);
+        alphaTeam.addTeamMember(apprentice1);
         alphaTeam.putAdventurer(apprentice1, 6, false);
+        alphaTeam.addTeamMember(magician1);
         alphaTeam.putAdventurer(magician1, 3, false);
+        alphaTeam.addTeamMember(archer1);
         alphaTeam.putAdventurer(archer1, 5, false);
 
 

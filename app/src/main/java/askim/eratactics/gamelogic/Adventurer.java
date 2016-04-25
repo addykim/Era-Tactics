@@ -200,7 +200,11 @@ public class Adventurer {
                 e.setLeaderEquipment(false);
         }
         equipments[pos].setLeaderEquipment(true);
-        leaderSkillDiscription = name + " has " + equipments[pos].name + " as the leader skill!";
+        if (equipments[pos].getLeaderSkill() != null)
+            leaderSkillDiscription = name + " has " + equipments[pos].name + " as the leader skill!";
+        else
+            leaderSkillDiscription = name + "\'s leader equipment " + equipments[pos].name
+                                   + " does not have a learder skill :P ";
     }
 
 //GETTER METHODS:
