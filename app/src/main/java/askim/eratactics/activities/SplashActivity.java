@@ -62,7 +62,7 @@ public class SplashActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                 Log.d(TAG, "SettingsActivity button clicked");
                 startActivity(intent);
             }
