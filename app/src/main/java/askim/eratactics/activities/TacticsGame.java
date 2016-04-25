@@ -72,6 +72,7 @@ public class TacticsGame extends AppCompatActivity {
         if (actionBar != null)
             actionBar.hide();
 
+        Intent intent = getIntent(); // gets the previously created intent
         SharedPreferences mPrefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE);
 
         /* Initialize music */
@@ -106,8 +107,11 @@ public class TacticsGame extends AppCompatActivity {
 
 
 //        boardLogic = new Board(new Team());
-        // TODO: add level tracker and keep going to next level after beating the previous one
-        boardLogic = new Board(alphaTeam, 2);
+        // Gets level selected
+//        int level = 2;
+        // TODO enable once multiple levels are available
+        int level = intent.getIntExtra("level", -1);
+        boardLogic = new Board(alphaTeam, level);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
 
@@ -476,12 +480,12 @@ public class TacticsGame extends AppCompatActivity {
                 }
 
             });
+            player.setLooping(true); // Set looping
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             if (playMusic) {
-                player.setLooping(true); // Set looping
                 player.setVolume(1.0f, 1.0f);
                 player.start();
             }

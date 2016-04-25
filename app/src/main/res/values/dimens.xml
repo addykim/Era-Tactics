@@ -8,6 +8,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!--Level Select-->
+    <dimen name="level_select_text_size">30sp</dimen>
+    <dimen name="level_image_size">50dp</dimen>
+    <dimen name="level_margin_size">10dp</dimen>
+
     <!--Members-->
 
     <!--Equipment-->
@@ -19,6 +24,7 @@
     <!--Inventory-->
     <dimen name="inventory_square">75dp</dimen>
     <dimen name="inventory_square_margin">12dp</dimen>
+
     <!--Team-->
     <dimen name="team_character_size">75dp</dimen>
     <dimen name="team_board_size">300dp</dimen>

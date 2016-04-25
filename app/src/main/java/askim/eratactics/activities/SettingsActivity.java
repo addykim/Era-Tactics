@@ -83,7 +83,6 @@ public class SettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d(TAG, "Vibration toggle: " + isChecked);
                 if (isChecked) {
-                    Toast.makeText(getApplicationContext(), "Sorry vibration mode isn't available yet :(", Toast.LENGTH_LONG).show();
                     editor.putBoolean("vibration", true);
                 } else {
                     editor.putBoolean("vibration", false);

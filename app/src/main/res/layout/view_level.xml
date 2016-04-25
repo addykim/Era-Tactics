@@ -9,26 +9,31 @@
         android:layout_width="match_parent"
         android:layout_height="80dp">
 
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/wizard_hit" />
 
         <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:id="@+id/levelName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/level_margin_size"
+            android:text="@string/firstLevel"
+            android:textSize="@dimen/level_select_text_size"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/thumbnail"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/levelCompletionStatus"
+            android:layout_width="@dimen/level_image_size"
+            android:layout_height="@dimen/level_image_size"
+            android:layout_marginRight="@dimen/level_margin_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/lock"
             android:maxLines="3"
             android:padding="8dp"
-            android:text="dafdafda"
             android:textColor="#222"
             android:textSize="15dp" />
 
     </RelativeLayout>
+
 </android.support.v7.widget.CardView>

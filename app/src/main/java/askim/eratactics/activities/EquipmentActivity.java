@@ -1,8 +1,10 @@
 package askim.eratactics.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import askim.eratactics.gamelogic.Equipment;
  */
 public class EquipmentActivity extends AppCompatActivity {
 
+    private static final String TAG = "Equipment Activity";
     private ImageView[] mImageView;
 
     private TextView[] mTextView;
@@ -67,8 +70,7 @@ public class EquipmentActivity extends AppCompatActivity {
     }
 
     // TODO: OnClick the equipment buttons will toggle the leader skill of the clicked equipment
-            // Call setLeaderEquipment(int pos) on the adventurer to toggle this
-            // pos: 0 - head, 1 - lefthand, 2 - righthand, 3 - body
+
 
 
     // TODO: Click and hold the equipment buttons will bring up the inventory to pick a replacement
@@ -77,16 +79,28 @@ public class EquipmentActivity extends AppCompatActivity {
             // equipment that the player has (This is not currently created)
             // pos: 0 - head, 1 - lefthand, 2 - righthand, 3 - body
 
-    private class EquipmentClickListener implements View.OnClickListener {
+    private class EquipmentClickListener implements View.OnClickListener, View.OnLongClickListener {
         int equipmentPos;
 
         public EquipmentClickListener(int pos) {
             this.equipmentPos = pos;
         }
 
+        // Call setLeaderEquipment(int pos) on the adventurer to toggle this
+        // pos: 0 - head, 1 - lefthand, 2 - righthand, 3 - body
+        @Override
         public void onClick(View view) {
             adv.setLeaderEquipment(equipmentPos);
             mTextView[5].setText(adv.getLeaderSkillDiscription());
         }
+
+        @Override
+        public boolean onLongClick(View v) {
+            Log.d(TAG, "Long click");
+            Intent intent = new Intent(getApplicationContext(), InventoryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
     }
 }

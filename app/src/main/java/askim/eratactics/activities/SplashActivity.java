@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         membersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), EquipmentActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MembersActivity.class);
                 Log.d(TAG, "Members button clicked");
                 startActivity(intent);
             }
@@ -62,7 +62,7 @@ public class SplashActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
                 Log.d(TAG, "SettingsActivity button clicked");
                 startActivity(intent);
             }

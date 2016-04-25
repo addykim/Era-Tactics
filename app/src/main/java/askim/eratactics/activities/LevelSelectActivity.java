@@ -1,22 +1,41 @@
 package askim.eratactics.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.ArrayList;
 
 import askim.eratactics.R;
+import askim.eratactics.adapters.LevelSelectAdapter;
+import askim.eratactics.views.LevelSelectView;
 
 public class LevelSelectActivity extends AppCompatActivity {
 
     private static final String TAG = "Level select";
 
 
-     // TODO replace with a level select button views
+    private LevelSelectAdapter adapter;
+    private ArrayList<String> levelList;
+//    private ArrayList<LevelSelectView> levelList;
+    // TODO replace with a level select button views
     private Button firstLevel;
     private Button secondLevel;
     private Button thirdLevel;
@@ -32,48 +51,18 @@ public class LevelSelectActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.hide();
 
-
-        // TODO programmatically create list of levels
         // TODO hook up buttons so they select the various levels
-        firstLevel = (Button) findViewById(R.id.firstLevel);
-        firstLevel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
-                Log.d(TAG, "First level button clicked");
-                startActivity(intent);
-            }
-        });
 
-        secondLevel = (Button) findViewById(R.id.secondLevel);
-        secondLevel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
-                Log.d(TAG, "First level button clicked");
-                startActivity(intent);
-            }
-        });
+        // Initialize recycler view
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.level_select_recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        thirdLevel = (Button) findViewById(R.id.thirdLevel);
-        thirdLevel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
-                Log.d(TAG, "First level button clicked");
-                startActivity(intent);
-            }
-        });
-
-        forthLevel = (Button) findViewById(R.id.forthLevel);
-        forthLevel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TacticsGame.class);
-                Log.d(TAG, "First level button clicked");
-                startActivity(intent);
-            }
-        });
+        levelList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            levelList.add(Integer.toString(i));
+        }
+        adapter = new LevelSelectAdapter(LevelSelectActivity.this, levelList);
+        mRecyclerView.setAdapter(adapter);
     }
-
 }
+
