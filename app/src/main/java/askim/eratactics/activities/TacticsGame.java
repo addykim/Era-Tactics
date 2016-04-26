@@ -32,10 +32,6 @@ import askim.eratactics.views.SkillView;
  */
 public class TacticsGame extends AppCompatActivity {
 
-
-    private boolean playMusic;
-    private BackgroundSound mBackgroundSound;
-
     private static final String TAG = "TacticsGame";
 
     /* Draws the board based on boardLogic */
@@ -61,6 +57,11 @@ public class TacticsGame extends AppCompatActivity {
 
     private TextView prompt;
 
+    /* Elements necessary to play music */
+    private BackgroundSound mBackgroundSound;
+    private MediaPlayer sfxPlayer;
+    private boolean playMusic;
+    private boolean playSfx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,7 @@ public class TacticsGame extends AppCompatActivity {
 
         /* Initialize music */
         playMusic = mPrefs.getBoolean("music", false);
+        playSfx = mPrefs.getBoolean("sfx", false);
         Log.d(TAG, "Play music? " + playMusic);
         mBackgroundSound = new BackgroundSound();
         mBackgroundSound.execute();
@@ -371,25 +373,29 @@ public class TacticsGame extends AppCompatActivity {
 
 
     public void playSFX() {
-
-        switch (selectedSkill) {
-            case INVALID:
-                // DEBUG
-                Toast.makeText(getApplicationContext(), "Something terrible has happened while trying to play sfx", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Something terrible has happened");
-                break;
-            case PUNCH:
-                break;
-            case LIGHTNING:
-                break;
-            default:
-                Log.d(TAG, "Have not made a case yet for this skill");
-//                invalid
+        if (playSfx) {
+            int songToPlay = 0;
+            switch (selectedSkill) {
+                case INVALID:
+                    // DEBUG
+                    Toast.makeText(getApplicationContext(), "Something terrible has happened while trying to play sfx", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Something terrible has happened");
+                    break;
+                case PUNCH:
+                    songToPlay = R.raw.punch;
+                    break;
+                case LIGHTNING:
+                    songToPlay = R.raw.explosion;
+                    break;
+                default:
+                    Log.d(TAG, "Have not made a case yet for this skill");
+                // TODO add more sounds
+            }
+            if (sfxPlayer == null || !sfxPlayer.isPlaying()) {
+                sfxPlayer.create(this, songToPlay);
+                sfxPlayer.start();
+            }
         }
-//        if (sfxToPlay != null) {
-        // soundID, leftVolume, rightVolume, priority, loop, rate
-        //mSounds.play(mHumanMoveSoundID, 1, 1, 1, 0, 1);
-    //    }
     }
 
 
@@ -411,24 +417,16 @@ public class TacticsGame extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "in onPause");
-//        if(mSounds != null) {
-//            mSounds.release();
-//            mSounds = null;
-//        }
+        Log.d(TAG, "ON PAUSE");
+        mBackgroundSound.end();
+        // TODO release sfx
     }
 
     @Override
     protected void onResume(){
         super.onResume();
         Log.d(TAG, "RESUME");
-//        mSounds = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
-        // 2 = maximum sounds ot play at the same time,
-        // AudioManager.STREAM_MUSIC is the stream type typically used for games
-        // 0 is the "the sample-rate converter quality. Currently has no effect. Use 0 for the default."
-//        mHumanMoveSoundID = mSounds.load(this, R.raw.human_move, 1);
-        // Context, id of resource, priority (currently no effect)
-//        mComputerMoveSoundID = mSounds.load(this, R.raw.computer_move, 1);
+        // TODO
     }
 
     @Override
@@ -436,13 +434,12 @@ public class TacticsGame extends AppCompatActivity {
         super.onStop();
         Log.d(TAG, "STOP");
         mBackgroundSound.end();
+        // TODO release sfx
     }
 
     @Override
     protected void onRestart(){
         super.onRestart();
-//        mBackgroundSound = new BackgroundSound();
-//        mBackgroundSound.execute();
         Log.d(TAG, "RESTART");
     }
 
@@ -461,7 +458,7 @@ public class TacticsGame extends AppCompatActivity {
 
     public void onBackPressed() {
         super.onBackPressed();
-        Log.d(TAG, "Back pressed");
+        Log.d(TAG, "BACK PRESSED");
         return;
     }
 
