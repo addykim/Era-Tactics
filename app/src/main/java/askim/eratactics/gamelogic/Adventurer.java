@@ -227,4 +227,8 @@ public class Adventurer {
         return leaderSkillDiscription;
     }
 
+    public String getAdventurerClass() {
+        return adventurerClass.name;
+    }
+
 }
