@@ -1,25 +1,12 @@
 package askim.eratactics.activities;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 
@@ -36,10 +23,6 @@ public class LevelSelectActivity extends AppCompatActivity {
     private ArrayList<String> levelList;
 //    private ArrayList<LevelSelectView> levelList;
     // TODO replace with a level select button views
-    private Button firstLevel;
-    private Button secondLevel;
-    private Button thirdLevel;
-    private Button forthLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +41,7 @@ public class LevelSelectActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         levelList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i < 10; i++) {
             levelList.add(Integer.toString(i));
         }
         adapter = new LevelSelectAdapter(LevelSelectActivity.this, levelList);

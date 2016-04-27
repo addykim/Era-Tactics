@@ -41,7 +41,7 @@ public class MembersActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         memberList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i < 10; i++) {
             memberList.add(Integer.toString(i));
         }
 
