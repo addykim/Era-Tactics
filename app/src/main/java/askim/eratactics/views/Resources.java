@@ -8,6 +8,8 @@ import askim.eratactics.gamelogic.EnumFile;
  */
 public class Resources {
 
+    public static int getImageId(EnumFile.ClassEnum advClass) { return getImageId(advClass.toString()); }
+
     public static int getImageId(String advClass) {
         int id;
         switch (advClass.toUpperCase()) {
@@ -42,6 +44,8 @@ public class Resources {
         return id;
     }
 
+    public static int getAttackedImageId(EnumFile.ClassEnum advClass) { return getImageId(advClass.toString()); }
+
     public static int getAttackedImageId(String advClass) {
         int id;
         switch (advClass.toUpperCase()) {
@@ -72,6 +76,41 @@ public class Resources {
                 break;
             default:
                 id = R.drawable.move;
+        }
+        return id;
+    }
+
+    public static int getSkillImageId(EnumFile.SkillsEnum skill) { return getSkillImageId(skill.toString()); }
+
+    public static int getSkillImageId(String skill) {
+        int id;
+        switch (skill.toUpperCase()) {
+            case "MOVE":
+                id = R.drawable.move;
+                break;
+            case "FIREBALL":
+                id =  R.drawable.fireball;
+                break;
+            case "HEAL":
+                id =  R.drawable.first_aid;
+                break;
+            case "LIGHTNING":
+                id =  R.drawable.lightning;
+                break;
+            case "BLOCK":
+                id =  R.drawable.shield;
+                break;
+            case "PUNCH":
+                id =  R.drawable.punch;
+                break;
+            case "STRIKE":
+                id =  R.drawable.melee;
+                break;
+            // TODO potion
+    //                id =  R.drawable.potion;
+    //                break;
+            default:
+                id =  R.drawable.wizard_dmged;
         }
         return id;
     }

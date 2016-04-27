@@ -123,36 +123,7 @@ public class BoardView extends View {
 //            Log.d(TAG, "Drawing character in grid " + row + ", " + col);
             occupant = boardLogic.getBoardOccupant(row, col);
             if (occupant != null) {
-
-                switch (occupant.getPieceClass()) {
-                    case VILLAGER:
-                        image = BitmapFactory.decodeResource(getResources(), R.drawable.villager_normal);
-                        break;
-                    case MAGICIAN:
-                        image = BitmapFactory.decodeResource(getResources(), R.drawable.wizard_normal);
-                        break;
-                    case KNIGHT:
-                        image = BitmapFactory.decodeResource(getResources(), R.drawable.knight_normal);
-                        break;
-                    case ARCHER:
-                        image = BitmapFactory.decodeResource(getResources(), R.drawable.archer_normal);
-                        break;
-                    case APPRENTICE:
-                        image = BitmapFactory.decodeResource(getResources(), R.drawable.apprentice_normal);
-                        break;
-                    case FIGHTER:
-//                        TODO change civilian to fighter
-                        image = BitmapFactory.decodeResource(getResources(), R.drawable.civilian_normal);
-                        break;
-                    case BADTEETH:
-                        image = BitmapFactory.decodeResource(getResources(), R.drawable.enemy_badteeth);
-                        break;
-                    case HORNEDFROG:
-                        image = BitmapFactory.decodeResource(getResources(), R.drawable.enemy_hornedfrog);
-                        break;
-                    default:
-                        image = BitmapFactory.decodeResource(getResources(), R.drawable.move);
-                }
+                image = BitmapFactory.decodeResource(getResources(), Resources.getImageId(occupant.getPieceClass()));
                 if (image != null) {
                     if (occupant.isHasMoved()) {
                         canvas.drawBitmap(image, null,

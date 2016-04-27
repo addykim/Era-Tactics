@@ -103,34 +103,7 @@ public class SkillView extends View {
 
     private Bitmap getImageBitmap(EnumFile.SkillsEnum skill) {
         Bitmap image;
-        switch (skill) {
-            case MOVE:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.move);
-                break;
-            case FIREBALL:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
-                break;
-            case HEAL:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.first_aid);
-                break;
-            case LIGHTNING:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.lightning);
-                break;
-            case BLOCK:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.shield);
-                break;
-            case PUNCH:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.punch);
-                break;
-            case STRIKE:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.melee);
-                break;
-            // TODO potion
-//                image = BitmapFactory.decodeResource(getResources(), R.drawable.potion);
-//                break;
-            default:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.wizard_dmged);
-        }
+        image = BitmapFactory.decodeResource(getResources(), Resources.getSkillImageId(skill));
 //        Log.d(TAG, "Returning skill " + skill.toString());
         return image;
     }
