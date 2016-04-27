@@ -32,7 +32,7 @@ public class Team {
         adventurers = new Adventurer[9];
         teamMembers = new ArrayList<Adventurer>();
         debugMode = true;
-        putAdventurer(new Adventurer(new Equipment[3]), 0, true);
+        putAdventurer(new Adventurer(new Equipment[3], "No."), 0, true);
     }
 
     public boolean addTeamMember(Adventurer adv) {

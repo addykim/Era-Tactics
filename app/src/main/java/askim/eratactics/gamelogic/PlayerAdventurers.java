@@ -20,14 +20,19 @@ public class PlayerAdventurers {
         team2 = new Team();
 
         if (playerId == 0) {
-            Adventurer villager1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.VILLAGER)});
-            Adventurer apprentice1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.APPRENTICE)});
-            Adventurer magician1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.MAGICIAN)});
-            Adventurer archer1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.ARCHER)});
+            Adventurer villager1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.VILLAGER)}, "Bob");
+            Adventurer apprentice1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.APPRENTICE)}, "BOB!");
+            Adventurer magician1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.MAGICIAN)}, "Still Bob");
+            Adventurer archer1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.ARCHER)}, "Uh.. Bob.");
+            Adventurer magician2 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.MAGICIAN)}, "Not Bob");
+            Adventurer apprentice2 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.APPRENTICE)}, "No More Bob.");
+            Adventurer villager2 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.VILLAGER)}, "JK. Bob.");
             squad.add(villager1);
             squad.add(apprentice1);
             squad.add(magician1);
             squad.add(archer1);
+            squad.add(magician2);
+            squad.add(apprentice2);
 
             Equipment basicSword = new Equipment(EnumFile.Equipments.BASIC_SWORD);
             Equipment basicWand = new Equipment(EnumFile.Equipments.BASIC_WAND);
