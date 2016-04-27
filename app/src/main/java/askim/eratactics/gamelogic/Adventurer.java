@@ -19,8 +19,8 @@ public class Adventurer {
 
     public int lvl;
 
-    public Adventurer(Equipment[] equips) {
-        name = "Bob";
+    public Adventurer(Equipment[] equips, String advName) {
+        name = advName;
 
         // TODO: Right now we're assuming that the equipments passed in are the correct numbers and types. Later need to check these and throw exceptions if necessary.
         for (Equipment e : equips) {

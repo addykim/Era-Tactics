@@ -88,14 +88,14 @@ public class TacticsGame extends AppCompatActivity {
 
         /* Hard coded team composition */
         Team alphaTeam = new Team();
-        Adventurer villager1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.VILLAGER)});
+        Adventurer villager1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.VILLAGER)}, "Bob");
         Adventurer apprentice1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.APPRENTICE),
-                                                                new Equipment(EnumFile.Equipments.BASIC_POTION)});
+                                                                new Equipment(EnumFile.Equipments.BASIC_POTION)}, "BOB!");
         Adventurer magician1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.MAGICIAN),
                                                               new Equipment(EnumFile.Equipments.BASIC_WAND),
-                                                              new Equipment(EnumFile.Equipments.BASIC_POTION)});
+                                                              new Equipment(EnumFile.Equipments.BASIC_POTION)}, "Still Bob");
         Adventurer archer1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.ARCHER),
-                                                            new Equipment(EnumFile.Equipments.BASIC_ARROW)});
+                                                            new Equipment(EnumFile.Equipments.BASIC_ARROW)}, "Uh.. Bob.");
         alphaTeam.addTeamMember(villager1);
         alphaTeam.putAdventurer(villager1, 2, false);
         alphaTeam.addTeamMember(apprentice1);
