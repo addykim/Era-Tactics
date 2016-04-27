@@ -57,7 +57,7 @@ public class EquipmentActivity extends AppCompatActivity {
                                              new Equipment(EnumFile.Equipments.BASIC_WAND),
                                              new Equipment(EnumFile.Equipments.BASIC_POTION),
                                              new Equipment(EnumFile.Equipments.BASIC_ARMOR),
-                                             new Equipment(EnumFile.Equipments.BASIC_HELMET)});
+                                             new Equipment(EnumFile.Equipments.BASIC_HELMET)}, "Bob");
 
         // Set adventurer's name
         mTextView[6].setText(adv.getAdventurerName());

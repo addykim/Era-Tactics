@@ -11,6 +11,8 @@ import java.util.List;
 
 import askim.eratactics.R;
 import askim.eratactics.adapters.MemberAdapter;
+import askim.eratactics.gamelogic.Adventurer;
+import askim.eratactics.gamelogic.PlayerAdventurers;
 import askim.eratactics.views.MemberView;
 
 /**
@@ -21,6 +23,7 @@ public class MembersActivity extends AppCompatActivity {
     private static final String TAG = "Members";
 //    private List<MemberView> memberList;
     private List<String> memberList;
+//  private List<Adventurer> memberList;
     private RecyclerView mRecyclerView;
     private MemberAdapter adapter;
 
@@ -40,11 +43,12 @@ public class MembersActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.member_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        PlayerAdventurers members = new PlayerAdventurers(0);
         memberList = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
-            memberList.add(Integer.toString(i));
+//        memberList = members.getAllAdventurers();
+        for (Adventurer adv: members.getAllAdventurers()) {
+            memberList.add(adv.getAdventurerName());
         }
-
         adapter = new MemberAdapter(MembersActivity.this, memberList);
         mRecyclerView.setAdapter(adapter);
     }

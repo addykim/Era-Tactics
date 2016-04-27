@@ -94,8 +94,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
         public MemberViewHolder(View view) {
             super(view);
             view.setOnClickListener(this);
-            this.imageView = (ImageView) view.findViewById(R.id.thumbnail);
-            this.textView = (TextView) view.findViewById(R.id.title);
+            this.imageView = (ImageView) view.findViewById(R.id.member_thumbnail);
+            this.textView = (TextView) view.findViewById(R.id.member_name);
         }
 
         public void onClick(View view) {

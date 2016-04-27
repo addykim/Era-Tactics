@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.lang.reflect.Member;
+
 import askim.eratactics.R;
 
 /**
@@ -53,7 +55,8 @@ public class SplashActivity extends AppCompatActivity {
         teamsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TeamsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), InventoryActivity.class);
+                teamsButton.setText("Temporarily replacing Team");
                 Log.d(TAG, "Teams button clicked");
                 startActivity(intent);
             }
