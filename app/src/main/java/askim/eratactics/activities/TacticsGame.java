@@ -470,13 +470,8 @@ public class TacticsGame extends AppCompatActivity {
         protected void onPreExecute() {
             player = MediaPlayer.create(TacticsGame.this, R.raw.bgm);
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
                 @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mp.release();
-                }
-
-            });
+                public void onCompletion(MediaPlayer mp) {}});
             player.setLooping(true); // Set looping
         }
 
