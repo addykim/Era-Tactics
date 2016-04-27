@@ -24,6 +24,7 @@ import askim.eratactics.gamelogic.EnumFile;
 import askim.eratactics.gamelogic.Equipment;
 import askim.eratactics.gamelogic.Team;
 import askim.eratactics.views.BoardView;
+import askim.eratactics.views.Resources;
 import askim.eratactics.views.SkillView;
 
 /**
@@ -78,10 +79,13 @@ public class TacticsGame extends AppCompatActivity {
 
         /* Initialize music */
         playMusic = mPrefs.getBoolean("music", false);
+        if (playMusic) {
+            mBackgroundSound = new BackgroundSound();
+            mBackgroundSound.execute();
+        }
         playSfx = mPrefs.getBoolean("sfx", false);
-        Log.d(TAG, "Play music? " + playMusic);
-        mBackgroundSound = new BackgroundSound();
-        mBackgroundSound.execute();
+        if (playSfx)
+            sfxPlayer = new MediaPlayer();
 
         mPauseHandler = new Handler();
 
@@ -371,28 +375,12 @@ public class TacticsGame extends AppCompatActivity {
         mPauseHandler.postDelayed(myRunnable, 1000);
     }
 
-
+    /* If the setting to play sfx is on, then the game will play sound effects */
     public void playSFX() {
         if (playSfx) {
-            int songToPlay = 0;
-            switch (selectedSkill) {
-                case INVALID:
-                    // DEBUG
-                    Toast.makeText(getApplicationContext(), "Something terrible has happened while trying to play sfx", Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "Something terrible has happened");
-                    break;
-                case PUNCH:
-                    songToPlay = R.raw.punch;
-                    break;
-                case LIGHTNING:
-                    songToPlay = R.raw.explosion;
-                    break;
-                default:
-                    Log.d(TAG, "Have not made a case yet for this skill");
-                // TODO add more sounds
-            }
+            int soundToPlay = Resources.getSkillSoundId(selectedSkill);
             if (sfxPlayer == null || !sfxPlayer.isPlaying()) {
-                sfxPlayer.create(this, songToPlay);
+                sfxPlayer.create(this, soundToPlay);
                 sfxPlayer.start();
             }
         }
@@ -418,7 +406,8 @@ public class TacticsGame extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "ON PAUSE");
-        mBackgroundSound.end();
+        if (playMusic)
+            mBackgroundSound.end();
         // TODO release sfx
     }
 
@@ -433,7 +422,8 @@ public class TacticsGame extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "STOP");
-        mBackgroundSound.end();
+        if (playMusic)
+            mBackgroundSound.end();
         // TODO release sfx
     }
 
@@ -452,14 +442,18 @@ public class TacticsGame extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mBackgroundSound.cancel(true);
+        if (playMusic)
+            mBackgroundSound.cancel(true);
+//        if (playSfx)
+//            sfxPlayer.release();
         Log.d(TAG, "DESTROY");
     }
 
     public void onBackPressed() {
         super.onBackPressed();
         Log.d(TAG, "BACK PRESSED");
-        return;
+//        if (playSfx)
+//            sfxPlayer.release();
     }
 
     /* Code from this stack overflow thread here http://stackoverflow.com/questions/12241474/asynctask-music-not-stopping-when-power-button-pressed */
@@ -477,10 +471,8 @@ public class TacticsGame extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            if (playMusic) {
-                player.setVolume(1.0f, 1.0f);
-                player.start();
-            }
+            player.setVolume(1.0f, 1.0f);
+            player.start();
             return null;
         }
 

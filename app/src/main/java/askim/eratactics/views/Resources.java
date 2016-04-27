@@ -1,5 +1,7 @@
 package askim.eratactics.views;
 
+import android.util.Log;
+
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.EnumFile;
 
@@ -111,6 +113,25 @@ public class Resources {
     //                break;
             default:
                 id =  R.drawable.wizard_dmged;
+        }
+        return id;
+    }
+
+    public static int getSkillSoundId(EnumFile.SkillsEnum skill) { return getSkillSoundId(skill.toString()); }
+
+    public static int getSkillSoundId(String skill) {
+        int id;
+        switch (skill) {
+            case "PUNCH":
+                id = R.raw.punch;
+                break;
+            case "LIGHTNING":
+                id = R.raw.explosion;
+                break;
+            default:
+//                Log.d(TAG, "Have not made a case yet for this skill");
+                id = R.raw.punch;
+                // TODO add more sounds
         }
         return id;
     }
