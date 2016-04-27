@@ -169,7 +169,7 @@
         android:id="@+id/equipment_character"
         android:layout_width="@dimen/equipment_display_size"
         android:layout_height="@dimen/equipment_display_size"
-        android:src="@drawable/wizard_hit"
+        android:src="@drawable/wizard_dmged"
         android:background="@color/white"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />

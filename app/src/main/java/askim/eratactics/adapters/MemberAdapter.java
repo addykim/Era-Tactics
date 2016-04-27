@@ -20,6 +20,8 @@ import java.util.List;
 import askim.eratactics.R;
 import askim.eratactics.activities.EquipmentActivity;
 import askim.eratactics.activities.TacticsGame;
+import askim.eratactics.gamelogic.Adventurer;
+import askim.eratactics.views.Resources;
 
 /**
  * Created by addykim on 4/21/16.
@@ -27,16 +29,16 @@ import askim.eratactics.activities.TacticsGame;
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberViewHolder> {
 
     private static final String TAG = "MemberAdapter";
-    //    private List<memberView> memberList;
-    private List<String> memberList;
+    private List<Adventurer> memberList;
+//    private List<String> memberList;
 
     private static ClickListener clickListener;
 
     private Context mContext;
     // How to add onclicklistener to adapters
 
-    //    public MemberAdapter(Context context, List<memberView> memberList) {
-    public MemberAdapter(Context context, List<String> memberList) {
+        public MemberAdapter(Context context, List<Adventurer> memberList) {
+//    public MemberAdapter(Context context, List<String> memberList) {
         this.memberList = memberList;
         this.mContext = context;
     }
@@ -52,19 +54,11 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
     @Override
     public void onBindViewHolder(MemberViewHolder customViewHolder, int i) {
 //        memberView memberView = memberList.get(i);
-        String memberView = memberList.get(i);
-        customViewHolder.setItem(memberView);
+//        String memberView = memberList.get(i);
+        Adventurer adv = memberList.get(i);
+
+        customViewHolder.setItem(adv.getAdventurerName(), Resources.getImageId(adv.getAdventurerClass()));
     }
-
-
-//        //Download image using picasso library
-//        Picasso.with(mContext).load(MemberView.getThumbnail())
-//                .error(R.drawable.placeholder)
-//                .placeholder(R.drawable.placeholder)
-//                .into(customViewHolder.imageView);
-
-    //Setting text view title
-//        customViewHolder.textView.setText(Html.fromHtml(MemberView.getTitle()));
 
     public void setOnItemClickListener(ClickListener clickListener) {
         MemberAdapter.clickListener = clickListener;
@@ -74,7 +68,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
         void onItemClick(int position, View v);
 //        void onItemLongClick(int position, View v);
     }
-
 
     @Override
     public int getItemCount() {
@@ -86,9 +79,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
         protected ImageView imageView;
         protected TextView textView;
 
-        public void setItem(String item) {
-            textView.setText(item);
-            imageView.setImageResource(R.drawable.civilian_dmged);
+        public void setItem(String name, int image) {
+            textView.setText(name);
+            imageView.setImageResource(image);
         }
 
         public MemberViewHolder(View view) {

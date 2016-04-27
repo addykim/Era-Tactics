@@ -123,6 +123,7 @@ public class BoardView extends View {
 //            Log.d(TAG, "Drawing character in grid " + row + ", " + col);
             occupant = boardLogic.getBoardOccupant(row, col);
             if (occupant != null) {
+
                 switch (occupant.getPieceClass()) {
                     case VILLAGER:
                         image = BitmapFactory.decodeResource(getResources(), R.drawable.villager_normal);

@@ -16,8 +16,6 @@ import android.view.View;
 import java.util.ArrayList;
 
 import askim.eratactics.R;
-import askim.eratactics.activities.TacticsGame;
-import askim.eratactics.gamelogic.Board;
 import askim.eratactics.gamelogic.EnumFile;
 
 /**
@@ -131,7 +129,7 @@ public class SkillView extends View {
 //                image = BitmapFactory.decodeResource(getResources(), R.drawable.potion);
 //                break;
             default:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.wizard_hit);
+                image = BitmapFactory.decodeResource(getResources(), R.drawable.wizard_dmged);
         }
 //        Log.d(TAG, "Returning skill " + skill.toString());
         return image;

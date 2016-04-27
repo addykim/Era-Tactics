@@ -38,7 +38,7 @@
             android:layout_width="@dimen/team_character_size"
             android:layout_height="@dimen/team_character_size"
             android:background="@color/white"
-            android:src="@drawable/wizard_hit"/>
+            android:src="@drawable/wizard_dmged"/>
         <ImageView
             android:id="@+id/fifthCharacter"
             android:layout_width="@dimen/team_character_size"
