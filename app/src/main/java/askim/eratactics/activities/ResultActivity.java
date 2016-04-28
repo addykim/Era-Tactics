@@ -46,7 +46,6 @@ public class ResultActivity extends Activity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //TODO back button go back to splash screen
             finish();
 
             }

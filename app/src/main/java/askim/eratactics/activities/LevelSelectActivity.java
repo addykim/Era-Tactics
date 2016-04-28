@@ -18,11 +18,8 @@ public class LevelSelectActivity extends AppCompatActivity {
 
     private static final String TAG = "Level select";
 
-
     private LevelSelectAdapter adapter;
     private ArrayList<String> levelList;
-//    private ArrayList<LevelSelectView> levelList;
-    // TODO replace with a level select button views
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

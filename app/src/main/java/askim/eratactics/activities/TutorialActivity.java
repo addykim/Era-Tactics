@@ -18,9 +18,7 @@ public class TutorialActivity extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO back button go back to splash screen
                 finish();
-
             }
         });
     }

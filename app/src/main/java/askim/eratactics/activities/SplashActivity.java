@@ -52,11 +52,13 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
         teamsButton = (Button) findViewById(R.id.teamsButton);
+        teamsButton.setText("Temporarily replacing Team");
+        // TODO fix this before beta release
         teamsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), InventoryActivity.class);
-                teamsButton.setText("Temporarily replacing Team");
+
                 Log.d(TAG, "Teams button clicked");
                 startActivity(intent);
             }

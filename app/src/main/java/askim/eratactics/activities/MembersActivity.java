@@ -43,11 +43,7 @@ public class MembersActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         PlayerAdventurers members = new PlayerAdventurers(0);
-//        memberList = new ArrayList<>();
         memberList = members.getAllAdventurers();
-//        for (Adventurer adv: members.getAllAdventurers()) {
-//            memberList.add(adv.getAdventurerName());
-//        }
         adapter = new MemberAdapter(MembersActivity.this, memberList);
         mRecyclerView.setAdapter(adapter);
     }
