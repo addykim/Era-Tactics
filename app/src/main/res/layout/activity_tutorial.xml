@@ -93,7 +93,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/attackExplanation"
+                android:text="@string/targetExplanation"
                 android:textSize="@dimen/tutorial_h3"/>
 
             <ImageView
@@ -107,6 +107,12 @@
                 android:text="@string/killEnemy"
                 android:textSize="@dimen/tutorial_h2"
                 android:layout_marginTop="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/attackExplanation"
+                android:textSize="@dimen/tutorial_h3"/>
 
             <Button
                 android:layout_width="wrap_content"

@@ -59,6 +59,35 @@ public class EquipmentActivity extends AppCompatActivity {
                                              new Equipment(EnumFile.Equipments.BASIC_ARMOR),
                                              new Equipment(EnumFile.Equipments.BASIC_HELMET)}, "Bob");
 
+        for (int i = 0; i < 4; i++) {
+            switch (adv.equipments[i].enumName) {
+                case BASIC_ARMOR:
+                    mImageView[i].setImageResource(R.drawable.suits);
+                    break;
+                case BASIC_HELMET:
+                    if (adv.adventurerClass.className == EnumFile.ClassEnum.MAGICIAN)
+                        mImageView[i].setImageResource(R.drawable.wizard_hat);
+                    else
+                        mImageView[i].setImageResource(R.drawable.helmet);
+                    break;
+                case BASIC_POTION:
+                    mImageView[i].setImageResource(R.drawable.potion);
+                    break;
+                case BASIC_WAND:
+                    mImageView[i].setImageResource(R.drawable.wand);
+                    break;
+                case BASIC_SHIELD:
+                    mImageView[i].setImageResource(R.drawable.shield);
+                    break;
+                case BASIC_SWORD:
+                    mImageView[i].setImageResource(R.drawable.melee);
+                    break;
+                case BASIC_ARROW:
+                    mImageView[i].setImageResource(R.drawable.arrow);
+                    break;
+            }
+        }
+
         // Set adventurer's name
         mTextView[6].setText(adv.getAdventurerName());
 
@@ -67,6 +96,9 @@ public class EquipmentActivity extends AppCompatActivity {
         }
 
         mTextView[5].setText(adv.getLeaderSkillDiscription());
+
+
+
     }
 
     // TODO: OnClick the equipment buttons will toggle the leader skill of the clicked equipment

@@ -19,6 +19,7 @@ public class Equipment {
      */
     public double[] stats;
     public String name;
+    public EnumFile.Equipments enumName;
 
     // 0 = head, 1 = hands, 2 = body, 3 = class
     // NOTE: pos in equipment is DIFFERENT than pos in Adventurer's equipment list, DO NOT MIX UP
@@ -81,6 +82,7 @@ public class Equipment {
     }
 
     public Equipment(EnumFile.Equipments equipment) {
+        enumName = equipment;
         switch (equipment) {
             case BASIC_SWORD:
                 stats = new double[]{0, 2, 1, 0, 0, 0, 1, 0};
