@@ -75,8 +75,15 @@ public class TacticsGame extends AppCompatActivity {
             actionBar.hide();
 
         Intent intent = getIntent(); // gets the previously created intent
+
         SharedPreferences mPrefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE);
 
+        // TODO get (ran tutorial)from shared preferences
+//        if {
+        Intent tutorialIntent = new Intent(getApplicationContext(), TutorialActivity.class);
+        startActivity(tutorialIntent);
+
+//    }
         /* Initialize music */
         playMusic = mPrefs.getBoolean("music", false);
         if (playMusic) {

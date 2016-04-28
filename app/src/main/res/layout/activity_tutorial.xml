@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBackground">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -15,8 +17,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1. Pick an adventurer!"
-                android:textSize="30dp"
+                android:text="@string/tutorial"
+                android:textSize="@dimen/activity_header_text"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pickAdventurer"
+                android:textSize="@dimen/tutorial_h2"
                 android:layout_marginTop="30dp"/>
 
             <ImageView
@@ -27,8 +35,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2. Pick a skill!"
-                android:textSize="30dp"
+                android:text="@string/pickSkill"
+                android:textSize="@dimen/tutorial_h2"
                 android:layout_marginTop="30dp"/>
 
             <LinearLayout
@@ -50,25 +58,25 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Move"
+                        android:text="@string/move"
                         android:textSize="25dp"
                         android:layout_marginBottom="90dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Punch"
+                        android:text="@string/punch"
                         android:textSize="25dp"
                         android:layout_marginBottom="90dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lightning"
+                        android:text="@string/lightning"
                         android:textSize="25dp"
                         android:layout_marginBottom="90dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Heal"
+                        android:text="@string/heal"
                         android:textSize="25dp"/>
 
                 </LinearLayout>
@@ -78,9 +86,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3. Pick a target!"
-                android:textSize="30dp"
+                android:text="@string/pickTarget"
+                android:textSize="@dimen/tutorial_h2"
                 android:layout_marginTop="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/attackExplanation"
+                android:textSize="@dimen/tutorial_h3"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -90,9 +104,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4. Kill all enemies to win!"
-                android:textSize="30dp"
+                android:text="@string/killEnemy"
+                android:textSize="@dimen/tutorial_h2"
                 android:layout_marginTop="30dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_gravity="center"
+                android:text="@string/playGame"
+                android:textSize="@dimen/tutorial_h2"
+                android:background="?android:selectableItemBackground"
+                android:id="@+id/tutorialBackButton"/>
 
         </LinearLayout>
 

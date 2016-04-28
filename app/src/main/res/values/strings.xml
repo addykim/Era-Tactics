@@ -14,6 +14,16 @@
     <string name="equipment">Equipment</string>
     <string name="inventory">Inventory</string>
     <string name="skills">Skills</string>
+    <string name="tutorial">Tutorial</string>
+
+    <!--Tutorial-->
+    <string name="pickAdventurer">1. Pick an adventurer!</string>
+    <string name="pickSkill">2. Pick a skill!</string>
+    <string name="pickTarget">3. Pick a target!</string>
+    <string name="attackExplanation">Every piece can do an action once. Once everyone has made an action, all pieces will be able to move again.</string>
+    <string name="killEnemy">4. Kill all enemies to win!</string>
+    <string name="playGame">Play</string>
+
 
     <!--Equipment-->
     <string name="equipmentClassLabel">Equipment Class</string>
@@ -38,6 +48,12 @@
     <string name="thirdLevel">Third Level</string>
     <string name="forthLevel">Forth Level</string>
 
+    <!--Skill names-->
+    <string name="heal">Heal</string>
+    <string name="lightning">Lightning</string>
+    <string name="punch">Punch</string>
+    <string name="move">Move</string>
+
     <!--Team selection-->
     <string name="startStage">Fight</string>
 
@@ -60,4 +76,5 @@
     <string name="title_activity_result">Result</string>
     <string name="title_activity_level_select">LevelSelectActivity</string>
     <string name="title_activity_inventory">InventoryActivity</string>
+    <string name="title_activity_tutorial">TutorialActivity</string>
 </resources>
