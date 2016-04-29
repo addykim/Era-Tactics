@@ -78,9 +78,11 @@ public class Adventurer implements Parcelable {
     public Equipment[] getEquipments() {
         return equipments;
     }
-
     public Equipment getEquipment(EnumFile.EquipmentSlots e) {
         return equipments[e.getPosition()];
+    }
+    public Equipment getEquipment(int equipmentPosition) {
+        return equipments[equipmentPosition];
     }
 
 
