@@ -14,9 +14,13 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import askim.eratactics.R;
+import askim.eratactics.adapters.InventoryAdapter;
 
 public class InventoryActivity extends FragmentActivity {
 
@@ -44,23 +48,17 @@ public class InventoryActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
 
-        // Create an adapter that when requested, will return a fragment representing an object in
-        // the collection.
-        //
-        // ViewPager and its adapters use support library fragments, so we must use
-        // getSupportFragmentManager.
-        mInventoryPagerAdapter = new InventoryPagerAdapter(getSupportFragmentManager());
 
-        // Set up action bar.
-        final ActionBar actionBar = getActionBar();
+        GridView gridview = (GridView) findViewById(R.id.inventory_grid);
+        gridview.setAdapter(new InventoryAdapter(this));
 
-        // Specify that the Home button should show an "Up" caret, indicating that touching the
-        // button will take the user one step up in the application's hierarchy.
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        // Set up the ViewPager, attaching the adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mInventoryPagerAdapter);
+//        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> parent, View v,
+//                                    int position, long id) {
+//                Toast.makeText(HelloGridView.this, "" + position,
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     /**
