@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,18 +79,12 @@ public class TacticsGame extends AppCompatActivity {
 
         SharedPreferences mPrefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE);
 
-        // TODO get (ran tutorial)from shared preferences
-//        if {
-        Intent tutorialIntent = new Intent(getApplicationContext(), TutorialActivity.class);
-        startActivity(tutorialIntent);
-
-//    }
         /* Initialize music */
         playMusic = mPrefs.getBoolean("music", false);
-        if (playMusic) {
-            mBackgroundSound = new BackgroundSound();
-            mBackgroundSound.execute();
-        }
+//        if (playMusic) {
+//            mBackgroundSound = new BackgroundSound();
+//            mBackgroundSound.execute();
+//        }
         playSfx = mPrefs.getBoolean("sfx", false);
         if (playSfx)
             sfxPlayer = new MediaPlayer();
@@ -134,6 +129,7 @@ public class TacticsGame extends AppCompatActivity {
         skillView = (SkillView) findViewById(R.id.skillList);
         skillView.setOnTouchListener(skillTouchListener);
 
+        // TODO remove for beta
         Button instaWin = (Button) findViewById(R.id.instaWin);
         instaWin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +138,16 @@ public class TacticsGame extends AppCompatActivity {
                 results.putExtra("win", true);
                 startActivity(results);
                 finish();
+            }
+        });
+
+        ImageView tutorial = (ImageView) findViewById(R.id.gameTutorial);
+        tutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO pass point of the tutorail into
+                Intent tutorialIntent = new Intent(getApplicationContext(), TutorialActivity.class);
+                startActivity(tutorialIntent);
             }
         });
     }
@@ -415,6 +421,7 @@ public class TacticsGame extends AppCompatActivity {
         Log.d(TAG, "ON PAUSE");
         if (playMusic)
             mBackgroundSound.end();
+        if (playSfx) {}
         // TODO release sfx
     }
 
@@ -422,16 +429,12 @@ public class TacticsGame extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         Log.d(TAG, "RESUME");
-        // TODO
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "STOP");
-        if (playMusic)
-            mBackgroundSound.end();
-        // TODO release sfx
     }
 
     @Override
@@ -444,6 +447,10 @@ public class TacticsGame extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         Log.d(TAG, "STARTING");
+        if (playMusic) {
+            mBackgroundSound = new BackgroundSound();
+            mBackgroundSound.execute();
+        }
     }
 
     @Override
@@ -459,8 +466,6 @@ public class TacticsGame extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Log.d(TAG, "BACK PRESSED");
-//        if (playSfx)
-//            sfxPlayer.release();
     }
 
     /* Code from this stack overflow thread here http://stackoverflow.com/questions/12241474/asynctask-music-not-stopping-when-power-button-pressed */
