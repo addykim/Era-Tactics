@@ -49,7 +49,7 @@ public class InventoryActivity extends FragmentActivity {
         setContentView(R.layout.activity_inventory);
 
 
-        GridView gridview = (GridView) findViewById(R.id.inventory_grid);
+        GridView gridview = (GridView) findViewById(R.id.inventory_gridview);
         gridview.setAdapter(new InventoryAdapter(this));
 
 //        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

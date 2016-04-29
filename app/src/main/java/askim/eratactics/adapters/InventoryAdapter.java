@@ -38,9 +38,9 @@ public class InventoryAdapter extends BaseAdapter {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            imageView.setPadding(3, 3, 3, 3);
         } else {
             imageView = (ImageView) convertView;
         }
@@ -54,7 +54,7 @@ public class InventoryAdapter extends BaseAdapter {
             R.drawable.boots, R.drawable.helmet,
             R.drawable.wizard_hat, R.drawable.melee,
             R.drawable.arrow, R.drawable.suits,
-            R.drawable.wand
+            R.drawable.wand, R.drawable.shield
     };
 
 }
