@@ -12,10 +12,9 @@ import java.util.ArrayList;
 public class Adventurer implements Parcelable {
     private static final String TAG = "Adventurer";
     public String name;
-    // TODO set equipments private and adventurerclass private
     public Equipment adventurerClass;
     // 0 = head, 1 = left hand, 2 = right hand, 3 = body
-    public Equipment[] equipments = new Equipment[4];
+    private Equipment[] equipments = new Equipment[4];
     private String leaderSkillDescription;
 
     public int lvl;

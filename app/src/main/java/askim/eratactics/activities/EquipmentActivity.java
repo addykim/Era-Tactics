@@ -65,7 +65,7 @@ public class EquipmentActivity extends AppCompatActivity {
 //                                             new Equipment(EnumFile.Equipments.BASIC_HELMET)}, "Bob");
 
         for (int i = 0; i < 4; i++) {
-            switch (adv.equipments[i].enumName) {
+            switch (adv.getEquipments()[i].enumName) {
                 case BASIC_ARMOR:
                     mImageView[i].setImageResource(R.drawable.suits);
                     break;
