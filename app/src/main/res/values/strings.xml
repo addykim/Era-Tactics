@@ -19,11 +19,15 @@
     <!--Tutorial-->
     <string name="pickAdventurer">1. Pick an adventurer!</string>
     <string name="pickSkill">2. Pick a skill!</string>
+    <string name="targetExplanation">Targets within the range of your selected adventurer and skill are circled out as red.</string>
     <string name="pickTarget">3. Pick a target!</string>
     <string name="attackExplanation">Every piece can do an action once. Once everyone has made an action, all pieces will be able to move again.</string>
     <string name="killEnemy">4. Kill all enemies to win!</string>
     <string name="playGame">Play</string>
 
+    <string name="clickEquipment">1. Click an equipment to use its leader skill. Each adventurer can only have one leader skill at a time.</string>
+    <string name="longClickEquipment">2. Long click an equipment to bring up the inventory to change it. (Coming soon...)</string>
+    <string name="equipmentNote">3. Remember, only equipment of the corresponding type can be equipped. No equipping boots as a helmet! :P</string>
 
     <!--Equipment-->
     <string name="equipmentClassLabel">Equipment Class</string>
