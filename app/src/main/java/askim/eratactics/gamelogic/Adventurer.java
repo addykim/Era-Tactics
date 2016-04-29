@@ -1,21 +1,21 @@
 package askim.eratactics.gamelogic;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by nunuloop on 3/10/16.
  */
-public class Adventurer {
+public class Adventurer implements Parcelable {
     private static final String TAG = "Adventurer";
     public String name;
     public Equipment adventurerClass;
     // 0 = head, 1 = left hand, 2 = right hand, 3 = body
     public Equipment[] equipments = new Equipment[4];
-    private String leaderSkillDiscription;
+    private String leaderSkillDescription;
 
     public int lvl;
 
@@ -50,7 +50,11 @@ public class Adventurer {
 
         lvl = 1;
 
-        leaderSkillDiscription = "No Leader Equipment Selected.";
+        leaderSkillDescription = "No Leader Equipment Selected.";
+    }
+
+    public Adventurer(Parcel in) {
+        readFromParcel(in);
     }
 
     /**
@@ -201,9 +205,9 @@ public class Adventurer {
         }
         equipments[pos].setLeaderEquipment(true);
         if (equipments[pos].getLeaderSkill() != null)
-            leaderSkillDiscription = name + " has " + equipments[pos].name + " as the leader skill!";
+            leaderSkillDescription = name + " has " + equipments[pos].name + " as the leader skill!";
         else
-            leaderSkillDiscription = name + "\'s leader equipment " + equipments[pos].name
+            leaderSkillDescription = name + "\'s leader equipment " + equipments[pos].name
                                    + " does not have a learder skill :P ";
     }
 
@@ -223,12 +227,42 @@ public class Adventurer {
         return skills;
     }
 
-    public String getLeaderSkillDiscription() {
-        return leaderSkillDiscription;
+    public String getLeaderSkillDescription() {
+        return leaderSkillDescription;
     }
 
     public String getAdventurerClass() {
         return adventurerClass.name;
     }
 
+    public void readFromParcel(Parcel in) {
+        name = in.readString();
+        adventurerClass = in.readParcelable(Equipment.class.getClassLoader());
+//        equipments = in.readParcelableArray(Equipment.class.getClassLoader());
+        leaderSkillDescription = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeParcelable(adventurerClass, flags);
+        // TODO
+        dest.writeString(leaderSkillDescription);
+    }
+
+    public static final Parcelable.Creator CREATOR =
+            new Parcelable.Creator() {
+                public Adventurer createFromParcel(Parcel in) {
+                    return new Adventurer(in);
+                }
+
+                public Adventurer[] newArray(int size) {
+                    return new Adventurer[size];
+                }
+            };
 }

@@ -1,11 +1,14 @@
 package askim.eratactics.gamelogic;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by nunuloop on 3/22/16.
  */
-public class Equipment {
+public class Equipment implements Parcelable {
     /**
      * STATS array index, stores EXTRA stats that equipments would give the equipped adventurer
      * 0 hp = health points
@@ -41,6 +44,11 @@ public class Equipment {
         pos = 1;
         leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
         leaderSkillActivated = false;
+    }
+
+
+    public Equipment(Parcel in) {
+        readFromParcel(in);
     }
 
     public Equipment(EnumFile.ClassEnum className) {
@@ -160,7 +168,7 @@ public class Equipment {
         leaderSkillActivated = leader;
     }
 
-//GETTER METHODS:
+    /* Getter methods */
     public EnumFile.SkillsEnum getSkill() {
         return skill;
     }
@@ -177,4 +185,44 @@ public class Equipment {
         return equipped;
     }
 
+
+    public void readFromParcel(Parcel in) {
+//        stats = in.readDoubleArray();
+//        public double[] stats;
+        name = in.readString();
+        pos = in.readInt();
+//        skill = in.read
+//        private EnumFile.SkillsEnum skill;
+//        private EnumFile.SkillsEnum leaderSkill;
+//        public EnumFile.ClassEnum className;
+//        leaderSkillActivated = in.readInt();
+
+        // making sure that the equipment goes with the adventurer's class
+//        public ArrayList<EnumFile.ClassEnum> compatibleClasses;
+
+//        private boolean equipped;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeArray();
+        // TODO
+
+    }
+
+    public static final Parcelable.Creator CREATOR =
+            new Parcelable.Creator() {
+                public Equipment createFromParcel(Parcel in) {
+                    return new Equipment(in);
+                }
+
+                public Equipment[] newArray(int size) {
+                    return new Equipment[size];
+                }
+            };
 }
