@@ -29,6 +29,13 @@
     <string name="longClickEquipment">2. Long click an equipment to bring up the inventory to change it. (Coming soon...)</string>
     <string name="equipmentNote">3. Remember, only equipment of the corresponding type can be equipped. No equipping boots as a helmet! :P</string>
 
+    <string name="chooseAdventurers">1. Pick adventurers</string>
+    <string name="adventurerNumberLimit">Choose adventurers from the list to assign it to your team. You may have up to 5 adventurers on each of your teams.</string>
+    <string name="changeAdventurer">2.Change adventurers </string>
+    <string name="changeAdventurerExplanation">Click on an adventurer to bring up your adventurer list to swap out with another adventurer.</string>
+    <string name="positionAdventurer">3. Place adventurers</string>
+    <string name="positionAdventurerExplanation">Click and drag an adventurer to the grid to assign their position. You may also change your adventurers' positions by dragging the ones already on the grid.</string>
+
     <!--Equipment-->
     <string name="equipmentClassLabel">Equipment Class</string>
     <string name="equipmentSkillLabel">Skill</string>

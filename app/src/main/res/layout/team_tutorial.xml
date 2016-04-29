@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tutorial"
+                android:textSize="@dimen/activity_header_text"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chooseAdventurers"
+                android:textSize="@dimen/tutorial_h2"
+                android:layout_marginTop="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adventurerNumberLimit"
+                android:textSize="@dimen/tutorial_h3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/changeAdventurer"
+                android:textSize="@dimen/tutorial_h2"
+                android:layout_marginTop="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/changeAdventurerExplanation"
+                android:textSize="@dimen/tutorial_h3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/positionAdventurer"
+                android:textSize="@dimen/tutorial_h2"
+                android:layout_marginTop="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/positionAdventurerExplanation"
+                android:textSize="@dimen/tutorial_h3" />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_gravity="center"
+                android:text="@string/playGame"
+                android:textSize="@dimen/tutorial_h2"
+                android:background="?android:selectableItemBackground"
+                android:id="@+id/tutorialBackButton"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
