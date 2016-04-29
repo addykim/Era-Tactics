@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Adventurer implements Parcelable {
     private static final String TAG = "Adventurer";
     public String name;
+    // TODO set equipments private and adventurerclass private
     public Equipment adventurerClass;
     // 0 = head, 1 = left hand, 2 = right hand, 3 = body
     public Equipment[] equipments = new Equipment[4];
@@ -75,8 +76,17 @@ public class Adventurer implements Parcelable {
     }
 
 
-// Stats getters that do calculations according to adventurers' base stats,
-// equipments enhancements, and their leader status
+    public Equipment[] getEquipments() {
+        return equipments;
+    }
+
+    public Equipment getEquipment(EnumFile.EquipmentSlots e) {
+        return equipments[e.getPosition()];
+    }
+
+
+    // Stats getters that do calculations according to adventurers' base stats,
+    // equipments enhancements, and their leader status
 
     /**
      * The following 8 methods are stats getters that calculate according to adventurers' base
