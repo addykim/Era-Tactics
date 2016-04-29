@@ -25,9 +25,9 @@
     <string name="killEnemy">4. Kill all enemies to win!</string>
     <string name="playGame">Play</string>
 
-    <string name="clickEquipment">Click an equipment to use its leader skill. Each adventurer can only have one leader skill at a time.</string>
-    <string name="longClickEquipment">Long click an equipment to bring up the inventory to change it.</string>
-    <string name="equipmentNote">Remember, only equipment of the corresponding type can be equipped. No equipping boots as a helmet! :P</string>
+    <string name="clickEquipment">1. Click an equipment to use its leader skill. Each adventurer can only have one leader skill at a time.</string>
+    <string name="longClickEquipment">2. Long click an equipment to bring up the inventory to change it. (Coming soon...)</string>
+    <string name="equipmentNote">3. Remember, only equipment of the corresponding type can be equipped. No equipping boots as a helmet! :P</string>
 
     <!--Equipment-->
     <string name="equipmentClassLabel">Equipment Class</string>
