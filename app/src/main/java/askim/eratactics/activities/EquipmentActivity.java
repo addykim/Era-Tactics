@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Adventurer;
-import askim.eratactics.gamelogic.EnumFile;
-import askim.eratactics.gamelogic.Equipment;
+import askim.eratactics.views.Resources;
 
 /**
  * Created by addykim on 4/12/16.
@@ -21,6 +20,7 @@ public class EquipmentActivity extends AppCompatActivity {
 
     private static final String TAG = "Equipment Activity";
     private ImageView[] mImageView;
+    private ImageView characterView;
 
     private TextView[] mTextView;
 
@@ -37,6 +37,10 @@ public class EquipmentActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.hide();
 
+        Bundle bundle = getIntent().getExtras();
+        Adventurer adv = bundle.getParcelable("adventurer");
+
+        characterView = (ImageView) findViewById(R.id.equipment_character);
         mImageView = new ImageView[4];
         mImageView[0] = (ImageView)findViewById(R.id.equipment_hat);
         mImageView[1] = (ImageView)findViewById(R.id.equipment_left);
@@ -53,20 +57,23 @@ public class EquipmentActivity extends AppCompatActivity {
         mTextView[6] = (TextView) findViewById(R.id.equipment_character_name);
 
 
-        adv = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.MAGICIAN),
-                                             new Equipment(EnumFile.Equipments.BASIC_WAND),
-                                             new Equipment(EnumFile.Equipments.BASIC_POTION),
-                                             new Equipment(EnumFile.Equipments.BASIC_ARMOR),
-                                             new Equipment(EnumFile.Equipments.BASIC_HELMET)}, "Bob");
+//        adv = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.MAGICIAN),
+//                                             new Equipment(EnumFile.Equipments.BASIC_WAND),
+//                                             new Equipment(EnumFile.Equipments.BASIC_POTION),
+//                                             new Equipment(EnumFile.Equipments.BASIC_ARMOR),
+//                                             new Equipment(EnumFile.Equipments.BASIC_HELMET)}, "Bob");
 
         // Set adventurer's name
         mTextView[6].setText(adv.getAdventurerName());
+        characterView.setImageResource(Resources.getImageId(adv.getAdventurerClass()));
 
         for (int i = 0; i < 4; i++) {
             mImageView[i].setOnClickListener(new EquipmentClickListener(i));
+            // TODO
+//            mImageView[i].setImageResource(Resources.getImageId(ad))
         }
 
-        mTextView[5].setText(adv.getLeaderSkillDiscription());
+        mTextView[5].setText(adv.getLeaderSkillDescription());
     }
 
     // TODO: OnClick the equipment buttons will toggle the leader skill of the clicked equipment
@@ -91,12 +98,13 @@ public class EquipmentActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             adv.setLeaderEquipment(equipmentPos);
-            mTextView[5].setText(adv.getLeaderSkillDiscription());
+            mTextView[5].setText(adv.getLeaderSkillDescription());
         }
 
         @Override
         public boolean onLongClick(View v) {
             Log.d(TAG, "Long click");
+            // TODO does not work yet
             Intent intent = new Intent(getApplicationContext(), InventoryActivity.class);
             startActivity(intent);
             return true;
