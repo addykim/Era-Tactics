@@ -40,7 +40,7 @@ public class LevelSelectDb {
             String createQuery = "CREATE TABLE " + TABLE_NAME +
                     "(_id INTEGER PRIMARY KEY autoincrement, " +
                     "name TEXT, " +
-//                    TODO query "" +
+                    "" +
                     "leaderskilldescription TEXT);";
 
             db.execSQL(createQuery);

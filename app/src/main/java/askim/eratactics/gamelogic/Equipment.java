@@ -3,12 +3,14 @@ package askim.eratactics.gamelogic;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.orm.SugarRecord;
+
 import java.util.ArrayList;
 
 /**
  * Created by nunuloop on 3/22/16.
  */
-public class Equipment implements Parcelable {
+public class Equipment extends SugarRecord {
     /**
      * STATS array index, stores EXTRA stats that equipments would give the equipped adventurer
      * 0 hp = health points
@@ -20,16 +22,23 @@ public class Equipment implements Parcelable {
      * 6 atr = attack range
      * 7 agi = agility, 0~1, possibility of dodging (either)
      */
-    public double[] stats;
-    public String name;
-    public EnumFile.Equipments enumName;
+    private double hp;
+    private double atk;
+    private double def;
+    private double mag;
+    private double res;
+    private double mrg;
+    private double atr;
+    private double agi;
+    private String name;
+    private EnumFile.Equipments enumName;
 
     // 0 = head, 1 = hands, 2 = body, 3 = class
     // NOTE: pos in equipment is DIFFERENT than pos in Adventurer's equipment list, DO NOT MIX UP
     public int pos;
     private EnumFile.SkillsEnum skill;
     private EnumFile.SkillsEnum leaderSkill;
-    public EnumFile.ClassEnum className;
+    private EnumFile.ClassEnum className;
     private boolean leaderSkillActivated;
 
     // making sure that the equipment goes with the adventurer's class
@@ -37,7 +46,14 @@ public class Equipment implements Parcelable {
     private boolean equipped;
 
     public Equipment() {
-        stats = new double[]{3, 0, 0, 0, 0, 0, 0, 0};
+        hp = 3;
+        atk = 0;
+        def = 0;
+        mag = 0;
+        res = 0;
+        mrg = 0;
+        atr = 0;
+        agi = 0;
         skill = EnumFile.SkillsEnum.FIREBALL;
         compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
         compatibleClasses.add(EnumFile.ClassEnum.KNIGHT);
@@ -47,41 +63,78 @@ public class Equipment implements Parcelable {
         leaderSkillActivated = false;
     }
 
-
-    public Equipment(Parcel in) {
-        readFromParcel(in);
-    }
-
     public Equipment(EnumFile.ClassEnum className) {
         this.className = className;
         switch (className) {
             case VILLAGER:
-                stats = new double[]{15, 5, 2, 3, 1, 2, 1, 0};
+                hp = 15;
+                atk = 5;
+                def = 2;
+                mag = 3;
+                res = 1;
+                mrg = 2;
+                atr = 1;
+                agi = 0;
                 name = "Villager";
                 pos = 3;
                 break;
             case FIGHTER:
-                stats = new double[]{25, 8, 5, 3, 2, 3, 1, 0.2};
+                hp = 25;
+                atk = 8;
+                def = 5;
+                mag = 3;
+                res = 2;
+                mrg = 3;
+                atr = 1;
+                agi = 0.2;
                 name = "Fighter";
                 pos = 3;
                 break;
             case KNIGHT:
-                stats = new double[]{25, 10, 8, 3, 2, 3, 1, 0.3};
+                hp = 25;
+                atk = 10;
+                def = 8;
+                mag = 3;
+                res = 2;
+                mrg = 3;
+                atr = 1;
+                agi = 0.3;
                 name = "Knight";
                 pos = 3;
                 break;
             case ARCHER:
-                stats = new double[]{20, 8, 5, 3, 2, 3, 1, 0.2};
+                hp = 20;
+                atk = 8;
+                def = 5;
+                mag = 3;
+                res = 2;
+                mrg = 3;
+                atr = 1;
+                agi = 0.2;
                 name = "Archer";
                 pos = 3;
                 break;
             case MAGICIAN:
-                stats = new double[]{20, 5, 3, 7, 5, 3, 2, 0.3};
+                hp = 20;
+                atk = 5;
+                def = 3;
+                mag = 7;
+                res = 5;
+                mrg = 3;
+                atr = 2;
+                agi = 0.3;
                 name = "Magician";
                 pos = 3;
                 break;
             case APPRENTICE:
-                stats = new double[]{20, 5, 3, 5, 3, 2, 1, 0.1};
+                hp = 20;
+                atk = 5;
+                def = 3;
+                mag = 5;
+                res = 3;
+                mrg = 2;
+                atr = 1;
+                agi = 0.1;
                 name = "Apprentice";
                 pos = 3;
                 break;
@@ -93,7 +146,14 @@ public class Equipment implements Parcelable {
         enumName = equipment;
         switch (equipment) {
             case BASIC_SWORD:
-                stats = new double[]{0, 2, 1, 0, 0, 0, 1, 0};
+                hp = 0;
+                atk = 2;
+                def = 1;
+                mag = 0;
+                res = 0;
+                mrg = 0;
+                atr = 1;
+                agi = 0;
                 name = "Basic Sword";
                 pos = 1;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
@@ -102,7 +162,14 @@ public class Equipment implements Parcelable {
                 skill = EnumFile.SkillsEnum.STRIKE;
                 break;
             case BASIC_SHIELD:
-                stats = new double[]{5, 1, 2, 0, 0, 0, 0, 0};
+                hp = 5;
+                atk = 1;
+                def = 2;
+                mag = 0;
+                res = 0;
+                mrg = 0;
+                atr = 0;
+                agi = 0;
                 name = "Basic Shield";
                 pos = 1;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
@@ -110,7 +177,14 @@ public class Equipment implements Parcelable {
                 skill = EnumFile.SkillsEnum.BLOCK;
                 break;
             case BASIC_ARROW:
-                stats = new double[]{0, 1, 0, 1, 0, 0, 5, 0.1};
+                hp = 0;
+                atk = 1;
+                def = 0;
+                mag = 1;
+                res = 0;
+                mrg = 0;
+                atr = 5;
+                agi = 0.1;
                 name = "Basic Arrow";
                 pos = 1;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
@@ -118,7 +192,14 @@ public class Equipment implements Parcelable {
                 skill = EnumFile.SkillsEnum.FIREBALL;
                 break;
             case BASIC_WAND:
-                stats = new double[]{2, 1, 0, 3, 1, 1, 4, 0.1};
+                hp = 2;
+                atk = 1;
+                def = 0;
+                mag = 3;
+                res = 1;
+                mrg = 1;
+                atr = 4;
+                agi = 0.1;
                 name = "Basic Wand";
                 pos = 1;compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
                 compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
@@ -126,7 +207,14 @@ public class Equipment implements Parcelable {
                 leaderSkill = EnumFile.SkillsEnum.FIREBALL;
                 break;
             case BASIC_POTION:
-                stats = new double[]{0, 0, 0, 0, 0, 0, 0, 0};
+                hp = 0;
+                atk = 0;
+                def = 0;
+                mag = 0;
+                res = 0;
+                mrg = 0;
+                atr = 0;
+                agi = 0;
                 name = "Basic Potion";
                 pos = 1;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
@@ -135,7 +223,14 @@ public class Equipment implements Parcelable {
                 skill = EnumFile.SkillsEnum.HEAL;
                 break;
             case BASIC_ARMOR:
-                stats = new double[]{0, 0, 3, 0, 0, 0, 0, 0};
+                hp = 0;
+                atk = 0;
+                def = 3;
+                mag = 0;
+                res = 0;
+                mrg = 0;
+                atr = 0;
+                agi = 0;
                 name = "Basic Armor";
                 pos = 2;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
@@ -144,7 +239,14 @@ public class Equipment implements Parcelable {
                 skill = EnumFile.SkillsEnum.NOSKILL;
                 break;
             case BASIC_HELMET:
-                stats = new double[]{0, 0, 2, 0, 0, 0, 0, 0};
+                hp = 0;
+                atk = 0;
+                def = 2;
+                mag = 0;
+                res = 0;
+                mrg = 0;
+                atr = 0;
+                agi = 0;
                 name = "Basic Helmet";
                 pos = 0;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
@@ -171,9 +273,7 @@ public class Equipment implements Parcelable {
     }
 
     /* Getter methods */
-    public EnumFile.SkillsEnum getSkill() {
-        return skill;
-    }
+    public EnumFile.SkillsEnum getSkill() { return skill; }
 
     public boolean isLeaderSkillActivated() {
         return leaderSkillActivated;
@@ -187,44 +287,19 @@ public class Equipment implements Parcelable {
         return equipped;
     }
 
+    public EnumFile.Equipments getEnumName() { return enumName; }
 
-    public void readFromParcel(Parcel in) {
-//        stats = in.readDoubleArray();
-//        public double[] stats;
-        name = in.readString();
-        pos = in.readInt();
-//        skill = in.read
-//        private EnumFile.SkillsEnum skill;
-//        private EnumFile.SkillsEnum leaderSkill;
-//        public EnumFile.ClassEnum className;
-//        leaderSkillActivated = in.readInt();
+    public EnumFile.ClassEnum getClassName() { return className; }
 
-        // making sure that the equipment goes with the adventurer's class
-//        public ArrayList<EnumFile.ClassEnum> compatibleClasses;
+    public double getHp() { return hp; }
+    public double getAtk() { return atk; }
+    public double getDef() { return def; }
+    public double getMag() { return mag; }
+    public double getRes() { return res; }
+    public double getMrg() { return mrg; }
+    public double getAtr() { return atr; }
+    public double getAgi() { return agi; }
+    public String getName() { return name; }
 
-//        private boolean equipped;
-    }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeArray();
-        // TODO
-
-    }
-
-    public static final Parcelable.Creator CREATOR =
-            new Parcelable.Creator() {
-                public Equipment createFromParcel(Parcel in) {
-                    return new Equipment(in);
-                }
-
-                public Equipment[] newArray(int size) {
-                    return new Equipment[size];
-                }
-            };
 }
