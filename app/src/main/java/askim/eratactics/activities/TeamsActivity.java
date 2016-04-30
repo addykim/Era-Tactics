@@ -20,7 +20,6 @@ public class TeamsActivity extends AppCompatActivity {
 
     private TeamView teamView;
     private TeamListView teamListView;
-    private Team
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
