@@ -79,4 +79,8 @@ public class TeamView extends View {
     private void drawChar(Canvas canvas, int width, int height) {
 
     }
+
+    public void setTeam(Team t) {
+        this.mTeam = t;
+    }
 }
