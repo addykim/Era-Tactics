@@ -27,6 +27,8 @@ public class SplashActivity extends AppCompatActivity {
     private Button teamsButton;
     private Button settingsButton;
 
+    private Button inventoryButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +53,21 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        teamsButton = (Button) findViewById(R.id.teamsButton);
-        teamsButton.setText("Temporarily replacing Team");
-        // TODO fix this before beta release
-        teamsButton.setOnClickListener(new View.OnClickListener() {
+        inventoryButton = (Button) findViewById(R.id.tempTeamsButton);
+        inventoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), InventoryActivity.class);
+
+                Log.d(TAG, "Teams button clicked");
+                startActivity(intent);
+            }
+        });
+        teamsButton = (Button) findViewById(R.id.teamsButton);
+        teamsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TeamsActivity.class);
 
                 Log.d(TAG, "Teams button clicked");
                 startActivity(intent);
