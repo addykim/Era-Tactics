@@ -1,12 +1,17 @@
 package askim.eratactics.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
+import askim.eratactics.gamelogic.Adventurer;
+import askim.eratactics.gamelogic.Piece;
 import askim.eratactics.gamelogic.Team;
 
 /**
@@ -16,7 +21,7 @@ public class TeamView extends View {
 
     private Team mTeam;
 
-    private static final String TAG = "BoardView";
+    private static final String TAG = "TeamView";
     private Paint mPaint;
 
     private static final int GRID_LINE_WIDTH = 6;
@@ -57,12 +62,12 @@ public class TeamView extends View {
 
         // Draw the vertical and horizontal board lines
         // Vertical lines
-        for (int i = 1; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             int yLine = cellWidth * i;
             canvas.drawLine(yLine, 0, yLine, boardHeight, mPaint);
         }
         // Horizontal lines
-        for (int i = 1; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             int xLine = cellHeight * i;
             canvas.drawLine(0, xLine, boardWidth, xLine, mPaint);
         }
@@ -76,8 +81,30 @@ public class TeamView extends View {
         return getWidth() / 3;
     }
 
-    private void drawChar(Canvas canvas, int width, int height) {
+    private void drawChar(Canvas canvas, int cellWidth, int cellHeight) {
+        Bitmap image;
+        Adventurer occupant;
+        int left, top, bottom, right;
+        int row, col;
+        for (int i=0; i<9; i++) {
+            row = i/3;
+            col = i%3;
+            left = (col*cellWidth);
+            top = (row*cellHeight);
+            right = ((col+1)*cellWidth);
+            bottom = ((row+1)*cellHeight);
+//            Log.d(TAG, "Drawing character in grid " + row + ", " + col);
+            occupant = mTeam.getAdventurer(i);
+            if (occupant != null) {
+                image = BitmapFactory.decodeResource(getResources(), Resources.getImageId(occupant.getAdventurerClass()));
+                if (image != null) {
+                        canvas.drawBitmap(image, null,
+                                new Rect(left, top, right, bottom),
+                                null);
 
+                }
+            }
+        }
     }
 
     public void setTeam(Team t) {

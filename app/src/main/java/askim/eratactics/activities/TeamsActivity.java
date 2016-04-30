@@ -16,9 +16,11 @@ import askim.eratactics.views.TeamView;
  * Created by addykim on 4/12/16.
  */
 public class TeamsActivity extends AppCompatActivity {
+    private final String TAG = "TeamsActivity";
 
     private TeamView teamView;
     private TeamListView teamListView;
+    private Team
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class TeamsActivity extends AppCompatActivity {
         teamView.setTeam(alphaTeam);
 
         teamListView = (TeamListView) findViewById(R.id.preSetTeamList);
+        teamListView.setTeamMembers(alphaTeam.teamMembers);
 
         // TODO tabbed view
     }

@@ -1,11 +1,14 @@
 package askim.eratactics.gamelogic;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
  * Created by nunuloop on 3/24/16.
  */
 public class Team {
+    private final String TAG = "Team";
 
     /**
      * Array order for the team:
@@ -38,6 +41,7 @@ public class Team {
     public boolean addTeamMember(Adventurer adv) {
         if (teamMembers.size() < 5 && !teamMembers.contains(adv)) {
             teamMembers.add(adv);
+            Log.d(TAG, "Team now has " + teamMembers.size() + " members.");
             return true;
         }
         return false;
