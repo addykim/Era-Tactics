@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainBackground">
-
     <TextView
         android:id="@+id/equipment_header"
         android:layout_width="wrap_content"
@@ -11,208 +10,208 @@
         android:text="@string/equipment"
         android:textSize="@dimen/activity_header_text"/>
 
-    <ImageView
-        android:id="@+id/equipment_hat"
-        android:layout_width="@dimen/equipment_display_size"
-        android:layout_height="@dimen/equipment_display_size"
-        android:layout_margin="@dimen/equipment_margin"
-        android:src="@drawable/fireball"
-
-        android:background="@color/white"
-        android:layout_above="@+id/equipment_character"
-        android:layout_marginBottom="56dp" />
-
     <TextView
         android:id="@+id/equipment_character_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dummyCharacterName"
         android:textSize="@dimen/equipment_header_text"
-        android:layout_below="@+id/equipment_header"
-        android:layout_toRightOf="@+id/equipment_hat"
-        android:layout_toEndOf="@+id/equipment_hat" />
+        android:layout_below="@id/equipment_header"
+        android:layout_centerHorizontal="true"/>
 
     <LinearLayout
-        android:id="@+id/equipment_atk_layout"
+        android:id="@+id/firstRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/equipment_character_name"
-        android:layout_alignLeft="@+id/equipment_character_name"
-        android:layout_alignStart="@+id/equipment_character_name">
+        android:orientation="horizontal"
+        android:layout_below="@id/equipment_character_name"
+        android:layout_centerHorizontal="true">
 
-        <TextView
-            android:id="@+id/equipment_character_atk"
+        <ImageView
+            android:id="@+id/equipment_hat"
+            android:layout_width="@dimen/equipment_display_size"
+            android:layout_height="@dimen/equipment_display_size"
+            android:src="@drawable/fireball"
+            android:layout_marginRight="@dimen/equipment_margin"
+            android:background="@color/white"
+            android:layout_above="@+id/equipment_character" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/equipment_normal_text"
-            android:text="@string/equipmentAttack" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/equipment_character_atk_value"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/equipment_character_atk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/equipment_normal_text"
+                    android:text="@string/equipmentAttack" />
+
+                <TextView
+                    android:id="@+id/equipment_character_atk_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/equipment_normal_text" />
+            </LinearLayout>
+
+            <LinearLayout
+            android:id="@+id/equipment_def_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/equipment_normal_text"
-            android:layout_marginLeft="10dp"
-            android:text="0"
-            android:layout_toRightOf="@+id/equipment_character_atk" />
+            android:orientation="horizontal">
 
-    </LinearLayout>
+                <TextView
+                android:id="@+id/equipment_character_def"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/equipment_normal_text"
+                android:text="@string/equipmentDefense" />
 
-    <LinearLayout
-        android:id="@+id/equipment_def_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/equipment_atk_layout"
-        android:layout_alignLeft="@+id/equipment_character_name"
-        android:layout_alignStart="@+id/equipment_character_name">
+                <TextView
+                android:id="@+id/equipment_character_def_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/equipment_normal_text"
+                android:layout_marginLeft="10dp"
+                />
 
-        <TextView
-            android:id="@+id/equipment_character_def"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/equipment_normal_text"
-            android:text="@string/equipmentDefense" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/equipment_character_def_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/equipment_normal_text"
-            android:layout_marginLeft="10dp"
-            android:text="0"
-            android:layout_toRightOf="@+id/equipment_character_def" />
-
-    </LinearLayout>
-
-    <LinearLayout
+        <LinearLayout
         android:id="@+id/equipment_mag_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/equipment_def_layout"
-        android:layout_alignLeft="@+id/equipment_character_name"
-        android:layout_alignStart="@+id/equipment_character_name">
+        android:layout_height="wrap_content">
 
-        <TextView
+            <TextView
             android:id="@+id/equipment_character_mag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/equipment_normal_text"
             android:text="@string/equipmentMagic" />
 
-        <TextView
+            <TextView
             android:id="@+id/equipment_character_mag_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/equipment_normal_text"
-            android:layout_marginLeft="10dp"
-            android:text="0"
-            android:layout_toRightOf="@+id/equipment_character_mag" />
+            android:layout_marginLeft="10dp" />
+
+        </LinearLayout>
+
+            <LinearLayout
+            android:id="@+id/equipment_res_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/equipment_character_res"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/equipment_normal_text"
+                android:text="@string/equipmentResistence" />
+
+            <TextView
+                android:id="@+id/equipment_character_res_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/equipment_normal_text"
+                android:layout_marginLeft="10dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/secondRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/firstRow"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/equipment_margin">
+
+        <ImageView
+            android:id="@+id/equipment_left"
+            android:layout_width="@dimen/equipment_display_size"
+            android:layout_height="@dimen/equipment_display_size"
+            android:src="@drawable/fireball"
+            android:background="@color/white"
+            android:layout_marginRight="@dimen/equipment_margin"/>
+
+        <ImageView
+            android:id="@+id/equipment_character"
+            android:layout_width="@dimen/equipment_display_size"
+            android:layout_height="@dimen/equipment_display_size"
+            android:src="@drawable/wizard_dmged"
+            android:background="@color/white"
+            android:layout_marginRight="@dimen/equipment_margin"/>
+
+        <ImageView
+            android:id="@+id/equipment_right"
+            android:layout_width="@dimen/equipment_display_size"
+            android:layout_height="@dimen/equipment_display_size"
+            android:src="@drawable/fireball"
+            android:background="@color/white" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/equipment_res_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/equipment_mag_layout"
-        android:layout_alignLeft="@+id/equipment_character_name"
-        android:layout_alignStart="@+id/equipment_character_name">
+        android:layout_below="@+id/secondRow"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/equipment_margin">
 
-        <TextView
-            android:id="@+id/equipment_character_res"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/equipment_normal_text"
-            android:text="@string/equipmentResistence" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/equipment_character_res_value"
+            <TextView
+            android:id="@+id/equipment_skills_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/equipment_normal_text"
-            android:layout_marginLeft="10dp"
-            android:text="0"
-            android:layout_toRightOf="@+id/equipment_character_res" />
+            android:text="@string/skills"
+            android:textSize="@dimen/equipment_header_text" />
 
+            <TextView
+            android:id="@+id/equipment_skills_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dummySkill"
+            android:textSize="@dimen/equipment_normal_text" />
+
+            <TextView
+            android:id="@+id/equipment_leader_skills_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/equipmentLeaderSkillLabel"
+            android:textSize="@dimen/equipment_header_text" />
+
+            <TextView
+            android:id="@+id/equipment_leader_skills_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dummyLeaderSkill"
+            android:textSize="@dimen/equipment_normal_text" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/equipment_armor"
+                android:layout_width="@dimen/equipment_display_size"
+                android:layout_height="@dimen/equipment_display_size"
+                android:src="@drawable/fireball"
+                android:background="@color/white" />
+        </LinearLayout>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/equipment_left"
-        android:layout_width="@dimen/equipment_display_size"
-        android:layout_height="@dimen/equipment_display_size"
-        android:src="@drawable/fireball"
-        android:background="@color/white"
-        android:layout_below="@+id/equipment_hat"
-        android:layout_toLeftOf="@+id/equipment_character"
-        android:layout_alignLeft="@+id/equipment_hat"
-        android:layout_alignStart="@+id/equipment_hat" />
-
-    <ImageView
-        android:id="@+id/equipment_right"
-        android:layout_width="@dimen/equipment_display_size"
-        android:layout_height="@dimen/equipment_display_size"
-        android:src="@drawable/fireball"
-        android:background="@color/white"
-        android:layout_above="@+id/equipment_skills_header"
-        android:layout_toRightOf="@+id/equipment_character" />
-
-    <ImageView
-        android:id="@+id/equipment_armor"
-        android:layout_width="@dimen/equipment_display_size"
-        android:layout_height="@dimen/equipment_display_size"
-        android:src="@drawable/fireball"
-        android:background="@color/white"
-        android:layout_alignTop="@+id/equipment_skills_header"
-        android:layout_alignRight="@id/equipment_right"/>
-
-    <ImageView
-        android:id="@+id/equipment_character"
-        android:layout_width="@dimen/equipment_display_size"
-        android:layout_height="@dimen/equipment_display_size"
-        android:src="@drawable/wizard_dmged"
-        android:background="@color/white"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/equipment_skills_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/skills"
-        android:textSize="@dimen/equipment_header_text"
-        android:layout_below="@+id/equipment_left"
-        android:layout_alignLeft="@+id/equipment_left"
-        android:layout_alignStart="@+id/equipment_left"
-        android:layout_marginTop="34dp" />
-
-    <TextView
-        android:id="@+id/equipment_skills_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dummySkill"
-        android:textSize="@dimen/equipment_normal_text"
-        android:layout_below="@+id/equipment_skills_header"
-        android:layout_alignLeft="@id/equipment_skills_header"/>
-
-    <TextView
-        android:id="@+id/equipment_leader_skills_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/equipmentLeaderSkillLabel"
-        android:textSize="@dimen/equipment_header_text"
-        android:layout_below="@+id/equipment_skills_text"
-        android:layout_alignLeft="@+id/equipment_skills_text"
-        android:layout_alignStart="@+id/equipment_skills_text" />
-
-    <TextView
-        android:id="@+id/equipment_leader_skills_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dummyLeaderSkill"
-        android:textSize="@dimen/equipment_normal_text"
-        android:layout_below="@+id/equipment_leader_skills_header"
-        android:layout_alignLeft="@+id/equipment_leader_skills_header"
-        android:layout_alignStart="@+id/equipment_leader_skills_header" />
-
-
 </RelativeLayout>
