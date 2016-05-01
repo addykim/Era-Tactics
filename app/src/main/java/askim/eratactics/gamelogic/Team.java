@@ -22,20 +22,9 @@ public class Team {
     public Adventurer leader;
     public int advCount;
 
-    private boolean debugMode;
-
     public Team() {
         adventurers = new Adventurer[9];
         teamMembers = new ArrayList<Adventurer>();
-        debugMode = false;
-    }
-
-    /* Creates a single leader */
-    public Team(boolean debugMode) {
-        adventurers = new Adventurer[9];
-        teamMembers = new ArrayList<Adventurer>();
-        debugMode = true;
-        putAdventurer(new Adventurer(new Equipment[3], "No."), 0, true);
     }
 
     public boolean addTeamMember(Adventurer adv) {
