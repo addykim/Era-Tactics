@@ -136,37 +136,36 @@ public class Resources {
         return id;
     }
 
-    public static int getEquipmentImageId(String slot, String advClass) {
+    public static int getEquipmentImageId(EnumFile.ClassEnum advClass, EnumFile.Equipments equipment) {
         int id;
-        switch (slot.toUpperCase()) {
-            case "BASIC_ARMOR":
+        switch (equipment) {
+            case BASIC_ARMOR:
                 id = R.drawable.suits;
                 break;
-            case "BASIC_HELMET":
-                if (advClass == EnumFile.ClassEnum.MAGICIAN.toString())
+            case BASIC_HELMET:
+                if (advClass == EnumFile.ClassEnum.MAGICIAN)
                     id = R.drawable.wizard_hat;
                 else
                     id = R.drawable.helmet;
                 break;
-            case "BASIC_POTION":
+            case BASIC_POTION:
                 id = R.drawable.potion;
                 break;
-            case "BASIC_WAND":
+            case BASIC_WAND:
                 id = R.drawable.wand;
                 break;
-            case "BASIC_SHIELD":
+            case BASIC_SHIELD:
                 id = R.drawable.shield;
                 break;
-            case "BASIC_SWORD":
+            case BASIC_SWORD:
                 id = R.drawable.melee;
                 break;
-            case "BASIC_ARROW":
+            case BASIC_ARROW:
                 id = R.drawable.arrow;
                 break;
             default:
                 id = R.drawable.wizard_dmged;
         }
-
         return id;
     }
 }

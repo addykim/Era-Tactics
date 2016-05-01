@@ -62,4 +62,6 @@ public class LevelGenerator extends SugarRecord {
     public String getName() { return name; }
 
     public boolean getCleared() { return cleared; }
+
+    public Piece[][] getEnemyPieces() { return enemyPieces; }
 }

@@ -71,6 +71,34 @@ public class EquipmentActivity extends AppCompatActivity {
             mImageView[i].setOnClickListener(new EquipmentClickListener(i));
         }
         // TODO set the equipment images
+        boolean[] allFalse = new boolean[4];
+        int atk = adv.getAtk(false, allFalse);
+        int def = adv.getDef(false, allFalse);
+        int mag = adv.getMag(false, allFalse);
+        int res = adv.getRes(false, allFalse);
+        mTextView[0].setText(Integer.toString(atk));
+        mTextView[1].setText(Integer.toString(def));
+        mTextView[2].setText(Integer.toString(mag));
+        mTextView[3].setText(Integer.toString(res));
+
+        if (adv.getEquipment(EnumFile.EquipmentPos.HEAD)!= null) {
+            mImageView[0].setImageResource(Resources.getEquipmentImageId(
+                    adv.getAdventureClassAsEnum(), adv.getEquipment(EnumFile.EquipmentPos.HEAD).getEnumName()));
+        }
+        if (adv.getEquipment(EnumFile.EquipmentPos.LEFT) != null) {
+            mImageView[1].setImageResource(Resources.getEquipmentImageId(
+                    adv.getAdventureClassAsEnum(), adv.getEquipment(EnumFile.EquipmentPos.LEFT).getEnumName()));
+        }
+        if (adv.getEquipment(EnumFile.EquipmentPos.RIGHT) != null) {
+            mImageView[2].setImageResource(Resources.getEquipmentImageId(
+                    adv.getAdventureClassAsEnum(), adv.getEquipment(EnumFile.EquipmentPos.RIGHT).getEnumName()));
+
+        }
+        if (adv.getEquipment(EnumFile.EquipmentPos.BODY) != null) {
+            mImageView[3].setImageResource(Resources.getEquipmentImageId(
+                    adv.getAdventureClassAsEnum(), adv.getEquipment(EnumFile.EquipmentPos.BODY).getEnumName()));
+
+        }
 
         mTextView[5].setText(adv.getLeaderSkillDescription());
     }

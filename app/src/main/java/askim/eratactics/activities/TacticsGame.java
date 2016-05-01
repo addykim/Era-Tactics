@@ -16,13 +16,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orm.SugarContext;
+
 import java.util.ArrayList;
 
 import askim.eratactics.R;
-import askim.eratactics.gamelogic.Adventurer;
 import askim.eratactics.gamelogic.Board;
 import askim.eratactics.gamelogic.EnumFile;
-import askim.eratactics.gamelogic.Equipment;
 import askim.eratactics.gamelogic.Team;
 import askim.eratactics.views.BoardView;
 import askim.eratactics.views.Resources;
@@ -69,6 +69,8 @@ public class TacticsGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tactics_game);
+        SugarContext.init(this);
+
 
         /* Hide action bar */
         ActionBar actionBar = getSupportActionBar();
@@ -99,7 +101,7 @@ public class TacticsGame extends AppCompatActivity {
 
         // Gets level selected
         int level = intent.getIntExtra("level", 0);
-        boardLogic = new Board(alphaTeam, level);
+        boardLogic = new Board(alphaTeam, level, this);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
 
@@ -440,6 +442,7 @@ public class TacticsGame extends AppCompatActivity {
             mBackgroundSound.cancel(true);
 //        if (playSfx)
 //            sfxPlayer.release();
+        SugarContext.terminate();
         Log.d(TAG, "DESTROY");
     }
 

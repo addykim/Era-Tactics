@@ -161,11 +161,14 @@ public class Adventurer extends SugarRecord {
 
     public int getRes(boolean isLeader, boolean[] equips) {
         int res = (int)adventurerClass.getRes();
-        for (int i = 0; i < 4; i++) {
-//            if (equipments[i] != null && equips[i] == true) {
-//                res += equipments[i].getRes();
-//            }
-        }
+        if (head != null && equips[0] == true)
+            res+=head.getRes();
+        if (left != null & equips[1] == true)
+            res+=left.getRes();
+        if (right != null & equips[2] == true)
+            res+=right.getRes();
+        if (body != null & equips[3] == true)
+            res+=body.getRes();
         if (isLeader)
             res += 1;
         return res;
@@ -197,11 +200,14 @@ public class Adventurer extends SugarRecord {
 
     public double getAgi(boolean isLeader, boolean[] equips) {
         double agi = adventurerClass.getAgi();
-        for (int i = 0; i < 4; i++) {
-//            if (equipments[i] != null && equips[i] == true) {
-//                agi += equipments[i].getAgi();
-//            }
-        }
+        if (head != null && equips[0] == true)
+            agi+=head.getAgi();
+        if (left != null & equips[1] == true)
+            agi+=left.getAgi();
+        if (right != null & equips[2] == true)
+            agi+=right.getAgi();
+        if (body != null & equips[3] == true)
+            agi+=body.getAgi();
         if (isLeader)
             agi += 0;
         return agi;
