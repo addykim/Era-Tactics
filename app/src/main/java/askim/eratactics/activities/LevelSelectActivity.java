@@ -1,5 +1,7 @@
 package askim.eratactics.activities;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import java.util.List;
 import askim.eratactics.R;
 import askim.eratactics.adapters.LevelSelectAdapter;
 import askim.eratactics.gamelogic.LevelGenerator;
+import askim.eratactics.views.Resources;
 
 public class LevelSelectActivity extends AppCompatActivity {
 
@@ -35,6 +38,8 @@ public class LevelSelectActivity extends AppCompatActivity {
             actionBar.hide();
 
         // TODO hook up buttons so they select the various levels
+
+        SharedPreferences sp = getSharedPreferences(Resources.PREFS_NAME, Activity.MODE_PRIVATE);
 
         // Initialize recycler view
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.level_select_recycler_view);

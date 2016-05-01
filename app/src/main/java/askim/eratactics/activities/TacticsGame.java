@@ -79,7 +79,7 @@ public class TacticsGame extends AppCompatActivity {
 
         Intent intent = getIntent(); // gets the previously created intent
 
-        SharedPreferences mPrefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences mPrefs = getSharedPreferences(Resources.PREFS_NAME, MODE_PRIVATE);
 
         /* Initialize music */
         playMusic = mPrefs.getBoolean("music", false);

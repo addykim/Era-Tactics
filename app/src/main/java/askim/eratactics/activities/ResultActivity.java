@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import askim.eratactics.R;
+import askim.eratactics.gamelogic.LevelGenerator;
+import askim.eratactics.views.Resources;
 
 public class ResultActivity extends Activity {
 
@@ -24,7 +26,8 @@ public class ResultActivity extends Activity {
         setContentView(R.layout.activity_result);
 
         Intent results = getIntent(); // gets the previously created intent
-        SharedPreferences mPrefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE);
+        int levelPlayed = results.getIntExtra("levelPlayed", 1);
+        SharedPreferences mPrefs = getSharedPreferences(Resources.PREFS_NAME, MODE_PRIVATE);
 
         text = (TextView) findViewById(R.id.result_header);
         image = (ImageView) findViewById(R.id.result_image);
@@ -36,6 +39,9 @@ public class ResultActivity extends Activity {
                 // TODO play winning sound
                 Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
                 v.vibrate(500);
+                LevelGenerator level = LevelGenerator.findById(LevelGenerator.class, levelPlayed);
+                level.setCleared(true);
+                level.save();
             }
         } else {
             // TODO play sad sound :(

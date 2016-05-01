@@ -10,6 +10,8 @@ import askim.eratactics.gamelogic.EnumFile;
  */
 public class Resources {
 
+    public static final String PREFS_NAME = "et_prefs";
+
     public static int getImageId(EnumFile.ClassEnum advClass) { return getImageId(advClass.toString()); }
 
     public static int getImageId(String advClass) {

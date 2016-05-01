@@ -78,6 +78,7 @@ public class TeamListView extends View {
         Adventurer occupant;
         int left, top, bottom, right;
         int row, col;
+        // FIXME nullpointer on teamMembers
         for (int i=0; i<teamMembers.size(); i++) {
             left = i * cellSize;
             top = 0;

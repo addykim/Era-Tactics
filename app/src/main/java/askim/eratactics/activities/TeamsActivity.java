@@ -35,11 +35,9 @@ public class TeamsActivity extends AppCompatActivity {
         Team alphaTeam = Team.findById(Team.class, 0);
         teamView = (TeamView) findViewById(R.id.preSetTeam);
         teamView.setTeam(alphaTeam);
-//
-        teamListView = (TeamListView) findViewById(R.id.preSetTeamList);
-//        teamListView.setTeamMembers(alphaTeam.getTeamMembers());
 
-        // TODO tabbed view
+        teamListView = (TeamListView) findViewById(R.id.preSetTeamList);
+        teamListView.setTeamMembers(alphaTeam.getTeamMembers());
     }
 
     // TODO method to save changes to team

@@ -28,6 +28,7 @@ public class LevelGenerator extends SugarRecord {
                 enemyPieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG);
                 enemyPieces[0][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG);
                 enemyPieces[0][2] = new Piece(EnumFile.ClassEnum.HORNEDFROG);
+                cleared = true;
                 break;
             case 2:
                 // 4 enemies
@@ -53,8 +54,6 @@ public class LevelGenerator extends SugarRecord {
                 enemyPieces[2][2] = new Piece(EnumFile.ClassEnum.BADTEETH);
                 enemyPieces[2][1] = new Piece(EnumFile.ClassEnum.BADTEETH);
                 break;
-
-
         }
         this.save();
     }
@@ -64,4 +63,6 @@ public class LevelGenerator extends SugarRecord {
     public boolean getCleared() { return cleared; }
 
     public Piece[][] getEnemyPieces() { return enemyPieces; }
+
+    public void setCleared(boolean cleared) { this.cleared = cleared; }
 }
