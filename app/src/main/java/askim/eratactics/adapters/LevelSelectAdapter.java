@@ -18,6 +18,7 @@ import java.util.List;
 
 import askim.eratactics.R;
 import askim.eratactics.activities.ResultActivity;
+import askim.eratactics.activities.TacticsGame;
 import askim.eratactics.gamelogic.LevelGenerator;
 
 /**
@@ -94,9 +95,10 @@ public class LevelSelectAdapter extends RecyclerView.Adapter<LevelSelectAdapter.
         public void onClick(View view) {
             Log.d(TAG, "Clicked on level " + id);
             if (clickable) {
-//            Intent intent = new Intent(mContext, TacticsGame.class);
-                Intent intent = new Intent(mContext, ResultActivity.class);
-                intent.putExtra("win", true);
+                Intent intent = new Intent(mContext, TacticsGame.class);
+                // Debugging
+                // Intent intent = new Intent(mContext, ResultActivity.class);
+//                intent.putExtra("win", true);
                 intent.putExtra("level", id);
                 mContext.startActivity(intent);
             } else {

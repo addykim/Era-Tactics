@@ -61,8 +61,6 @@ public class SplashActivity extends AppCompatActivity {
         }
 
 
-
-
         adventureButton = (Button) findViewById(R.id.adventureButton);
         adventureButton.setOnClickListener(new View.OnClickListener() {
             @Override

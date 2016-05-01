@@ -44,6 +44,7 @@ public class LevelSelectActivity extends AppCompatActivity {
 
         levelList = LevelGenerator.listAll(LevelGenerator.class);
 
+        // TODO adapter does not update upon completing game
         adapter = new LevelSelectAdapter(LevelSelectActivity.this, levelList);
         mRecyclerView.setAdapter(adapter);
     }
