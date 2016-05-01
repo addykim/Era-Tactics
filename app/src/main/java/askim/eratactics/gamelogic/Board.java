@@ -32,21 +32,23 @@ public class Board {
                 activePlayers++;
             }
         }
+        LevelGenerator.findById(LevelGenerator.class, lvl);
         generateEnemies(lvl);
         Log.d(TAG, "Current board status:\n" + printBoard());
     }
 
     private void generateEnemies(int lvl) {
-        Piece[][] temp = LevelGenerator.generate(lvl);
-        activeEnemies = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                pieces[i][j] = temp[i][j];
-                if (pieces[i][j] != null) {
-                    activeEnemies++;
-                }
-            }
-        }
+        // TODO fix this
+//        Piece[][] temp = LevelGenerator.generate(lvl);
+//        activeEnemies = 0;
+//        for (int i = 0; i < 3; i++) {
+//            for (int j = 0; j < 3; j++) {
+//                pieces[i][j] = temp[i][j];
+//                if (pieces[i][j] != null) {
+//                    activeEnemies++;
+//                }
+//            }
+//        }
     }
 
     // Returns who is in cell of grid

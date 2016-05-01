@@ -18,6 +18,7 @@ import java.util.logging.Level;
 
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Adventurer;
+import askim.eratactics.gamelogic.Equipment;
 import askim.eratactics.gamelogic.LevelGenerator;
 import askim.eratactics.gamelogic.PlayerAdventurers;
 import askim.eratactics.gamelogic.Team;
@@ -44,8 +45,15 @@ public class SplashActivity extends AppCompatActivity {
         SugarContext.init(this);
 
         //TODO sharedpreferences
+        Adventurer.deleteAll(Adventurer.class);
+        Team.deleteAll(Team.class);
+        Equipment.deleteAll(Equipment.class);
+        LevelGenerator.deleteAll(LevelGenerator.class);
+
         PlayerAdventurers members = new PlayerAdventurers(this);
-        LevelGenerator level = new LevelGenerator(this);
+        for (int i = 1; i < 5; i++) {
+            LevelGenerator level = new LevelGenerator(this, i);
+        }
 
         adventureButton = (Button) findViewById(R.id.adventureButton);
         adventureButton.setOnClickListener(new View.OnClickListener() {

@@ -94,31 +94,11 @@ public class TacticsGame extends AppCompatActivity {
         prompt = (TextView) findViewById(R.id.textPrompt);
         newGame();
 
-        /* Hard coded team composition */
-        Team alphaTeam = new Team();
-        Adventurer villager1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.VILLAGER)}, "Bob");
-        Adventurer apprentice1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.APPRENTICE),
-                                                                new Equipment(EnumFile.Equipments.BASIC_POTION)}, "BOB!");
-        Adventurer magician1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.MAGICIAN),
-                                                              new Equipment(EnumFile.Equipments.BASIC_WAND),
-                                                              new Equipment(EnumFile.Equipments.BASIC_POTION)}, "Still Bob");
-        Adventurer archer1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.ARCHER),
-                                                            new Equipment(EnumFile.Equipments.BASIC_ARROW)}, "Uh.. Bob.");
-        alphaTeam.addTeamMember(villager1);
-        alphaTeam.putAdventurer(villager1, 2, false);
-        alphaTeam.addTeamMember(apprentice1);
-        alphaTeam.putAdventurer(apprentice1, 6, false);
-        alphaTeam.addTeamMember(magician1);
-        alphaTeam.putAdventurer(magician1, 3, false);
-        alphaTeam.addTeamMember(archer1);
-        alphaTeam.putAdventurer(archer1, 5, false);
+        // TODO get team member
+        Team alphaTeam = Team.findById(Team.class, 1);
 
-
-//        boardLogic = new Board(new Team());
         // Gets level selected
-//        int level = 2;
-        // TODO enable once multiple levels are available
-        int level = intent.getIntExtra("level", -1);
+        int level = intent.getIntExtra("level", 0);
         boardLogic = new Board(alphaTeam, level);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
@@ -145,7 +125,7 @@ public class TacticsGame extends AppCompatActivity {
         tutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO pass point of the tutorail into
+                // TODO pass point of the tutorial into
                 Intent tutorialIntent = new Intent(getApplicationContext(), TutorialActivity.class);
                 startActivity(tutorialIntent);
             }
@@ -444,7 +424,7 @@ public class TacticsGame extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         Log.d(TAG, "STARTING");
         if (playMusic) {

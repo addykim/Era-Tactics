@@ -32,10 +32,11 @@ public class Equipment extends SugarRecord {
     private double agi;
     private String name;
     private EnumFile.Equipments enumName;
+    private EnumFile.EquipmentPos position;
 
     // 0 = head, 1 = hands, 2 = body, 3 = class
     // NOTE: pos in equipment is DIFFERENT than pos in Adventurer's equipment list, DO NOT MIX UP
-    public int pos;
+//    public int pos;
     private EnumFile.SkillsEnum skill;
     private EnumFile.SkillsEnum leaderSkill;
     private EnumFile.ClassEnum className;
@@ -58,9 +59,11 @@ public class Equipment extends SugarRecord {
         compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
         compatibleClasses.add(EnumFile.ClassEnum.KNIGHT);
         name = "SuperShield";
-        pos = 1;
+        position = EnumFile.EquipmentPos.LEFT;
+//        pos = 1;
         leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
         leaderSkillActivated = false;
+        this.save();
     }
 
     public Equipment(EnumFile.ClassEnum className) {
@@ -76,7 +79,6 @@ public class Equipment extends SugarRecord {
                 atr = 1;
                 agi = 0;
                 name = "Villager";
-                pos = 3;
                 break;
             case FIGHTER:
                 hp = 25;
@@ -88,7 +90,6 @@ public class Equipment extends SugarRecord {
                 atr = 1;
                 agi = 0.2;
                 name = "Fighter";
-                pos = 3;
                 break;
             case KNIGHT:
                 hp = 25;
@@ -100,7 +101,6 @@ public class Equipment extends SugarRecord {
                 atr = 1;
                 agi = 0.3;
                 name = "Knight";
-                pos = 3;
                 break;
             case ARCHER:
                 hp = 20;
@@ -112,7 +112,6 @@ public class Equipment extends SugarRecord {
                 atr = 1;
                 agi = 0.2;
                 name = "Archer";
-                pos = 3;
                 break;
             case MAGICIAN:
                 hp = 20;
@@ -124,7 +123,6 @@ public class Equipment extends SugarRecord {
                 atr = 2;
                 agi = 0.3;
                 name = "Magician";
-                pos = 3;
                 break;
             case APPRENTICE:
                 hp = 20;
@@ -136,10 +134,11 @@ public class Equipment extends SugarRecord {
                 atr = 1;
                 agi = 0.1;
                 name = "Apprentice";
-                pos = 3;
                 break;
         }
+        position = EnumFile.EquipmentPos.CLASS;
         leaderSkillActivated = false;
+        this.save();
     }
 
     public Equipment(EnumFile.Equipments equipment) {
@@ -155,7 +154,6 @@ public class Equipment extends SugarRecord {
                 atr = 1;
                 agi = 0;
                 name = "Basic Sword";
-                pos = 1;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
                 compatibleClasses.add(EnumFile.ClassEnum.FIGHTER);
                 compatibleClasses.add(EnumFile.ClassEnum.KNIGHT);
@@ -171,7 +169,6 @@ public class Equipment extends SugarRecord {
                 atr = 0;
                 agi = 0;
                 name = "Basic Shield";
-                pos = 1;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
                 compatibleClasses.add(EnumFile.ClassEnum.KNIGHT);
                 skill = EnumFile.SkillsEnum.BLOCK;
@@ -186,7 +183,6 @@ public class Equipment extends SugarRecord {
                 atr = 5;
                 agi = 0.1;
                 name = "Basic Arrow";
-                pos = 1;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
                 compatibleClasses.add(EnumFile.ClassEnum.ARCHER);
                 skill = EnumFile.SkillsEnum.FIREBALL;
@@ -201,7 +197,7 @@ public class Equipment extends SugarRecord {
                 atr = 4;
                 agi = 0.1;
                 name = "Basic Wand";
-                pos = 1;compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
+                compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
                 compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
                 skill = EnumFile.SkillsEnum.LIGHTNING;
                 leaderSkill = EnumFile.SkillsEnum.FIREBALL;
@@ -216,7 +212,6 @@ public class Equipment extends SugarRecord {
                 atr = 0;
                 agi = 0;
                 name = "Basic Potion";
-                pos = 1;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
                 compatibleClasses.add(EnumFile.ClassEnum.APPRENTICE);
                 compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
@@ -232,7 +227,6 @@ public class Equipment extends SugarRecord {
                 atr = 0;
                 agi = 0;
                 name = "Basic Armor";
-                pos = 2;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
                 compatibleClasses.add(EnumFile.ClassEnum.APPRENTICE);
                 compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
@@ -248,14 +242,15 @@ public class Equipment extends SugarRecord {
                 atr = 0;
                 agi = 0;
                 name = "Basic Helmet";
-                pos = 0;
                 compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
                 compatibleClasses.add(EnumFile.ClassEnum.APPRENTICE);
                 compatibleClasses.add(EnumFile.ClassEnum.MAGICIAN);
                 skill = EnumFile.SkillsEnum.NOSKILL;
                 break;
         }
+        position = EnumFile.EquipmentPos.LEFT;
         leaderSkillActivated = false;
+        this.save();
     }
 
     public boolean isCompatible(EnumFile.ClassEnum className) {

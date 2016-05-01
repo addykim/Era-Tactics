@@ -65,7 +65,7 @@
             android:name=".activities.TutorialActivity"
             android:label="@string/title_activity_tutorial"></activity>
 
-        <meta-data android:name="DATABASE" android:value="eratactics.db" />
+        <meta-data android:name="DATABASE" android:value="eratacticstest2.db" />
         <meta-data android:name="VERSION" android:value="1" />
         <meta-data android:name="QUERY_LOG" android:value="true" />
         <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="askim.eratactics" />

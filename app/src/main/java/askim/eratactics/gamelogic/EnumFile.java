@@ -56,20 +56,13 @@ public class EnumFile {
         BASIC_HELMET
     }
 
-    // 0 = head, 1 = left hand, 2 = right hand, 3 = body
-    public enum EquipmentSlots {
-        HEAD (0),
-        LEFT_HAND (1),
-        RIGHT_HAND (2),
-        BODY (3);
-
-        private int position;
-        EquipmentSlots(int pos) {
-            position = pos;
-        }
-
-        public int getPosition() {
-            return position;
-        }
+    public enum EquipmentPos {
+        HEAD,
+        LEFT,
+        RIGHT,
+        BODY,
+        CLASS
     }
+
+
 }
