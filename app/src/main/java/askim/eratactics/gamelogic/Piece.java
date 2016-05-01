@@ -46,7 +46,7 @@ public class Piece {
         mrg = adv.getMrg(leader, includeEquipments);
         atr = adv.getAtr(leader, includeEquipments);
         agi = adv.getAgi(leader, includeEquipments);
-        pieceClass = adv.adventurerClass.className;
+        pieceClass = adv.adventurerClass.getClassName();
         Log.d(TAG, "The class of this piece is " + pieceClass);
     }
 
