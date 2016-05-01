@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 
 import java.util.ArrayList;
@@ -37,10 +38,6 @@ public class LevelSelectActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.hide();
 
-        // TODO hook up buttons so they select the various levels
-
-        SharedPreferences sp = getSharedPreferences(Resources.PREFS_NAME, Activity.MODE_PRIVATE);
-
         // Initialize recycler view
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.level_select_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -49,6 +46,13 @@ public class LevelSelectActivity extends AppCompatActivity {
 
         adapter = new LevelSelectAdapter(LevelSelectActivity.this, levelList);
         mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "ON RESUME");
+        adapter.notifyDataSetChanged();
     }
 }
 

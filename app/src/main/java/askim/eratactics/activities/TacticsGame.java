@@ -69,7 +69,7 @@ public class TacticsGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tactics_game);
-        SugarContext.init(this);
+//        SugarContext.init(this);
 
 
         /* Hide action bar */
@@ -100,7 +100,7 @@ public class TacticsGame extends AppCompatActivity {
         Team alphaTeam = Team.findById(Team.class, 1);
 
         // Gets level selected
-        int level = intent.getIntExtra("level", 0);
+        int level = (int) intent.getLongExtra("level", 1);
         boardLogic = new Board(alphaTeam, level, this);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
@@ -442,7 +442,7 @@ public class TacticsGame extends AppCompatActivity {
             mBackgroundSound.cancel(true);
 //        if (playSfx)
 //            sfxPlayer.release();
-        SugarContext.terminate();
+//        SugarContext.terminate();
         Log.d(TAG, "DESTROY");
     }
 

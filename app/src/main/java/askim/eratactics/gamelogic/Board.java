@@ -38,16 +38,16 @@ public class Board {
 
     private void generateEnemies(int lvl) {
         LevelGenerator level = LevelGenerator.findById(LevelGenerator.class, lvl);
-        Piece[][] temp = level.getEnemyPieces();
-        activeEnemies = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                pieces[i][j] = temp[i][j];
-                if (pieces[i][j] != null) {
-                    activeEnemies++;
-                }
-            }
-        }
+//        Piece[][] temp = level.getEnemyPieces();
+//        activeEnemies = 0;
+//        for (int i = 0; i < 3; i++) {
+//            for (int j = 0; j < 3; j++) {
+//                pieces[i][j] = temp[i][j];
+//                if (pieces[i][j] != null) {
+//                    activeEnemies++;
+//                }
+//            }
+//        }
     }
 
     // Returns who is in cell of grid

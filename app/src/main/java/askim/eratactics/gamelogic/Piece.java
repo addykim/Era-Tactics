@@ -3,12 +3,14 @@ package askim.eratactics.gamelogic;
 import android.preference.EditTextPreference;
 import android.util.Log;
 
+import com.orm.SugarRecord;
+
 import java.util.ArrayList;
 
 /**
  * Created by nunuloop on 3/10/16.
  */
-public class Piece {
+public class Piece extends SugarRecord {
     private final String TAG = "Piece Class";
 
     /**
@@ -23,6 +25,7 @@ public class Piece {
      * agi = agility, 0~1, possibility of dodging (either)
      */
 
+    // TODO set public variables to private and create setters/getters
     public int maxHp, hp, atk, def, mag, res, mrg, atr;
     public double agi;
     private boolean isPlayer;
@@ -30,6 +33,8 @@ public class Piece {
     private ArrayList<EnumFile.SkillsEnum> skills;
     private boolean hasMoved;
     private EnumFile.ClassEnum pieceClass;
+
+    public Piece() {}
 
     public Piece(Adventurer adv, boolean isLeader) {
         isPlayer = true;
@@ -48,6 +53,7 @@ public class Piece {
         agi = adv.getAgi(leader, includeEquipments);
         pieceClass = adv.adventurerClass.getClassName();
         Log.d(TAG, "The class of this piece is " + pieceClass);
+        this.save();
     }
 
     // Generate generic enemies with 10 hp, 5 atk
@@ -68,6 +74,7 @@ public class Piece {
         skills.add(EnumFile.SkillsEnum.MOVE);
         skills.add(EnumFile.SkillsEnum.HEAL);
         pieceClass = enemyClass;
+        this.save();
     }
 
     public boolean getIsPlayer() {
