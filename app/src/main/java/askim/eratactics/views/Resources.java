@@ -136,10 +136,6 @@ public class Resources {
         return id;
     }
 
-    public static int getEquipmentImageId(EnumFile.EquipmentSlots slot, String advClass) {
-        return getEquipmentImageId(slot.toString(), advClass);
-    }
-
     public static int getEquipmentImageId(String slot, String advClass) {
         int id;
         switch (slot.toUpperCase()) {
