@@ -1,5 +1,7 @@
 package askim.eratactics.activities;
 
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar;
@@ -9,17 +11,18 @@ import android.support.v7.widget.RecyclerView;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import askim.eratactics.R;
 import askim.eratactics.adapters.LevelSelectAdapter;
-import askim.eratactics.views.LevelSelectView;
+import askim.eratactics.gamelogic.LevelGenerator;
 
 public class LevelSelectActivity extends AppCompatActivity {
 
     private static final String TAG = "Level select";
 
     private LevelSelectAdapter adapter;
-    private ArrayList<String> levelList;
+    private List<LevelGenerator> levelList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +40,8 @@ public class LevelSelectActivity extends AppCompatActivity {
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.level_select_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        levelList = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
-            levelList.add(Integer.toString(i));
-        }
+        levelList = LevelGenerator.listAll(LevelGenerator.class);
+
         adapter = new LevelSelectAdapter(LevelSelectActivity.this, levelList);
         mRecyclerView.setAdapter(adapter);
     }

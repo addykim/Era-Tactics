@@ -11,9 +11,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.orm.SugarContext;
+
 import java.lang.reflect.Member;
+import java.util.logging.Level;
 
 import askim.eratactics.R;
+import askim.eratactics.gamelogic.Adventurer;
+import askim.eratactics.gamelogic.LevelGenerator;
+import askim.eratactics.gamelogic.PlayerAdventurers;
+import askim.eratactics.gamelogic.Team;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -34,6 +41,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
+        SugarContext.init(this);
+
+        //TODO sharedpreferences
+        PlayerAdventurers members = new PlayerAdventurers(this);
+        LevelGenerator level = new LevelGenerator(this);
 
         adventureButton = (Button) findViewById(R.id.adventureButton);
         adventureButton.setOnClickListener(new View.OnClickListener() {
@@ -86,5 +98,11 @@ public class SplashActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SugarContext.terminate();
     }
 }
