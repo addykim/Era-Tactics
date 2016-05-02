@@ -9,6 +9,7 @@ import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -25,6 +26,7 @@ public class TeamListView extends View {
 
     private Paint mPaint;
     private ArrayList<Adventurer> teamMembers;
+    private int selected;
 
     /* Used to determine stroke width of board lines */
     private static final int GRID_LINE_WIDTH = 6;
@@ -71,6 +73,8 @@ public class TeamListView extends View {
         }
 
         drawChar(canvas, cellSize);
+        if (selected > -1 && selected < 5)
+            drawCircle(canvas, cellSize);
     }
 
     private void drawChar(Canvas canvas, int cellSize) {
@@ -98,7 +102,25 @@ public class TeamListView extends View {
         }
     }
 
+    private void drawCircle(Canvas canvas, int cellSize) {
+        mPaint.setStyle(Paint.Style.STROKE);
+        int row, col, index;
+        int left, top, right, bottom;
+
+
+        left = (selected*cellSize)+GRID_LINE_WIDTH/2;
+        top = GRID_LINE_WIDTH/2;
+        right = ((selected+1)*cellSize)-GRID_LINE_WIDTH/2;
+        bottom = (cellSize)-GRID_LINE_WIDTH/2;
+            /* Draws a circle around your selected character */
+        mPaint.setColor((Color.BLUE));
+        canvas.drawOval(new RectF(left, top, right, bottom), mPaint);
+
+    }
+
     public void setTeamMembers(ArrayList<Adventurer> members) {
         teamMembers = members;
     }
+
+    public void setSelected(int i) {selected = i;}
 }
