@@ -33,22 +33,27 @@ public class PlayerAdventurers {
             Adventurer villager1 = new Adventurer(new Equipment(EnumFile.ClassEnum.VILLAGER), null, null, null, null, "Bob");
             villager1.setTeam(team1);
             villager1.save();
+
             Adventurer apprentice1 = new Adventurer(new Equipment(EnumFile.ClassEnum.APPRENTICE),
                     new Equipment(EnumFile.Equipments.BASIC_POTION), null, null, null, "BOB!");
             apprentice1.setTeam(team1);
             apprentice1.save();
+
             Adventurer magician1 = new Adventurer(new Equipment(EnumFile.ClassEnum.MAGICIAN),
                     new Equipment(EnumFile.Equipments.BASIC_WAND),
                     new Equipment(EnumFile.Equipments.BASIC_POTION), null, null, "Still Bob");
             magician1.setTeam(team1);
             magician1.save();
+
             Adventurer archer1 = new Adventurer(new Equipment(EnumFile.ClassEnum.ARCHER),
                     new Equipment(EnumFile.Equipments.BASIC_ARROW), null, null, null, "Uh.. Bob.");
             archer1.setTeam(team1);
             archer1.save();
+
             Adventurer magician2 = new Adventurer(new Equipment(EnumFile.ClassEnum.MAGICIAN), null, null, null, null, "Not Bob");
             magician2.setTeam(team1);
             magician2.save();
+
             Adventurer apprentice2 = new Adventurer(new Equipment(EnumFile.ClassEnum.APPRENTICE), null, null, null, null, "No More Bob.");
             apprentice2.setTeam(team1);
             apprentice2.save();
