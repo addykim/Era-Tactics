@@ -3,8 +3,10 @@ package askim.eratactics.gamelogic;
 import android.util.Log;
 
 import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nunuloop on 3/24/16.
@@ -19,7 +21,9 @@ public class Team extends SugarRecord {
      * 6 7 8
      */
 
+    @Ignore
     private Adventurer[] adventurers;
+    @Ignore
     private ArrayList<Adventurer> teamMembers;
     private Adventurer leader;
     private int advCount;
@@ -32,7 +36,7 @@ public class Team extends SugarRecord {
     public boolean addTeamMember(Adventurer adv) {
         if (teamMembers.size() < 5 && !teamMembers.contains(adv)) {
             teamMembers.add(adv);
-            Log.d(TAG, "Team now has " + teamMembers.size() + " members.");
+            adv.setTeam(this);
             return true;
         }
         return false;
@@ -76,5 +80,15 @@ public class Team extends SugarRecord {
         return leader;
     }
 
-    public ArrayList<Adventurer> getTeamMembers() { return teamMembers; }
+    /* This NEEDS to be called if you're getting a team by the findById method */
+    public void setTeamMembers() {
+        teamMembers = (ArrayList)Adventurer.find(Adventurer.class, "team = ?", "" + getId());
+    }
+
+    public ArrayList<Adventurer> getTeamMembers() {
+        if (teamMembers == null)
+            setTeamMembers();
+        return teamMembers;
+    }
+
 }

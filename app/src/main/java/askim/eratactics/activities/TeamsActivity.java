@@ -3,6 +3,10 @@ package askim.eratactics.activities;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Adventurer;
@@ -32,9 +36,14 @@ public class TeamsActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.hide();
 
-        Team alphaTeam = Team.findById(Team.class, 0);
+        Team alphaTeam = Team.findById(Team.class, 1);
+        alphaTeam.setTeamMembers();
         teamView = (TeamView) findViewById(R.id.preSetTeam);
         teamView.setTeam(alphaTeam);
+        Toast.makeText(this, ""+alphaTeam.getTeamMembers().size(), Toast.LENGTH_SHORT).show();
+        for (Adventurer member: alphaTeam.getTeamMembers()) {
+            Log.d(TAG, member.getAdventurerName());
+        }
 
         teamListView = (TeamListView) findViewById(R.id.preSetTeamList);
         teamListView.setTeamMembers(alphaTeam.getTeamMembers());

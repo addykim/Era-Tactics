@@ -14,6 +14,9 @@ import java.util.List;
  */
 public class Adventurer extends SugarRecord {
     private static final String TAG = "Adventurer";
+
+    /* Defines which team this adventurer is a part of */
+    private Team team;
     public String name;
     private int lvl;
     public Equipment adventurerClass;
@@ -271,4 +274,6 @@ public class Adventurer extends SugarRecord {
     public String getAdventurerClassAsString() { return adventurerClass.getName(); }
 
     public int getAdventurerLevel() { return lvl; }
+
+    public void setTeam(Team team) { this.team = team; this.save(); }
 }

@@ -98,6 +98,7 @@ public class TacticsGame extends AppCompatActivity {
 
         // TODO get team member
         Team alphaTeam = Team.findById(Team.class, 1);
+        alphaTeam.setTeamMembers();
 
         // Gets level selected
         currentLevel = (int) intent.getLongExtra("level", 1);
