@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -20,6 +21,7 @@ import askim.eratactics.gamelogic.Team;
 public class TeamView extends View {
 
     private Team mTeam;
+    private int selected;
 
     private static final String TAG = "TeamView";
     private Paint mPaint;
@@ -44,6 +46,7 @@ public class TeamView extends View {
 
     private void initialize() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        selected = -1;
     }
 
     /* Draws the lines on the board */
@@ -74,10 +77,12 @@ public class TeamView extends View {
 
         /* Draw characters */
         drawChar(canvas, cellWidth, cellHeight);
+        if (selected > -1 && selected < 9)
+            drawCircle(canvas, getBoardCellsize());
     }
 
     /* Get board cell size using view's width */
-    private int getBoardCellsize() {
+    public int getBoardCellsize() {
         return getWidth() / 3;
     }
 
@@ -96,7 +101,7 @@ public class TeamView extends View {
 //            Log.d(TAG, "Drawing character in grid " + row + ", " + col);
             occupant = mTeam.getAdventurer(i);
             if (occupant != null) {
-                image = BitmapFactory.decodeResource(getResources(), Resources.getImageId(occupant.getAdventurerName()));
+                image = BitmapFactory.decodeResource(getResources(), Resources.getImageId(occupant.getAdventureClassAsEnum()));
                 if (image != null) {
                         canvas.drawBitmap(image, null,
                                 new Rect(left, top, right, bottom),
@@ -105,6 +110,27 @@ public class TeamView extends View {
                 }
             }
         }
+    }
+
+    private void drawCircle(Canvas canvas, int cellSize) {
+        mPaint.setStyle(Paint.Style.STROKE);
+        int row, col;
+        row = selected / 3;
+        col = selected % 3;
+        int left, top, right, bottom;
+
+        left = (col * cellSize)+GRID_LINE_WIDTH/2;
+        top = (row * cellSize) + GRID_LINE_WIDTH/2;
+        right = ((col + 1) * cellSize)-GRID_LINE_WIDTH/2;
+        bottom = ((row + 1) * cellSize)-GRID_LINE_WIDTH/2;
+            /* Draws a circle around your selected character */
+        mPaint.setColor((Color.BLUE));
+        canvas.drawOval(new RectF(left, top, right, bottom), mPaint);
+
+    }
+
+    public void setSelected(int s) {
+        selected = s;
     }
 
     public void setTeam(Team t) {

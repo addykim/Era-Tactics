@@ -55,6 +55,7 @@ public class TeamsActivity extends AppCompatActivity {
         for (Adventurer member: alphaTeam.getTeamMembers()) {
             Log.d(TAG, member.getAdventurerName());
         }
+        teamView.setOnTouchListener(teamTouchListener);
 
         teamListView = (TeamListView) findViewById(R.id.preSetTeamList);
         teamListView.setTeamMembers(alphaTeam.getTeamMembers());
@@ -83,6 +84,40 @@ public class TeamsActivity extends AppCompatActivity {
 
             teamListView.setSelected(selected);
             teamListView.invalidate();
+            teamView.setSelected(Math.max(-1, selected - 5));
+            teamView.invalidate();
+            return false;
+        }
+    };
+
+    private View.OnTouchListener teamTouchListener = new View.OnTouchListener() {
+        /* Rows 1-3 are for the enemies, 4-6 are for the player */
+        public boolean onTouch(View v, MotionEvent event) {
+            // Determine which cell was touched
+            int row = (int) event.getY() / teamView.getBoardCellsize();
+            int col = (int) event.getX() / teamView.getBoardCellsize();
+            int pos = row * 3 + col;
+            String log = "Clicked team member on col " + (col+1);
+
+            if (!status && selected < 5) {
+                    alphaTeam.putAdventurer(alphaTeam.getTeamMembers().get(selected), pos, false);
+                    selected = -1;
+                    status = !status;
+            } else if (!status) {
+                alphaTeam.swapAdventurer(selected - 5, pos);
+                selected = -1;
+                status = !status;
+            }
+            else if (alphaTeam.getAdventurer(pos) != null) {
+                selected = pos + 5;
+                status = !status;
+            }
+
+            teamView.setSelected(Math.max(-1, selected - 5));
+            teamView.setTeam(alphaTeam);
+            teamListView.setSelected(selected);
+            teamListView.invalidate();
+            teamView.invalidate();
             return false;
         }
     };

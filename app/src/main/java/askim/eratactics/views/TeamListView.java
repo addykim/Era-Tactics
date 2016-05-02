@@ -105,7 +105,6 @@ public class TeamListView extends View {
 
     private void drawCircle(Canvas canvas, int cellSize) {
         mPaint.setStyle(Paint.Style.STROKE);
-        int row, col, index;
         int left, top, right, bottom;
 
 
