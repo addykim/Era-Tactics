@@ -19,18 +19,16 @@ public class Board {
 
     public Board(Team team, int lvl, Context mContext) {
         pieces = new Piece[6][3];
-        for (int i = 0; i < 9; i++) {
-            Adventurer temp = team.getAdventurer(i);             //TODO crashes here
-            if (temp != null) {
-                Piece p;
-                if (team.getLeader() == temp) {
-                    p = new Piece(temp, true);
-                } else {
-                    p = new Piece(temp, false);
-                }
-                pieces[i / 3 + 3][i % 3] = p;
-                activePlayers++;
+        // Iterate through the team members and place them on board
+        for (Adventurer member: team.getTeamMembers()) {
+            Piece p;
+            if (team.getLeader() == member) {
+                p = new Piece(member, true);
+            } else {
+                p = new Piece(member, false);
             }
+            pieces[member.getPosition() / 3 + 3][member.getPosition() % 3] = p;
+            activePlayers++;
         }
         generateEnemies(lvl);
         Log.d(TAG, "Current board status:\n" + printBoard());

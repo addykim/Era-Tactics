@@ -14,9 +14,13 @@ import java.util.List;
  */
 public class Adventurer extends SugarRecord {
     private static final String TAG = "Adventurer";
-    public String name;
+
+    /* Defines which team this adventurer is a part of */
+    private Team team;
+    private String name;
     private int lvl;
-    public Equipment adventurerClass;
+    private int position;
+    private Equipment adventurerClass;
     // 0 = head, 1 = left hand, 2 = right hand, 3 = body
     private Equipment head;
     private Equipment left;
@@ -271,4 +275,18 @@ public class Adventurer extends SugarRecord {
     public String getAdventurerClassAsString() { return adventurerClass.getName(); }
 
     public int getAdventurerLevel() { return lvl; }
+
+    public void setTeam(Team team) { this.team = team; this.save(); }
+
+    /* Gets the position of the character on a board */
+    public int getPosition() { return position; }
+
+    /* @Return: true if it successfully set position, */
+    public boolean setPosition(int position) {
+        if (0<=position && position <=8) {
+            this.position = position;
+            return true;
+        }
+        return false;
+    }
 }

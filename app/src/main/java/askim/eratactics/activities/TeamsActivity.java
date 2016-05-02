@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Adventurer;
@@ -44,8 +47,13 @@ public class TeamsActivity extends AppCompatActivity {
             actionBar.hide();
 
         alphaTeam = Team.findById(Team.class, 1);
+        alphaTeam.setTeamMembers();
         teamView = (TeamView) findViewById(R.id.preSetTeam);
         teamView.setTeam(alphaTeam);
+        Toast.makeText(this, ""+alphaTeam.getTeamMembers().size(), Toast.LENGTH_SHORT).show();
+        for (Adventurer member: alphaTeam.getTeamMembers()) {
+            Log.d(TAG, member.getAdventurerName());
+        }
 
         teamListView = (TeamListView) findViewById(R.id.preSetTeamList);
         teamListView.setTeamMembers(alphaTeam.getTeamMembers());
