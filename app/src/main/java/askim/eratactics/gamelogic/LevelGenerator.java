@@ -27,14 +27,18 @@ public class LevelGenerator extends SugarRecord {
         locked = true;
         cleared = false;
         enemyPieces = new Piece[3][3];
+        this.save();
         switch(level) {
             case 1:
                 // 3 enemies
                 name = "Level 1";
                 locked = false;
                 enemyPieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][0].setPosition(0);
                 enemyPieces[0][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][1].setPosition(1);
                 enemyPieces[0][2] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][2].setPosition(2);
                 break;
             case 2:
                 // 4 enemies

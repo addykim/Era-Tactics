@@ -3,6 +3,7 @@ package askim.eratactics.gamelogic;
 import android.content.Context;
 import android.util.Log;
 import java.util.ArrayList;
+import java.util.List;
 
 import askim.eratactics.views.BoardView;
 
@@ -36,23 +37,27 @@ public class Board {
             activePlayers++;
         }
         Log.d(TAG, "Active players: " + activePlayers);
-//        generateEnemies(lvl);
+        generateEnemies();
     }
 
-    private void generateEnemies(int lvl) {
-        LevelGenerator level = LevelGenerator.findById(LevelGenerator.class, lvl);
-        if (level.setEnemyPieces()) {
-            Piece[][] temp = level.getEnemyPieces();
-            activeEnemies = 0;
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    pieces[i][j] = temp[i][j];
-                    if (pieces[i][j] != null) {
-                        activeEnemies++;
-                    }
-                }
-            }
+    private void generateEnemies() {
+        Log.d(TAG, "Generating enemies");
+        ArrayList<Piece> tempPieces = (ArrayList) Piece.find(Piece.class, "level = ?", Integer.toString(level));
+        Log.d(TAG, "Size of tempPieces: " + tempPieces.size());
+        activeEnemies = 0;
+        for (Piece piece: tempPieces) {
+            pieces[piece.getPosition()/3][piece.getPosition()%3] = piece;
+            activeEnemies++;
         }
+//            for (int i = 0; i < 3; i++) {
+//                for (int j = 0; j < 3; j++) {
+//                    pieces[i][j] = temp[i][j];
+//                    if (pieces[i][j] != null) {
+//                        activeEnemies++;
+//                    }
+//                }
+//            }
+//        }
     }
 
     // Returns who is in cell of grid
