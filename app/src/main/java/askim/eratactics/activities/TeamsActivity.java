@@ -36,6 +36,7 @@ public class TeamsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        selected = -1;
         status = true;
         super.onCreate(savedInstanceState);
 
