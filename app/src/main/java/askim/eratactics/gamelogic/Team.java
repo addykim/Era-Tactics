@@ -46,17 +46,18 @@ public class Team extends SugarRecord {
         if (teamMembers.contains(adv)) {
             for (int i = 0; i < 9; i++) {
                 if (adventurers[i] == adv) {
-                    adv.setPosition(pos);
                     adventurers[i] = null;
                     advCount--;
-                    adv.save();
                 }
             }
             adventurers[pos] = adv;
+            if (adv.setPosition(pos))
+                adv.save();
             if (isLeader) {
                 leader = adv;
             }
             advCount++;
+            this.save();
             return true;
         }
         return false;

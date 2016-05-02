@@ -5,81 +5,67 @@ import android.content.Context;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by nunuloop on 4/19/16.
  */
 public class LevelGenerator extends SugarRecord {
 
     @Ignore
-    public static final int NUM_LEVELS = 2;
+    public static final int NUM_LEVELS = 4;
     private String name;
-    /* Piece[3][3] was turned into three arrays of int. This seems weird but it was dones o that we
-     * we could use sugar record in order to be able to save each position.
-     */
-    int zero, one, two, three, four, five, six, seven, eight, nine;
+    @Ignore
+    private Piece[][] enemyPieces;
     private boolean locked;
     private boolean cleared;
 
     public LevelGenerator() {}
 
     public LevelGenerator(Context c, int level) {
-        StringBuffer sb = new StringBuffer();
-        int id;
         locked = true;
         cleared = false;
-        Piece piece1, piece2, piece3, piece4;
-
+        enemyPieces = new Piece[3][3];
+        this.save();
         switch(level) {
             case 1:
                 // 3 enemies
                 name = "Level 1";
-                piece1 = new Piece(EnumFile.ClassEnum.HORNEDFROG);
-                id = piece1.getId().intValue();
-                zero = id;
-//                piece2 = new Piece(EnumFile.ClassEnum.HORNEDFROG);
-//                id = piece2.getId().intValue();
-//                row0[1] = id;
-//                piece3 = new Piece(EnumFile.ClassEnum.HORNEDFROG);
-//                id = piece3.getId().intValue();
-//                row0[2] = id;
                 locked = false;
+                enemyPieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][0].setPosition(0);
+                enemyPieces[0][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][1].setPosition(1);
+                enemyPieces[0][2] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][2].setPosition(2);
                 break;
             case 2:
-                //4 enemies
+                // 4 enemies
                 name = "Level 2";
-                piece1 = new Piece(EnumFile.ClassEnum.HORNEDFROG);
-                id = piece1.getId().intValue();
-                zero = id;
-//                enemyPieces[0][0] = id;
-//                piece2 = new Piece(EnumFile.ClassEnum.BADTEETH);
-//                id = piece2.getId().intValue();
-//                row0[2] = id;
-//                enemyPieces[0][2] = id;
-//                piece3 = new Piece(EnumFile.ClassEnum.HORNEDFROG);
-//                id = piece3.getId().intValue();
-//                row1[1] = id;
-//                enemyPieces[1][1] = id;
-//                piece4 = new Piece(EnumFile.ClassEnum.BADTEETH);
-//                id = piece4.getId().intValue();
-//                row2[2] = id;
-//                enemyPieces[2][2] = id;
-//                break;
-//            case 3:
-//                name = "Level 3";
-//                enemyPieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG);
-//                enemyPieces[0][1] = new Piece(EnumFile.ClassEnum.BADTEETH);
-//                enemyPieces[0][2] = new Piece(EnumFile.ClassEnum.BADTEETH);
-//                enemyPieces[1][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG);
-//                enemyPieces[2][2] = new Piece(EnumFile.ClassEnum.BADTEETH);
-//                break;
-//            case 4:
-//                name = "Level 4";
-//                enemyPieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG);
-//                enemyPieces[0][2] = new Piece(EnumFile.ClassEnum.BADTEETH);
-//                enemyPieces[1][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG);
-//                enemyPieces[2][2] = new Piece(EnumFile.ClassEnum.BADTEETH);
-//                enemyPieces[2][1] = new Piece(EnumFile.ClassEnum.BADTEETH);
-//                break;
+                enemyPieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[1][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[2][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                break;
+            case 3:
+                // 4 enemies
+                name = "Level 3";
+                enemyPieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][1] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[0][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[1][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[2][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                break;
+            case 4:
+                // 4 enemies
+                name = "Level 4";
+                enemyPieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[1][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[2][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[2][1] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                break;
         }
         // Saving the level created
         this.save();
@@ -95,4 +81,30 @@ public class LevelGenerator extends SugarRecord {
 
     public void setCleared(boolean cleared) { this.cleared = cleared; }
 
+    /* Returns the enemy pieces as 2d array */
+    public Piece[][] getEnemyPieces() {
+        if (enemyPieces == null) {
+            if (setEnemyPieces()) {
+                return enemyPieces;
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
+//        throw new IllegalArgumentException();
+        return null;
+    }
+
+    /* This needs to be called whenever "LevelGenerator.findbyId" is called */
+    public boolean setEnemyPieces() {
+        ArrayList<Piece> list = (ArrayList) Piece.find(Piece.class, "level = ?", getId().toString());
+        if (list != null) {
+            Piece[][] temp = new Piece[3][3];
+            for (Piece piece : list) {
+                int pos = piece.getPosition();
+                temp[pos / 3][pos % 3] = piece;
+            }
+            return true;
+        }
+        return false;
+    }
 }

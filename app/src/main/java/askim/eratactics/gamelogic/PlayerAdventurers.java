@@ -51,28 +51,27 @@ public class PlayerAdventurers {
             archer1.save();
 
             Adventurer magician2 = new Adventurer(new Equipment(EnumFile.ClassEnum.MAGICIAN), null, null, null, null, "Not Bob");
-            magician2.setTeam(team1);
+            magician2.setTeam(team2);
             magician2.save();
 
             Adventurer apprentice2 = new Adventurer(new Equipment(EnumFile.ClassEnum.APPRENTICE), null, null, null, null, "No More Bob.");
-            apprentice2.setTeam(team1);
+            apprentice2.setTeam(team2);
             apprentice2.save();
             
             team1.addTeamMember(villager1);
             team1.putAdventurer(villager1, 2, false);
+
             team1.addTeamMember(apprentice1);
             team1.putAdventurer(apprentice1, 6, false);
+
+            team1.addTeamMember(apprentice2);
+            team1.putAdventurer(apprentice1, 4, false);
+
             team1.addTeamMember(magician1);
             team1.putAdventurer(magician1, 3, false);
+
             team1.addTeamMember(archer1);
             team1.putAdventurer(archer1, 5, false);
-
-//            squ.add(villager1);
-//            squad.add(apprentice1);
-//            squad.add(magician1);
-//            squad.add(archer1);
-//            squad.add(magician2);
-//            squad.add(apprentice2);
 
             Equipment basicSword = new Equipment(EnumFile.Equipments.BASIC_SWORD);
             Equipment basicWand = new Equipment(EnumFile.Equipments.BASIC_WAND);

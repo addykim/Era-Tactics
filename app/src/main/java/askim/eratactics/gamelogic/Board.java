@@ -3,6 +3,7 @@ package askim.eratactics.gamelogic;
 import android.content.Context;
 import android.util.Log;
 import java.util.ArrayList;
+import java.util.List;
 
 import askim.eratactics.views.BoardView;
 
@@ -13,12 +14,14 @@ public class Board {
 
     private final String TAG = "BoardLogic";
 
+    int level;
     private Piece[][] pieces;
     int activeEnemies = 0;
     int activePlayers = 0;
 
     public Board(Team team, int lvl, Context mContext) {
         pieces = new Piece[6][3];
+        level = lvl;
         // Iterate through the team members and place them on board
         for (Adventurer member: team.getTeamMembers()) {
             Piece p;
@@ -27,22 +30,31 @@ public class Board {
             } else {
                 p = new Piece(member, false);
             }
-            pieces[member.getPosition() / 3 + 3][member.getPosition() % 3] = p;
+            Log.d(TAG, "Member.position: " + member.getPosition());
+            Log.d(TAG, "Placing " + member.getAdventurerClassAsString() + " into Pieces at " +
+                    (member.getPosition()/3+3) + ", " + (member.getPosition()%3));
+            pieces[member.getPosition()/3+3][member.getPosition()%3] = p;
             activePlayers++;
         }
-        generateEnemies(lvl);
-        Log.d(TAG, "Current board status:\n" + printBoard());
+        Log.d(TAG, "Active players: " + activePlayers);
+        generateEnemies();
     }
 
-    private void generateEnemies(int lvl) {
-        LevelGenerator level = LevelGenerator.findById(LevelGenerator.class, lvl);
-//        Piece[][] temp = level.getEnemyPieces();
-//        activeEnemies = 0;
-//        for (int i = 0; i < 3; i++) {
-//            for (int j = 0; j < 3; j++) {
-//                pieces[i][j] = temp[i][j];
-//                if (pieces[i][j] != null) {
-//                    activeEnemies++;
+    private void generateEnemies() {
+        Log.d(TAG, "Generating enemies");
+        ArrayList<Piece> tempPieces = (ArrayList) Piece.find(Piece.class, "level = ?", Integer.toString(level));
+        Log.d(TAG, "Size of tempPieces: " + tempPieces.size());
+        activeEnemies = 0;
+        for (Piece piece: tempPieces) {
+            pieces[piece.getPosition()/3][piece.getPosition()%3] = piece;
+            activeEnemies++;
+        }
+//            for (int i = 0; i < 3; i++) {
+//                for (int j = 0; j < 3; j++) {
+//                    pieces[i][j] = temp[i][j];
+//                    if (pieces[i][j] != null) {
+//                        activeEnemies++;
+//                    }
 //                }
 //            }
 //        }

@@ -100,6 +100,7 @@ public class LevelSelectAdapter extends RecyclerView.Adapter<LevelSelectAdapter.
                 // Intent intent = new Intent(mContext, ResultActivity.class);
 //                intent.putExtra("win", true);
                 intent.putExtra("level", id);
+                // TODO for some reasons it duplicates the levels
                 mContext.startActivity(intent);
             } else {
                 Log.d(TAG, "This level is not available yet");

@@ -25,7 +25,11 @@ public class Piece extends SugarRecord {
      * agi = agility, 0~1, possibility of dodging (either)
      */
 
-    // TODO set public variables to private and create setters/getters
+    // TODO set public variables to private and create setters/getter
+
+    /* This is the level that the piece is associated with */
+    private LevelGenerator level;
+    private int position;
     public int maxHp, hp, atk, def, mag, res, mrg, atr;
     public double agi;
     private boolean isPlayer;
@@ -37,6 +41,8 @@ public class Piece extends SugarRecord {
     public Piece() {}
 
     public Piece(Adventurer adv, boolean isLeader) {
+        position = adv.getPosition();
+        level = null;
         isPlayer = true;
         leader = isLeader;
         skills = adv.getSkills(isLeader);
@@ -53,11 +59,11 @@ public class Piece extends SugarRecord {
         agi = adv.getAgi(leader, includeEquipments);
         pieceClass = adv.getAdventureClassAsEnum();
         Log.d(TAG, "The class of this piece is " + pieceClass);
-        this.save();
     }
 
     // Generate generic enemies with 10 hp, 5 atk
-    public Piece(EnumFile.ClassEnum enemyClass) {
+    public Piece(EnumFile.ClassEnum enemyClass, LevelGenerator level) {
+        this.level = level;
         isPlayer = false;
         hasMoved = false;
         maxHp = 10;
@@ -99,7 +105,24 @@ public class Piece extends SugarRecord {
 
     public EnumFile.ClassEnum getPieceClass() {
 //        Log.d(TAG, "Getting the class of this piece: " + pieceClass);
-
         return pieceClass;
+    }
+
+    public boolean setLevel(LevelGenerator level) {
+        if (level != null) {
+            this.level = level;
+            return true;
+        }
+        return false;
+    }
+
+    public int getPosition() { return position; }
+
+    public boolean setPosition(int position) {
+        if (0 <= position && position <=8) {
+            this.position = position;
+            this.save();
+        }
+        return false;
     }
 }
