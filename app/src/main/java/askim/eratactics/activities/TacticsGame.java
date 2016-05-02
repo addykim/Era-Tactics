@@ -83,10 +83,6 @@ public class TacticsGame extends AppCompatActivity {
 
         /* Initialize music */
         playMusic = mPrefs.getBoolean("music", false);
-//        if (playMusic) {
-//            mBackgroundSound = new BackgroundSound();
-//            mBackgroundSound.execute();
-//        }
         playSfx = mPrefs.getBoolean("sfx", false);
         if (playSfx)
             sfxPlayer = new MediaPlayer();

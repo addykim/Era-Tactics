@@ -47,6 +47,7 @@ public class TeamView extends View {
     private void initialize() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         selected = -1;
+        invalidate();
     }
 
     /* Draws the lines on the board */

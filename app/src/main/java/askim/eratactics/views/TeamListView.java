@@ -50,6 +50,7 @@ public class TeamListView extends View {
     public void initialize() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         selected = -1;
+        invalidate();
     }
 
     @Override

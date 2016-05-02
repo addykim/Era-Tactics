@@ -328,6 +328,7 @@ public class Board {
         Piece enemyPiece = pieces[movingR][movingC];
         ArrayList<EnumFile.SkillsEnum> enemySkills = getAdventurerSkills(movingR, movingC);
 
+        // TODO this crashes probably because it's not saving on creation/not being grabbed
         for (EnumFile.SkillsEnum s : enemySkills) {
             if (enemyPiece != null) {
                 // if the moving enemy has HEAL and there is an enemy low on health (<20%), heal!

@@ -51,10 +51,10 @@ public class TeamsActivity extends AppCompatActivity {
         alphaTeam.setTeamMembers();
         teamView = (TeamView) findViewById(R.id.preSetTeam);
         teamView.setTeam(alphaTeam);
-        Toast.makeText(this, ""+alphaTeam.getTeamMembers().size(), Toast.LENGTH_SHORT).show();
-        for (Adventurer member: alphaTeam.getTeamMembers()) {
-            Log.d(TAG, member.getAdventurerName());
-        }
+//        Toast.makeText(this, ""+alphaTeam.getTeamMembers().size(), Toast.LENGTH_SHORT).show();
+//        for (Adventurer member: alphaTeam.getTeamMembers()) {
+//            Log.d(TAG, member.getAdventurerName());
+//        }
         teamView.setOnTouchListener(teamTouchListener);
 
         teamListView = (TeamListView) findViewById(R.id.preSetTeamList);

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.orm.SugarContext;
+import com.orm.SugarDb;
 
 import java.lang.reflect.Member;
 import java.util.logging.Level;
@@ -22,6 +23,7 @@ import askim.eratactics.R;
 import askim.eratactics.gamelogic.Adventurer;
 import askim.eratactics.gamelogic.Equipment;
 import askim.eratactics.gamelogic.LevelGenerator;
+import askim.eratactics.gamelogic.Piece;
 import askim.eratactics.gamelogic.PlayerAdventurers;
 import askim.eratactics.gamelogic.Team;
 import askim.eratactics.views.Resources;
@@ -48,16 +50,14 @@ public class SplashActivity extends AppCompatActivity {
         SugarContext.init(this);
 
         SharedPreferences settings = getSharedPreferences(Resources.PREFS_NAME, Activity.MODE_PRIVATE);
-        boolean initialized = settings.getBoolean("initialized", false);
-        if (!initialized) {
+        boolean init = settings.getBoolean("init", true);
+        if (init) {
             // Create player adventures, levels, and enemies
+            Toast.makeText(this, "Populated databases with members, levels, and pieces", Toast.LENGTH_SHORT).show();
             PlayerAdventurers members = new PlayerAdventurers(this);
             for (int i = 1; i <= LevelGenerator.NUM_LEVELS; i++) {
                 LevelGenerator level = new LevelGenerator(this, i);
             }
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("initialized", true);
-            editor.commit();
         }
 
 

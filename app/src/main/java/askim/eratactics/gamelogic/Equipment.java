@@ -4,8 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nunuloop on 3/22/16.
@@ -43,7 +45,7 @@ public class Equipment extends SugarRecord {
     private boolean leaderSkillActivated;
 
     // making sure that the equipment goes with the adventurer's class
-    public ArrayList<EnumFile.ClassEnum> compatibleClasses;
+    public List<EnumFile.ClassEnum> compatibleClasses;
     private boolean equipped;
 
     public Equipment() {
