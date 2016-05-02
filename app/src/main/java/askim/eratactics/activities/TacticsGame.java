@@ -65,12 +65,12 @@ public class TacticsGame extends AppCompatActivity {
     private boolean playMusic;
     private boolean playSfx;
 
+    private int currentLevel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tactics_game);
-//        SugarContext.init(this);
-
 
         /* Hide action bar */
         ActionBar actionBar = getSupportActionBar();
@@ -100,8 +100,8 @@ public class TacticsGame extends AppCompatActivity {
         Team alphaTeam = Team.findById(Team.class, 1);
 
         // Gets level selected
-        int level = (int) intent.getLongExtra("level", 1);
-        boardLogic = new Board(alphaTeam, level, this);
+        currentLevel = (int) intent.getLongExtra("level", 1);
+        boardLogic = new Board(alphaTeam, currentLevel, this);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
 
@@ -118,6 +118,7 @@ public class TacticsGame extends AppCompatActivity {
             public void onClick(View v) {
                 Intent results = new Intent(getApplicationContext(), ResultActivity.class);
                 results.putExtra("win", true);
+                results.getIntExtra("level", currentLevel);
                 startActivity(results);
                 finish();
             }
@@ -192,9 +193,9 @@ public class TacticsGame extends AppCompatActivity {
 //        Log.d(TAG, "Checking for winner");
         int result = boardLogic.checkGameOver();
         if (result == 1) {
-            //TODO replace with actual intent to win or lose screen
             Intent results = new Intent(this, ResultActivity.class);
             results.putExtra("win", true);
+            results.putExtra("level", currentLevel);
             startActivity(results);
             finish();
         } else if (result == 2) {
