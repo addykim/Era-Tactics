@@ -1,5 +1,6 @@
 package askim.eratactics.gamelogic;
 
+import android.content.Context;
 import android.util.Log;
 import java.util.ArrayList;
 
@@ -16,11 +17,10 @@ public class Board {
     int activeEnemies = 0;
     int activePlayers = 0;
 
-
-    public Board(Team team, int lvl) {
+    public Board(Team team, int lvl, Context mContext) {
         pieces = new Piece[6][3];
         for (int i = 0; i < 9; i++) {
-            Adventurer temp = team.getAdventurer(i);
+            Adventurer temp = team.getAdventurer(i);             //TODO crashes here
             if (temp != null) {
                 Piece p;
                 if (team.getLeader() == temp) {
@@ -37,16 +37,17 @@ public class Board {
     }
 
     private void generateEnemies(int lvl) {
-        Piece[][] temp = LevelGenerator.generate(lvl);
-        activeEnemies = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                pieces[i][j] = temp[i][j];
-                if (pieces[i][j] != null) {
-                    activeEnemies++;
-                }
-            }
-        }
+        LevelGenerator level = LevelGenerator.findById(LevelGenerator.class, lvl);
+//        Piece[][] temp = level.getEnemyPieces();
+//        activeEnemies = 0;
+//        for (int i = 0; i < 3; i++) {
+//            for (int j = 0; j < 3; j++) {
+//                pieces[i][j] = temp[i][j];
+//                if (pieces[i][j] != null) {
+//                    activeEnemies++;
+//                }
+//            }
+//        }
     }
 
     // Returns who is in cell of grid

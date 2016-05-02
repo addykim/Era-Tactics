@@ -13,13 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import askim.eratactics.R;
-import askim.eratactics.activities.SettingsActivity;
+import askim.eratactics.activities.ResultActivity;
 import askim.eratactics.activities.TacticsGame;
+import askim.eratactics.gamelogic.LevelGenerator;
 
 /**
  * Created by addykim on 4/21/16.
@@ -27,16 +27,14 @@ import askim.eratactics.activities.TacticsGame;
 public class LevelSelectAdapter extends RecyclerView.Adapter<LevelSelectAdapter.LevelSelectViewHolder> {
 
     private static final String TAG = "LevelSelectAdapter";
-//    private List<LevelSelectView> levelList;
-    private List<String> levelList;
+    private List<LevelGenerator> levelList;
 
     private static ClickListener clickListener;
 
     private Context mContext;
     // How to add onclicklistener to adapters
 
-//    public LevelSelectAdapter(Context context, List<LevelSelectView> levelSelectList) {
-    public LevelSelectAdapter(Context context, List<String> levelSelectList) {
+    public LevelSelectAdapter(Context context, List<LevelGenerator> levelSelectList) {
         this.levelList = levelSelectList;
         this.mContext = context;
     }
@@ -51,20 +49,9 @@ public class LevelSelectAdapter extends RecyclerView.Adapter<LevelSelectAdapter.
 
     @Override
     public void onBindViewHolder(LevelSelectViewHolder customViewHolder, int i) {
-//        LevelSelectView levelSelectView = levelList.get(i);
-        String levelSelectView = levelList.get(i);
-        customViewHolder.setItem(levelSelectView);
+        LevelGenerator levelSelectView = levelList.get(i);
+        customViewHolder.setItem(levelSelectView.getId(), levelSelectView);
     }
-
-
-//        //Download image using picasso library
-//        Picasso.with(mContext).load(MemberView.getThumbnail())
-//                .error(R.drawable.placeholder)
-//                .placeholder(R.drawable.placeholder)
-//                .into(customViewHolder.imageView);
-
-        //Setting text view title
-//        customViewHolder.textView.setText(Html.fromHtml(MemberView.getTitle()));
 
     public void setOnItemClickListener(ClickListener clickListener) {
         LevelSelectAdapter.clickListener = clickListener;
@@ -72,9 +59,7 @@ public class LevelSelectAdapter extends RecyclerView.Adapter<LevelSelectAdapter.
 
     public interface ClickListener {
         void onItemClick(int position, View v);
-//        void onItemLongClick(int position, View v);
     }
-
 
     @Override
     public int getItemCount() {
@@ -83,13 +68,21 @@ public class LevelSelectAdapter extends RecyclerView.Adapter<LevelSelectAdapter.
 
     public class LevelSelectViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        protected Long id;
         protected ImageView imageView;
         protected TextView textView;
+        protected boolean clickable;
 
-        public void setItem(String item) {
-            textView.setText(item);
-            // TODO set image based on status
-//            imageView.setImageResource(R.drawable.civilian_dmged);
+        public void setItem(Long id, LevelGenerator level) {
+            this.id = id;
+            textView.setText(level.getName());
+            if (level.getLocked()) {
+                imageView.setImageResource(R.drawable.lock);
+                clickable = false;
+            } else {
+                imageView.setImageResource(R.drawable.civilian_dmged);
+                clickable = true;
+            }
         }
 
         public LevelSelectViewHolder(View view) {
@@ -100,13 +93,17 @@ public class LevelSelectAdapter extends RecyclerView.Adapter<LevelSelectAdapter.
         }
 
         public void onClick(View view) {
-            Intent intent = new Intent(mContext, TacticsGame.class);
-            Log.d(TAG, "Clicked on level " + getPosition());
-
-            intent.putExtra("level", 2);
-            // TODO select a position that isn't deprecated
-//            intent.putExtra("level", getPosition());
-            mContext.startActivity(intent);
+            Log.d(TAG, "Clicked on level " + id);
+            if (clickable) {
+                Intent intent = new Intent(mContext, TacticsGame.class);
+                // Debugging
+                // Intent intent = new Intent(mContext, ResultActivity.class);
+//                intent.putExtra("win", true);
+                intent.putExtra("level", id);
+                mContext.startActivity(intent);
+            } else {
+                Log.d(TAG, "This level is not available yet");
+            }
         }
     }
 

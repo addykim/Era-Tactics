@@ -4,57 +4,37 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.orm.SugarRecord;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nunuloop on 3/10/16.
  */
-public class Adventurer implements Parcelable {
+public class Adventurer extends SugarRecord {
     private static final String TAG = "Adventurer";
     public String name;
+    private int lvl;
     public Equipment adventurerClass;
     // 0 = head, 1 = left hand, 2 = right hand, 3 = body
-    private Equipment[] equipments = new Equipment[4];
+    private Equipment head;
+    private Equipment left;
+    private Equipment right;
+    private Equipment body;
     private String leaderSkillDescription;
 
-    public int lvl;
+    public Adventurer() {}
 
-    public Adventurer(Equipment[] equips, String advName) {
+    public Adventurer(Equipment advClass, Equipment head, Equipment left, Equipment right, Equipment body, String advName) {
         name = advName;
-
-        // TODO: Right now we're assuming that the equipments passed in are the correct numbers and types. Later need to check these and throw exceptions if necessary.
-        for (Equipment e : equips) {
-            if (e.pos == 3) {
-                Log.d(TAG, "Setting adventurer class as " + e.name);
-                adventurerClass = e;
-            }
-            else if (e.pos == 0) {
-                Log.d(TAG, "Setting adventurer helmet as " + e.name);
-                equipments[0] = e;
-            }
-            else if (e.pos == 1) {
-                if (equipments[1] == null) {
-                    Log.d(TAG, "Setting adventurer left hand as " + e.name);
-                    equipments[1] = e;
-                }
-                else {
-                    Log.d(TAG, "Setting adventurer right hand as " + e.name);
-                    equipments[2] = e;
-                }
-            }
-            else {
-                Log.d(TAG, "Setting adventurer armor as " + e.name);
-                equipments[3] = e;
-            }
-        }
-
+        adventurerClass = advClass;
+        this.head = head;
+        this.left = left;
+        this.right = right;
+        this.body = body;
         lvl = 1;
-
         leaderSkillDescription = "No Leader Equipment Selected.";
-    }
-
-    public Adventurer(Parcel in) {
-        readFromParcel(in);
     }
 
     /**
@@ -64,25 +44,47 @@ public class Adventurer implements Parcelable {
      * @return true - equipment is compatible with the class and successfully equipped
      *         false - equipment not compatible with class
      */
+    // TODO switch to classenum
     public boolean changeEquipment (Equipment e, int pos) {
-        if (e.compatibleClasses.contains(adventurerClass)) {
-            equipments[pos].setEquipped(false);
-            equipments[pos] = e;
-            equipments[pos].setEquipped(true);
+        if (e.compatibleClasses.contains(adventurerClass) && 0 <= pos && pos <=3) {
+            if (pos == 0) {
+                head.setEquipped(false);
+                head = e;
+                head.setEquipped(true);
+            } else if (pos == 1) {
+                left.setEquipped(false);
+                left = e;
+                left.setEquipped(true);
+            } else if (pos == 2) {
+                right.setEquipped(false);
+                right = e;
+                right.setEquipped(true);
+            } else if (pos == 3) {
+                body.setEquipped(false);
+                body = e;
+                body.setEquipped(true);
+            }
             return true;
         }
         return false;
     }
 
-
-    public Equipment[] getEquipments() {
-        return equipments;
-    }
-    public Equipment getEquipment(EnumFile.EquipmentSlots e) {
-        return equipments[e.getPosition()];
-    }
-    public Equipment getEquipment(int equipmentPosition) {
-        return equipments[equipmentPosition];
+    public Equipment getEquipment(EnumFile.EquipmentPos pos) {
+        Equipment e = null;
+        switch(pos) {
+            case HEAD:
+                e = head;
+                break;
+            case LEFT:
+                e = left;
+            case RIGHT:
+                e = right;
+            case BODY:
+                e = body;
+            default:
+                Log.d(TAG, "Invalid equipment position");
+        }
+        return e;
     }
 
 
@@ -101,47 +103,56 @@ public class Adventurer implements Parcelable {
      * @return
      */
     public int getHp(boolean isLeader, boolean[] equips) {
-        int hp = (int)adventurerClass.stats[0];
-        for (int i = 0; i < 4; i++) {
-            if (equipments[i] != null && equips[i] == true) {
-                hp += equipments[i].stats[0];
-            }
-        }
+        int hp = (int)adventurerClass.getHp();
+        if (head != null && equips[0] == true)
+            hp+=head.getHp();
+        if (left != null & equips[1] == true)
+            hp+=left.getHp();
+        if (right != null & equips[2] == true)
+            hp+=right.getHp();
+        if (body != null & equips[3] == true)
+            hp+=body.getHp();
         if (isLeader)
             hp += 5;
         return hp;
     }
 
     public int getAtk(boolean isLeader, boolean[] equips) {
-        int atk = (int)adventurerClass.stats[1];
-        for (int i = 0; i < 4; i++) {
-            if (equipments[i] != null && equips[i] == true) {
-                atk += equipments[i].stats[1];
-            }
-        }
+        int atk = (int)adventurerClass.getAtk();
+        if (head != null && equips[0] == true)
+            atk+=head.getAtk();
+        if (left != null & equips[1] == true)
+            atk+=left.getAtk();
+        if (right != null & equips[2] == true)
+            atk+=right.getAtk();
+        if (body != null & equips[3] == true)
+            atk+=body.getAtk();
         if (isLeader)
             atk += 1;
         return atk;
     }
 
     public int getDef(boolean isLeader, boolean[] equips) {
-        int def = (int)adventurerClass.stats[2];
-        for (int i = 0; i < 4; i++) {
-            if (equipments[i] != null && equips[i] == true) {
-                def += equipments[i].stats[2];
-            }
-        }
+        int def = (int)adventurerClass.getDef();
+        if (head != null && equips[0] == true)
+            def+=head.getHp();
+        if (left != null & equips[1] == true)
+            def+=left.getHp();
+        if (right != null & equips[2] == true)
+            def+=right.getHp();
+        if (body != null & equips[3] == true)
+            def+=body.getHp();
         if (isLeader)
             def += 1;
         return def;
     }
 
     public int getMag(boolean isLeader, boolean[] equips) {
-        int mag = (int)adventurerClass.stats[3];
+        int mag = (int)adventurerClass.getMag();
         for (int i = 0; i < 4; i++) {
-            if (equipments[i] != null && equips[i] == true) {
-                mag += equipments[i].stats[3];
-            }
+//            if (equipments[i] != null && equips[i] == true) {
+//                mag += equipments[i].getMag();
+//            }
         }
         if (isLeader)
             mag += 1;
@@ -149,23 +160,26 @@ public class Adventurer implements Parcelable {
     }
 
     public int getRes(boolean isLeader, boolean[] equips) {
-        int res = (int)adventurerClass.stats[4];
-        for (int i = 0; i < 4; i++) {
-            if (equipments[i] != null && equips[i] == true) {
-                res += equipments[i].stats[4];
-            }
-        }
+        int res = (int)adventurerClass.getRes();
+        if (head != null && equips[0] == true)
+            res+=head.getRes();
+        if (left != null & equips[1] == true)
+            res+=left.getRes();
+        if (right != null & equips[2] == true)
+            res+=right.getRes();
+        if (body != null & equips[3] == true)
+            res+=body.getRes();
         if (isLeader)
             res += 1;
         return res;
     }
 
     public int getMrg(boolean isLeader, boolean[] equips) {
-        int mrg = (int)adventurerClass.stats[5];
+        int mrg = (int)adventurerClass.getMrg();
         for (int i = 0; i < 4; i++) {
-            if (equipments[i] != null && equips[i] == true) {
-                mrg += equipments[i].stats[5];
-            }
+//            if (equipments[i] != null && equips[i] == true) {
+//                mrg += equipments[i].getMrg();
+//            }
         }
         if (isLeader)
             mrg += 1;
@@ -173,11 +187,11 @@ public class Adventurer implements Parcelable {
     }
 
     public int getAtr(boolean isLeader, boolean[] equips) {
-        int atr = (int)adventurerClass.stats[6];
+        int atr = (int)adventurerClass.getAtr();
         for (int i = 0; i < 4; i++) {
-            if (equipments[i] != null && equips[i] == true) {
-                atr += equipments[i].stats[6];
-            }
+//            if (equipments[i] != null && equips[i] == true) {
+//                atr += equipments[i].getAtr();
+//            }
         }
         if (isLeader)
             atr += 0;
@@ -185,12 +199,15 @@ public class Adventurer implements Parcelable {
     }
 
     public double getAgi(boolean isLeader, boolean[] equips) {
-        double agi = adventurerClass.stats[7];
-        for (int i = 0; i < 4; i++) {
-            if (equipments[i] != null && equips[i] == true) {
-                agi += equipments[i].stats[7];
-            }
-        }
+        double agi = adventurerClass.getAgi();
+        if (head != null && equips[0] == true)
+            agi+=head.getAgi();
+        if (left != null & equips[1] == true)
+            agi+=left.getAgi();
+        if (right != null & equips[2] == true)
+            agi+=right.getAgi();
+        if (body != null & equips[3] == true)
+            agi+=body.getAgi();
         if (isLeader)
             agi += 0;
         return agi;
@@ -198,82 +215,60 @@ public class Adventurer implements Parcelable {
 
     public ArrayList<Equipment> availableEquipment(int pos, ArrayList<Equipment> allEquipment) {
         ArrayList<Equipment> results = new ArrayList<Equipment>();
-
-        for (Equipment e : allEquipment) {
-            if (!e.isEquipped() && e.isCompatible(adventurerClass.className) && e.pos == pos)
-                results.add(e);
-        }
-
+//
+//        for (Equipment e : allEquipment) {
+//            if (!e.isEquipped() && e.isCompatible(adventurerClass.getClassName()) && e.pos == pos)
+//                results.add(e);
+//        }
+//
         return results;
     }
 
     public String getAdventurerName() { return name; }
 
-    public void setLeaderEquipment(int pos) {
-        for (Equipment e : equipments) {
-            if (e.isLeaderSkillActivated())
-                e.setLeaderEquipment(false);
-        }
-        equipments[pos].setLeaderEquipment(true);
-        if (equipments[pos].getLeaderSkill() != null)
-            leaderSkillDescription = name + " has " + equipments[pos].name + " as the leader skill!";
-        else
-            leaderSkillDescription = name + "\'s leader equipment " + equipments[pos].name
-                                   + " does not have a learder skill :P ";
+    public void setLeaderEquipment(EnumFile.EquipmentPos pos) {
+        if (head.isLeaderSkillActivated())
+            head.setLeaderEquipment(false);
+        if (left.isLeaderSkillActivated())
+            left.setLeaderEquipment(false);
+        if (right.isLeaderSkillActivated())
+            right.setLeaderEquipment(false);
+        if (body.isLeaderSkillActivated())
+            body.setLeaderEquipment(false);
+//
+//
+//        equipments[pos].setLeaderEquipment(true);
+//        if (equipments[pos].getLeaderSkill() != null)
+//            leaderSkillDescription = name + " has " + equipments[pos].getName() + " as the leader skill!";
+//        else
+//            leaderSkillDescription = name + "\'s leader equipment " + equipments[pos].getName()
+//                    + " does not have a learder skill :P ";
     }
 
-//GETTER METHODS:
+    //GETTER METHODS:
     public ArrayList<EnumFile.SkillsEnum> getSkills(boolean isLeader) {
         ArrayList<EnumFile.SkillsEnum> skills = new ArrayList<EnumFile.SkillsEnum>();
         skills.add(EnumFile.SkillsEnum.MOVE);
         skills.add(EnumFile.SkillsEnum.PUNCH);
-        for (Equipment e : equipments) {
-            if (e != null && e.pos != 3) {
-                skills.add(e.getSkill());
-                if (e.isLeaderSkillActivated() && isLeader) {
-                    skills.add(e.getLeaderSkill());
-                }
-            }
-        }
+//        for (Equipment e : equipments) {
+//            if (e != null && e.pos != 3) {
+//                skills.add(e.getSkill());
+//                if (e.isLeaderSkillActivated() && isLeader) {
+//                    skills.add(e.getLeaderSkill());
+//                }
+//            }
+//        }
         return skills;
     }
 
-    public String getLeaderSkillDescription() {
-        return leaderSkillDescription;
-    }
+    /* Return the leader skill description as a string */
+    public String getLeaderSkillDescription() { return leaderSkillDescription; }
 
-    public String getAdventurerClass() {
-        return adventurerClass.name;
-    }
 
-    public void readFromParcel(Parcel in) {
-        name = in.readString();
-        adventurerClass = in.readParcelable(Equipment.class.getClassLoader());
-//        equipments = in.readParcelableArray(Equipment.class.getClassLoader());
-        leaderSkillDescription = in.readString();
-    }
+    /* Get the adventurer's equipment in some form */
+    public Equipment getAdventurerClassAsEquipment() { return adventurerClass; }
+    public EnumFile.ClassEnum getAdventureClassAsEnum() { return adventurerClass.getClassName(); }
+    public String getAdventurerClassAsString() { return adventurerClass.getName(); }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeParcelable(adventurerClass, flags);
-        // TODO
-        dest.writeString(leaderSkillDescription);
-    }
-
-    public static final Parcelable.Creator CREATOR =
-            new Parcelable.Creator() {
-                public Adventurer createFromParcel(Parcel in) {
-                    return new Adventurer(in);
-                }
-
-                public Adventurer[] newArray(int size) {
-                    return new Adventurer[size];
-                }
-            };
+    public int getAdventurerLevel() { return lvl; }
 }

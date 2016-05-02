@@ -7,7 +7,6 @@ package askim.eratactics.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,8 @@ import java.util.List;
 
 import askim.eratactics.R;
 import askim.eratactics.activities.EquipmentActivity;
-import askim.eratactics.activities.TacticsGame;
 import askim.eratactics.gamelogic.Adventurer;
+import askim.eratactics.gamelogic.EnumFile;
 import askim.eratactics.views.Resources;
 
 /**
@@ -30,7 +29,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
 
     private static final String TAG = "MemberAdapter";
     private List<Adventurer> memberList;
-//    private List<String> memberList;
 
     private static ClickListener clickListener;
 
@@ -52,22 +50,18 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
     }
 
     @Override
-    public void onBindViewHolder(MemberViewHolder customViewHolder, int i) {
-//        memberView memberView = memberList.get(i);
-//        String memberView = memberList.get(i);
+    public void onBindViewHolder(MemberViewHolder viewHolder, int i) {
         Adventurer adv = memberList.get(i);
+        int imageId = Resources.getImageId(adv.getAdventureClassAsEnum());
 
-        customViewHolder.setItem(adv.getAdventurerName(), Resources.getImageId(adv.getAdventurerClass()));
+        viewHolder.setItem(adv.getId(), adv.getAdventurerName(), imageId);
     }
 
     public void setOnItemClickListener(ClickListener clickListener) {
         MemberAdapter.clickListener = clickListener;
     }
 
-    public interface ClickListener {
-        void onItemClick(int position, View v);
-//        void onItemLongClick(int position, View v);
-    }
+    public interface ClickListener { void onItemClick(int position, View v); }
 
     @Override
     public int getItemCount() {
@@ -78,8 +72,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
 
         protected ImageView imageView;
         protected TextView textView;
+        protected Long id;
 
-        public void setItem(String name, int image) {
+        public void setItem(Long id, String name, int image) {
+            this.id = id;
             textView.setText(name);
             imageView.setImageResource(image);
         }
@@ -92,10 +88,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
         }
 
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "position = " + getPosition(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(view.getContext(), "position = " + getPosition(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(mContext, EquipmentActivity.class);
-            // TODO grab some character detail
-//            intent.putExtra("level", 2);
+            intent.putExtra("advId", id);
             mContext.startActivity(intent);
         }
     }

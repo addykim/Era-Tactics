@@ -1,25 +1,32 @@
 package askim.eratactics.activities;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import askim.eratactics.R;
 import askim.eratactics.adapters.LevelSelectAdapter;
-import askim.eratactics.views.LevelSelectView;
+import askim.eratactics.gamelogic.LevelGenerator;
+import askim.eratactics.views.Resources;
 
 public class LevelSelectActivity extends AppCompatActivity {
 
     private static final String TAG = "Level select";
 
     private LevelSelectAdapter adapter;
-    private ArrayList<String> levelList;
+    private List<LevelGenerator> levelList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +38,22 @@ public class LevelSelectActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.hide();
 
-        // TODO hook up buttons so they select the various levels
-
         // Initialize recycler view
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.level_select_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        levelList = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
-            levelList.add(Integer.toString(i));
-        }
+        levelList = LevelGenerator.listAll(LevelGenerator.class);
+
+        // TODO adapter does not update upon completing game
         adapter = new LevelSelectAdapter(LevelSelectActivity.this, levelList);
         mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "ON RESUME");
+        adapter.notifyDataSetChanged();
     }
 }
 

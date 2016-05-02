@@ -2,12 +2,14 @@ package askim.eratactics.gamelogic;
 
 import android.util.Log;
 
+import com.orm.SugarRecord;
+
 import java.util.ArrayList;
 
 /**
  * Created by nunuloop on 3/24/16.
  */
-public class Team {
+public class Team extends SugarRecord {
     private final String TAG = "Team";
 
     /**
@@ -17,25 +19,14 @@ public class Team {
      * 6 7 8
      */
 
-    public Adventurer[] adventurers;
-    public ArrayList<Adventurer> teamMembers;
-    public Adventurer leader;
-    public int advCount;
-
-    private boolean debugMode;
+    private Adventurer[] adventurers;
+    private ArrayList<Adventurer> teamMembers;
+    private Adventurer leader;
+    private int advCount;
 
     public Team() {
         adventurers = new Adventurer[9];
         teamMembers = new ArrayList<Adventurer>();
-        debugMode = false;
-    }
-
-    /* Creates a single leader */
-    public Team(boolean debugMode) {
-        adventurers = new Adventurer[9];
-        teamMembers = new ArrayList<Adventurer>();
-        debugMode = true;
-        putAdventurer(new Adventurer(new Equipment[3], "No."), 0, true);
     }
 
     public boolean addTeamMember(Adventurer adv) {
@@ -84,4 +75,6 @@ public class Team {
     public Adventurer getLeader() {
         return leader;
     }
+
+    public ArrayList<Adventurer> getTeamMembers() { return teamMembers; }
 }

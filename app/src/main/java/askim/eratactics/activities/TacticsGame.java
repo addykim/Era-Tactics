@@ -16,13 +16,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orm.SugarContext;
+
 import java.util.ArrayList;
 
 import askim.eratactics.R;
-import askim.eratactics.gamelogic.Adventurer;
 import askim.eratactics.gamelogic.Board;
 import askim.eratactics.gamelogic.EnumFile;
-import askim.eratactics.gamelogic.Equipment;
 import askim.eratactics.gamelogic.Team;
 import askim.eratactics.views.BoardView;
 import askim.eratactics.views.Resources;
@@ -69,6 +69,8 @@ public class TacticsGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tactics_game);
+//        SugarContext.init(this);
+
 
         /* Hide action bar */
         ActionBar actionBar = getSupportActionBar();
@@ -77,7 +79,7 @@ public class TacticsGame extends AppCompatActivity {
 
         Intent intent = getIntent(); // gets the previously created intent
 
-        SharedPreferences mPrefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences mPrefs = getSharedPreferences(Resources.PREFS_NAME, MODE_PRIVATE);
 
         /* Initialize music */
         playMusic = mPrefs.getBoolean("music", false);
@@ -94,32 +96,12 @@ public class TacticsGame extends AppCompatActivity {
         prompt = (TextView) findViewById(R.id.textPrompt);
         newGame();
 
-        /* Hard coded team composition */
-        Team alphaTeam = new Team();
-        Adventurer villager1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.VILLAGER)}, "Bob");
-        Adventurer apprentice1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.APPRENTICE),
-                                                                new Equipment(EnumFile.Equipments.BASIC_POTION)}, "BOB!");
-        Adventurer magician1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.MAGICIAN),
-                                                              new Equipment(EnumFile.Equipments.BASIC_WAND),
-                                                              new Equipment(EnumFile.Equipments.BASIC_POTION)}, "Still Bob");
-        Adventurer archer1 = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.ARCHER),
-                                                            new Equipment(EnumFile.Equipments.BASIC_ARROW)}, "Uh.. Bob.");
-        alphaTeam.addTeamMember(villager1);
-        alphaTeam.putAdventurer(villager1, 2, false);
-        alphaTeam.addTeamMember(apprentice1);
-        alphaTeam.putAdventurer(apprentice1, 6, false);
-        alphaTeam.addTeamMember(magician1);
-        alphaTeam.putAdventurer(magician1, 3, false);
-        alphaTeam.addTeamMember(archer1);
-        alphaTeam.putAdventurer(archer1, 5, false);
+        // TODO get team member
+        Team alphaTeam = Team.findById(Team.class, 1);
 
-
-//        boardLogic = new Board(new Team());
         // Gets level selected
-//        int level = 2;
-        // TODO enable once multiple levels are available
-        int level = intent.getIntExtra("level", -1);
-        boardLogic = new Board(alphaTeam, level);
+        int level = (int) intent.getLongExtra("level", 1);
+        boardLogic = new Board(alphaTeam, level, this);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
 
@@ -145,7 +127,7 @@ public class TacticsGame extends AppCompatActivity {
         tutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO pass point of the tutorail into
+                // TODO pass point of the tutorial into
                 Intent tutorialIntent = new Intent(getApplicationContext(), TutorialActivity.class);
                 startActivity(tutorialIntent);
             }
@@ -444,7 +426,7 @@ public class TacticsGame extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         Log.d(TAG, "STARTING");
         if (playMusic) {
@@ -460,6 +442,7 @@ public class TacticsGame extends AppCompatActivity {
             mBackgroundSound.cancel(true);
 //        if (playSfx)
 //            sfxPlayer.release();
+//        SugarContext.terminate();
         Log.d(TAG, "DESTROY");
     }
 

@@ -6,14 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.orm.SugarContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import askim.eratactics.R;
 import askim.eratactics.adapters.MemberAdapter;
 import askim.eratactics.gamelogic.Adventurer;
+import askim.eratactics.gamelogic.EnumFile;
+import askim.eratactics.gamelogic.Equipment;
 import askim.eratactics.gamelogic.PlayerAdventurers;
-import askim.eratactics.views.MemberView;
 
 /**
  * Created by addykim on 4/12/16.
@@ -42,8 +45,10 @@ public class MembersActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.member_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        PlayerAdventurers members = new PlayerAdventurers(0);
-        memberList = members.getAllAdventurers();
+        memberList = new ArrayList<Adventurer>();
+
+        memberList = Adventurer.listAll(Adventurer.class);
+
         adapter = new MemberAdapter(MembersActivity.this, memberList);
         mRecyclerView.setAdapter(adapter);
     }

@@ -10,13 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="askim.eratactics.activities.LevelSelectActivity">
 
-    <TextView
-        android:id="@+id/level_select_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/selectStage"
-        android:textSize="@dimen/activity_header_text"/>
-
     <view
         android:id="@+id/level_select_recycler_view"
         class="android.support.v7.widget.RecyclerView"

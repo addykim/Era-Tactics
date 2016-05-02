@@ -1,7 +1,9 @@
 package askim.eratactics.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,9 +13,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.orm.SugarContext;
+
 import java.lang.reflect.Member;
+import java.util.logging.Level;
 
 import askim.eratactics.R;
+import askim.eratactics.gamelogic.Adventurer;
+import askim.eratactics.gamelogic.Equipment;
+import askim.eratactics.gamelogic.LevelGenerator;
+import askim.eratactics.gamelogic.PlayerAdventurers;
+import askim.eratactics.gamelogic.Team;
+import askim.eratactics.views.Resources;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -34,6 +45,21 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
+        SugarContext.init(this);
+
+        SharedPreferences settings = getSharedPreferences(Resources.PREFS_NAME, Activity.MODE_PRIVATE);
+        boolean initialized = settings.getBoolean("initialized", false);
+        if (!initialized) {
+            // Create player adventures, levels, and enemies
+            PlayerAdventurers members = new PlayerAdventurers(this);
+            for (int i = 1; i <= LevelGenerator.NUM_LEVELS; i++) {
+                LevelGenerator level = new LevelGenerator(this, i);
+            }
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("initialized", true);
+            editor.commit();
+        }
+
 
         adventureButton = (Button) findViewById(R.id.adventureButton);
         adventureButton.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +84,6 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), InventoryActivity.class);
-
                 Log.d(TAG, "Teams button clicked");
                 startActivity(intent);
             }
@@ -68,7 +93,6 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TeamsActivity.class);
-
                 Log.d(TAG, "Teams button clicked");
                 startActivity(intent);
             }
@@ -86,5 +110,11 @@ public class SplashActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SugarContext.terminate();
     }
 }

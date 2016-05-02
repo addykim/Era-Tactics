@@ -12,12 +12,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import askim.eratactics.R;
+import askim.eratactics.views.Resources;
 
 public class SettingsActivity extends AppCompatActivity {
 
     SharedPreferences settings;
     SharedPreferences.Editor editor;
-    public static final String PREFS_NAME = "et_prefs";
     private static final String TAG = "Settings";
 
     // Toggles
@@ -35,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
             actionBar.hide();
 
         // Code from http://stackoverflow.com/questions/5734721/android-shared-preferences
-        settings = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+        settings = getSharedPreferences(Resources.PREFS_NAME, Activity.MODE_PRIVATE);
         musicToggle = (ToggleButton) findViewById(R.id.musicToggle);
         sfxToggle = (ToggleButton) findViewById(R.id.sfxToggle);
         vibrationToggle = (ToggleButton) findViewById(R.id.vibrationToggle);

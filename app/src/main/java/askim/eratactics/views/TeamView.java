@@ -96,7 +96,7 @@ public class TeamView extends View {
 //            Log.d(TAG, "Drawing character in grid " + row + ", " + col);
             occupant = mTeam.getAdventurer(i);
             if (occupant != null) {
-                image = BitmapFactory.decodeResource(getResources(), Resources.getImageId(occupant.getAdventurerClass()));
+                image = BitmapFactory.decodeResource(getResources(), Resources.getImageId(occupant.getAdventurerName()));
                 if (image != null) {
                         canvas.drawBitmap(image, null,
                                 new Rect(left, top, right, bottom),

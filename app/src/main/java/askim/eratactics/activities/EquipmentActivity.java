@@ -12,6 +12,7 @@ import android.widget.TextView;
 import askim.eratactics.R;
 import askim.eratactics.gamelogic.Adventurer;
 import askim.eratactics.gamelogic.EnumFile;
+import askim.eratactics.gamelogic.Equipment;
 import askim.eratactics.views.Resources;
 
 /**
@@ -27,6 +28,7 @@ public class EquipmentActivity extends AppCompatActivity {
 
     private Adventurer adv;
 
+    private Long advId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +40,9 @@ public class EquipmentActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.hide();
 
-        Bundle bundle = getIntent().getExtras();
-        Adventurer adv = bundle.getParcelable("adventurer");
+        // TODO INTENT
+        Intent intent = getIntent();
+        advId = intent.getLongExtra("advId", 1);
 
         characterView = (ImageView) findViewById(R.id.equipment_character);
         mImageView = new ImageView[4];
@@ -58,49 +61,43 @@ public class EquipmentActivity extends AppCompatActivity {
         mTextView[6] = (TextView) findViewById(R.id.equipment_character_name);
 
 
-//        adv = new Adventurer(new Equipment[]{new Equipment(EnumFile.ClassEnum.MAGICIAN),
-//                                             new Equipment(EnumFile.Equipments.BASIC_WAND),
-//                                             new Equipment(EnumFile.Equipments.BASIC_POTION),
-//                                             new Equipment(EnumFile.Equipments.BASIC_ARMOR),
-//                                             new Equipment(EnumFile.Equipments.BASIC_HELMET)}, "Bob");
-
-        for (int i = 0; i < 4; i++) {
-            switch (adv.getEquipments()[i].enumName) {
-                case BASIC_ARMOR:
-                    mImageView[i].setImageResource(R.drawable.suits);
-                    break;
-                case BASIC_HELMET:
-                    if (adv.adventurerClass.className == EnumFile.ClassEnum.MAGICIAN)
-                        mImageView[i].setImageResource(R.drawable.wizard_hat);
-                    else
-                        mImageView[i].setImageResource(R.drawable.helmet);
-                    break;
-                case BASIC_POTION:
-                    mImageView[i].setImageResource(R.drawable.potion);
-                    break;
-                case BASIC_WAND:
-                    mImageView[i].setImageResource(R.drawable.wand);
-                    break;
-                case BASIC_SHIELD:
-                    mImageView[i].setImageResource(R.drawable.shield);
-                    break;
-                case BASIC_SWORD:
-                    mImageView[i].setImageResource(R.drawable.melee);
-                    break;
-                case BASIC_ARROW:
-                    mImageView[i].setImageResource(R.drawable.arrow);
-                    break;
-            }
-        }
+        adv = Adventurer.findById(Adventurer.class, advId);
 
         // Set adventurer's name
         mTextView[6].setText(adv.getAdventurerName());
-        characterView.setImageResource(Resources.getImageId(adv.getAdventurerClass()));
+        characterView.setImageResource(Resources.getImageId(adv.getAdventurerClassAsString()));
 
         for (int i = 0; i < 4; i++) {
             mImageView[i].setOnClickListener(new EquipmentClickListener(i));
-            // TODO
-//            mImageView[i].setImageResource(Resources.getImageId(ad))
+        }
+        // TODO set the equipment images
+        boolean[] allFalse = new boolean[4];
+        int atk = adv.getAtk(false, allFalse);
+        int def = adv.getDef(false, allFalse);
+        int mag = adv.getMag(false, allFalse);
+        int res = adv.getRes(false, allFalse);
+        mTextView[0].setText(Integer.toString(atk));
+        mTextView[1].setText(Integer.toString(def));
+        mTextView[2].setText(Integer.toString(mag));
+        mTextView[3].setText(Integer.toString(res));
+
+        if (adv.getEquipment(EnumFile.EquipmentPos.HEAD)!= null) {
+            mImageView[0].setImageResource(Resources.getEquipmentImageId(
+                    adv.getAdventureClassAsEnum(), adv.getEquipment(EnumFile.EquipmentPos.HEAD).getEnumName()));
+        }
+        if (adv.getEquipment(EnumFile.EquipmentPos.LEFT) != null) {
+            mImageView[1].setImageResource(Resources.getEquipmentImageId(
+                    adv.getAdventureClassAsEnum(), adv.getEquipment(EnumFile.EquipmentPos.LEFT).getEnumName()));
+        }
+        if (adv.getEquipment(EnumFile.EquipmentPos.RIGHT) != null) {
+            mImageView[2].setImageResource(Resources.getEquipmentImageId(
+                    adv.getAdventureClassAsEnum(), adv.getEquipment(EnumFile.EquipmentPos.RIGHT).getEnumName()));
+
+        }
+        if (adv.getEquipment(EnumFile.EquipmentPos.BODY) != null) {
+            mImageView[3].setImageResource(Resources.getEquipmentImageId(
+                    adv.getAdventureClassAsEnum(), adv.getEquipment(EnumFile.EquipmentPos.BODY).getEnumName()));
+
         }
 
         mTextView[5].setText(adv.getLeaderSkillDescription());
@@ -127,7 +124,7 @@ public class EquipmentActivity extends AppCompatActivity {
         // pos: 0 - head, 1 - lefthand, 2 - righthand, 3 - body
         @Override
         public void onClick(View view) {
-            adv.setLeaderEquipment(equipmentPos);
+//            adv.setLeaderEquipment(equipmentPos);
             mTextView[5].setText(adv.getLeaderSkillDescription());
         }
 

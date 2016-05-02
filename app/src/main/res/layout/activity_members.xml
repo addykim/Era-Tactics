@@ -5,13 +5,6 @@
     android:padding="@dimen/activity_vertical_margin"
     android:background="@color/mainBackground">
 
-    <TextView
-        android:id="@+id/member_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/members"
-        android:textSize="@dimen/activity_header_text"/>
-
     <view
         android:id="@+id/member_recycler_view"
         class="android.support.v7.widget.RecyclerView"

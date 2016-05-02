@@ -24,6 +24,7 @@
     <dimen name="equipment_margin">25dp</dimen>
     <dimen name="equipment_header_text">40sp</dimen>
     <dimen name="equipment_normal_text">25sp</dimen>
+    <dimen name="equipment_skill_textbox_width">225dp</dimen>
 
     <!--Inventory-->
     <dimen name="inventory_square">75dp</dimen>

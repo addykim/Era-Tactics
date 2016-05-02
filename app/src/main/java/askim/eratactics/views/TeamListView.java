@@ -78,6 +78,7 @@ public class TeamListView extends View {
         Adventurer occupant;
         int left, top, bottom, right;
         int row, col;
+        // FIXME nullpointer on teamMembers
         for (int i=0; i<teamMembers.size(); i++) {
             left = i * cellSize;
             top = 0;
@@ -86,7 +87,7 @@ public class TeamListView extends View {
 //            Log.d(TAG, "Drawing character in grid " + row + ", " + col);
             occupant = teamMembers.get(i);
             if (occupant != null) {
-                image = BitmapFactory.decodeResource(getResources(), Resources.getImageId(occupant.getAdventurerClass()));
+                image = BitmapFactory.decodeResource(getResources(), Resources.getImageId(occupant.getAdventurerClassAsString()));
                 if (image != null) {
                     canvas.drawBitmap(image, null,
                             new Rect(left, top, right, bottom),
