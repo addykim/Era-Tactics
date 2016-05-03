@@ -36,6 +36,10 @@ public class Equipment extends SugarRecord {
     private EnumFile.Equipments enumName;
     private EnumFile.EquipmentPos position;
 
+    /* This is the adventurer that the equipment is equipped to. */
+    private Adventurer adv;
+
+
     // 0 = head, 1 = hands, 2 = body, 3 = class
     // NOTE: pos in equipment is DIFFERENT than pos in Adventurer's equipment list, DO NOT MIX UP
 //    public int pos;
@@ -44,6 +48,7 @@ public class Equipment extends SugarRecord {
     private EnumFile.ClassEnum className;
     private boolean leaderSkillActivated;
 
+    // TODO this is broken
     // making sure that the equipment goes with the adventurer's class
     public List<EnumFile.ClassEnum> compatibleClasses;
     private boolean equipped;
@@ -267,6 +272,12 @@ public class Equipment extends SugarRecord {
 
     public void setLeaderEquipment(boolean leader) {
         leaderSkillActivated = leader;
+    }
+
+    /* Sets the adventurer that is equipping this item */
+    public void setAdventurer(Adventurer adv) {
+        this.adv = adv;
+        this.save();
     }
 
     /* Getter methods */
