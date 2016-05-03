@@ -26,9 +26,6 @@ public class SettingsActivity extends AppCompatActivity {
     private ToggleButton sfxToggle;
     private ToggleButton leftToggle;
 
-    // DEBUG
-    private ToggleButton populateEverything;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +40,6 @@ public class SettingsActivity extends AppCompatActivity {
         sfxToggle = (ToggleButton) findViewById(R.id.sfxToggle);
         vibrationToggle = (ToggleButton) findViewById(R.id.vibrationToggle);
         leftToggle = (ToggleButton) findViewById(R.id.leftHandedToggle);
-
-        //DEBUG
-        populateEverything = (ToggleButton) findViewById(R.id.populateToggle);
-        populateEverything.setChecked(settings.getBoolean("init", true));
 
         // Set checked
         musicToggle.setChecked(settings.getBoolean("music", true));
@@ -109,20 +102,6 @@ public class SettingsActivity extends AppCompatActivity {
                     editor.putBoolean("leftMode", true);
                 } else {
                     editor.putBoolean("leftMode", false);
-                }
-                Log.d(TAG, "Commiting");
-                editor.commit();
-            }
-        });
-
-        leftToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(TAG, "left toggle: " + isChecked);
-                if (isChecked) {
-                    editor.putBoolean("populateEverything", true);
-                } else {
-                    editor.putBoolean("populateEverything", false);
                 }
                 Log.d(TAG, "Commiting");
                 editor.commit();

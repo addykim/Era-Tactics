@@ -103,26 +103,6 @@
             android:layout_below="@id/leftHandedText"
             android:layout_marginLeft="@dimen/toggle_margin"
             android:layout_marginRight="@dimen/toggle_margin"/>
-
-        <TextView
-            android:id="@+id/populateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/options_text"
-            android:text="Initialized"
-            android:layout_below="@id/leftHandedHelper"
-            android:layout_margin="@dimen/toggle_margin"/>
-
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New ToggleButton"
-            android:id="@+id/populateToggle"
-            android:layout_gravity="center_horizontal|top"
-            android:layout_below="@id/leftHandedHelper"
-            android:layout_alignRight="@+id/leftHandedHelper"
-            android:layout_alignEnd="@+id/leftHandedHelper" />
-
     </RelativeLayout>
 
 </FrameLayout>
