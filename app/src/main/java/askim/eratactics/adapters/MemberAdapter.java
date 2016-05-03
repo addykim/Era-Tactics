@@ -88,7 +88,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
         }
 
         public void onClick(View view) {
-//            Toast.makeText(view.getContext(), "position = " + getPosition(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(mContext, EquipmentActivity.class);
             intent.putExtra("advId", id);
             mContext.startActivity(intent);

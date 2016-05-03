@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import askim.eratactics.R;
+import askim.eratactics.activities.LevelSelectActivity;
 import askim.eratactics.activities.ResultActivity;
 import askim.eratactics.activities.TacticsGame;
 import askim.eratactics.gamelogic.LevelGenerator;
@@ -80,7 +82,13 @@ public class LevelSelectAdapter extends RecyclerView.Adapter<LevelSelectAdapter.
                 imageView.setImageResource(R.drawable.lock);
                 clickable = false;
             } else {
-                imageView.setImageResource(R.drawable.civilian_dmged);
+                if (level.getCleared()) {
+                    // TODO replace this image with another
+                    imageView.setImageResource(R.drawable.wizard_dmged);
+                } else {
+                    // TODO replace this image with another
+                    imageView.setImageResource(R.drawable.civilian_dmged);
+                }
                 clickable = true;
             }
         }
@@ -96,16 +104,11 @@ public class LevelSelectAdapter extends RecyclerView.Adapter<LevelSelectAdapter.
             Log.d(TAG, "Clicked on level " + id);
             if (clickable) {
                 Intent intent = new Intent(mContext, TacticsGame.class);
-                // Debugging
-                // Intent intent = new Intent(mContext, ResultActivity.class);
-//                intent.putExtra("win", true);
                 intent.putExtra("level", id);
-                // TODO for some reasons it duplicates the levels
                 mContext.startActivity(intent);
             } else {
-                Log.d(TAG, "This level is not available yet");
+                Toast.makeText(mContext, "This level is not available yet", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
 }

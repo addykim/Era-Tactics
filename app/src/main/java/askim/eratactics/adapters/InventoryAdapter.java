@@ -49,6 +49,7 @@ public class InventoryAdapter extends BaseAdapter {
         return imageView;
     }
 
+    // TODO move to resources file
     // references to our images
     private Integer[] mThumbIds = {
             R.drawable.boots, R.drawable.helmet,
