@@ -52,8 +52,9 @@ public class LevelSelectActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "ON RESUME");
         adapter.notifyDataSetChanged();
     }
 }
+
+
 

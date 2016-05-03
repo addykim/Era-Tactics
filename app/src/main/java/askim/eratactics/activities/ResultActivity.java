@@ -80,7 +80,6 @@ public class ResultActivity extends Activity {
                 nextLevel.save();
             } catch (NullPointerException e) {
                 Log.d(TAG, "NEXT LEVEL IS NULL:(");
-
             } finally {
                 if (nextLevel != null) {
                     Log.d(TAG, "Next level updated successfully");
