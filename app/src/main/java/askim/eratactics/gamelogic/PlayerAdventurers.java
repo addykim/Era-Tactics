@@ -13,114 +13,82 @@ import askim.eratactics.activities.SettingsActivity;
  * Created by nunuloop on 4/26/16.
  */
 public class PlayerAdventurers {
-    private ArrayList<Adventurer> squad;
-    private ArrayList<Equipment> inventory;
-    private Team team1;
-    private Team team2;
 
     public PlayerAdventurers(Context c) {
-        squad = new ArrayList<Adventurer>();
-        inventory = new ArrayList<Equipment>();
-        team1 = new Team();
+        /* Create new inventory */
+        Equipment basicSword = new Equipment(EnumFile.Equipments.BASIC_SWORD);
+        Equipment basicWand = new Equipment(EnumFile.Equipments.BASIC_WAND);
+        Equipment basicHelmet = new Equipment(EnumFile.Equipments.BASIC_HELMET);
+        Equipment basicShield = new Equipment(EnumFile.Equipments.BASIC_SHIELD);
+        Equipment basicArrow = new Equipment(EnumFile.Equipments.BASIC_ARROW);
+        Equipment basicArmor = new Equipment(EnumFile.Equipments.BASIC_ARMOR);
+        Equipment basicPotion = new Equipment(EnumFile.Equipments.BASIC_POTION);
+        Equipment basicPotion1 = new Equipment(EnumFile.Equipments.BASIC_POTION);
+
+
+        /* Create team and players */
+        Team team1 = new Team();
         team1.save();
-        team2 = new Team();
+        Team team2 = new Team();
 
-//        Adventurer.deleteAll(Adventurer.class);
-//        Equipment.deleteAll(Equipment.class);
-//        Team.deleteAll(Team.class);
-        
-//        if (playerId == 0) {
-            Adventurer villager1 = new Adventurer(new Equipment(EnumFile.ClassEnum.VILLAGER), null, null, null, null, "Bob");
-            villager1.setTeam(team1);
-            villager1.save();
+        Adventurer villager1 = new Adventurer(new Equipment(EnumFile.ClassEnum.VILLAGER),
+                null, null, null, null, "Bob");
+        villager1.setTeam(team1);
+        villager1.save();
 
-            Adventurer apprentice1 = new Adventurer(new Equipment(EnumFile.ClassEnum.APPRENTICE),
-                    new Equipment(EnumFile.Equipments.BASIC_POTION), null, null, null, "BOB!");
-            apprentice1.setTeam(team1);
-            apprentice1.save();
+        Adventurer apprentice1 = new Adventurer(new Equipment(EnumFile.ClassEnum.APPRENTICE),
+                null, basicPotion, null, null, "BOB!");
+        basicPotion.setAdventurer(apprentice1);
+        apprentice1.setTeam(team1);
+        apprentice1.save();
 
-            Adventurer magician1 = new Adventurer(new Equipment(EnumFile.ClassEnum.MAGICIAN),
-                    new Equipment(EnumFile.Equipments.BASIC_WAND),
-                    new Equipment(EnumFile.Equipments.BASIC_POTION), null, null, "Still Bob");
-            magician1.setTeam(team1);
-            magician1.save();
+        Adventurer magician1 = new Adventurer(new Equipment(EnumFile.ClassEnum.MAGICIAN), null,
+                basicWand, basicPotion1, null, "Still Bob");
+        basicWand.setAdventurer(magician1);
+        basicPotion1.setAdventurer(magician1);
+        magician1.setTeam(team1);
+        magician1.save();
 
-            Adventurer archer1 = new Adventurer(new Equipment(EnumFile.ClassEnum.ARCHER),
-                    new Equipment(EnumFile.Equipments.BASIC_ARROW), null, null, null, "Uh.. Bob.");
-            archer1.setTeam(team1);
-            archer1.save();
+        Adventurer archer1 = new Adventurer(new Equipment(EnumFile.ClassEnum.ARCHER), null,
+                basicArrow, null, null, "Uh.. Bob.");
+        basicArrow.setAdventurer(archer1);
+        archer1.setTeam(team1);
+        archer1.save();
 
-            Adventurer magician2 = new Adventurer(new Equipment(EnumFile.ClassEnum.MAGICIAN), null, null, null, null, "Not Bob");
-            magician2.setTeam(team2);
-            magician2.save();
+        Adventurer magician2 = new Adventurer(new Equipment(EnumFile.ClassEnum.MAGICIAN),
+                null, null, null, null, "Not Bob");
+        magician2.setTeam(team2);
+        magician2.save();
 
-            Adventurer apprentice2 = new Adventurer(new Equipment(EnumFile.ClassEnum.APPRENTICE), null, null, null, null, "No More Bob.");
-            apprentice2.setTeam(team2);
-            apprentice2.save();
-            
-            team1.addTeamMember(villager1);
-            team1.putAdventurer(villager1, 2, false);
+        Adventurer apprentice2 = new Adventurer(new Equipment(EnumFile.ClassEnum.APPRENTICE),
+                null, null, null, null, "No More Bob.");
+        apprentice2.setTeam(team2);
+        apprentice2.save();
 
-            team1.addTeamMember(apprentice1);
-            team1.putAdventurer(apprentice1, 6, false);
+        team1.addTeamMember(villager1);
+        team1.putAdventurer(villager1, 2, false);
 
-            team1.addTeamMember(apprentice2);
-            team1.putAdventurer(apprentice1, 4, false);
+        team1.addTeamMember(apprentice1);
+        team1.putAdventurer(apprentice1, 6, false);
 
-            team1.addTeamMember(magician1);
-            team1.putAdventurer(magician1, 3, false);
+        team1.addTeamMember(apprentice2);
+        team1.putAdventurer(apprentice1, 4, false);
 
-            team1.addTeamMember(archer1);
-            team1.putAdventurer(archer1, 5, false);
+        team1.addTeamMember(magician1);
+        team1.putAdventurer(magician1, 3, false);
 
-            Equipment basicSword = new Equipment(EnumFile.Equipments.BASIC_SWORD);
-            Equipment basicWand = new Equipment(EnumFile.Equipments.BASIC_WAND);
-            Equipment basicHelmet = new Equipment(EnumFile.Equipments.BASIC_HELMET);
-            Equipment basicShield = new Equipment(EnumFile.Equipments.BASIC_SHIELD);
-            Equipment basicArrow = new Equipment(EnumFile.Equipments.BASIC_ARROW);
-            Equipment basicArmor = new Equipment(EnumFile.Equipments.BASIC_ARMOR);
-            Equipment basicPotion = new Equipment(EnumFile.Equipments.BASIC_POTION);
-            inventory.add(basicArmor);
-            inventory.add(basicArrow);
-            inventory.add(basicHelmet);
-            inventory.add(basicPotion);
-            inventory.add(basicShield);
-            inventory.add(basicWand);
-            inventory.add(basicSword);
-//        }
+        team1.addTeamMember(archer1);
+        team1.putAdventurer(archer1, 5, false);
     }
 
-    public ArrayList<Adventurer> getAllAdventurers() {
-        return squad;
-    }
-
-    public ArrayList<Equipment> getInventory() {
-        return inventory;
-    }
-
-    public void addAdventurer(Adventurer adv) {
-        squad.add(adv);
-    }
-
-    public void addToInventory(Equipment equip) {
-        inventory.add(equip);
-    }
-
+    // TODO replace with SQL query to delete equipment
     public boolean deleteEquipment(Equipment equip) {
-        if (inventory.contains(equip)) {
-            inventory.remove(equip);
-            return true;
-        }
-        else
+//        if (inventory.contains(equip)) {
+//            inventory.remove(equip);
+//            return true;
+//        }
+//        else
             return false;
-    }
-
-    public Team getTeam1() {
-        return team1;
-    }
-
-    public Team getTeam2() {
-        return team2;
     }
 
 }

@@ -49,17 +49,19 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         SugarContext.init(this);
 
-        SharedPreferences settings = getSharedPreferences(Resources.PREFS_NAME, Activity.MODE_PRIVATE);
-        boolean init = settings.getBoolean("init", true);
-        if (init) {
-            // Create player adventures, levels, and enemies
-            Toast.makeText(this, "Populated databases with members, levels, and pieces", Toast.LENGTH_SHORT).show();
+        /*
+         * Create player adventures, levels, and enemies
+         * numberOfAdventurers will return -1 if the table has not been intialized. It is assumed
+         * that if the adventurer table has been created, then there are tables for equipment,
+         * team, inventory, and levels.
+         */
+        long numberOfAdventurers = Adventurer.count(Adventurer.class, null, null);
+        if (numberOfAdventurers == -1) {
             PlayerAdventurers members = new PlayerAdventurers(this);
             for (int i = 1; i <= LevelGenerator.NUM_LEVELS; i++) {
                 LevelGenerator level = new LevelGenerator(this, i);
             }
         }
-
 
         adventureButton = (Button) findViewById(R.id.adventureButton);
         adventureButton.setOnClickListener(new View.OnClickListener() {
