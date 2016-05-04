@@ -36,13 +36,10 @@ public class Equipment extends SugarRecord {
     private EnumFile.Equipments enumName;
     private EnumFile.EquipmentPos position;
 
+
     /* This is the adventurer that the equipment is equipped to. */
     private Adventurer adv;
 
-
-    // 0 = head, 1 = hands, 2 = body, 3 = class
-    // NOTE: pos in equipment is DIFFERENT than pos in Adventurer's equipment list, DO NOT MIX UP
-//    public int pos;
     private EnumFile.SkillsEnum skill;
     private EnumFile.SkillsEnum leaderSkill;
     private EnumFile.ClassEnum className;
@@ -50,9 +47,16 @@ public class Equipment extends SugarRecord {
 
     // TODO this is broken
     // making sure that the equipment goes with the adventurer's class
-    public List<EnumFile.ClassEnum> compatibleClasses;
+    @Ignore
+    public ArrayList<EnumFile.ClassEnum> compatibleClasses;
+
+    //TODO how big is this
+    /* Used to save the compatible classes into the database */
+    private int[] compatibleClassesOrdinal = new int[10];
+
     private boolean equipped;
 
+    /* General equipment constructor */
     public Equipment() {
         hp = 3;
         atk = 0;
@@ -67,10 +71,10 @@ public class Equipment extends SugarRecord {
         compatibleClasses.add(EnumFile.ClassEnum.KNIGHT);
         name = "SuperShield";
         position = EnumFile.EquipmentPos.LEFT;
-//        pos = 1;
         leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
         leaderSkillActivated = false;
-        this.save();
+        saveCompatibleClasses();
+        //Save called in saveCompatibleClasses
     }
 
     public Equipment(EnumFile.ClassEnum className) {
@@ -257,7 +261,8 @@ public class Equipment extends SugarRecord {
         }
         position = EnumFile.EquipmentPos.LEFT;
         leaderSkillActivated = false;
-        this.save();
+        saveCompatibleClasses();
+        // Saved in saveCompatibleClasses
     }
 
     public boolean isCompatible(EnumFile.ClassEnum className) {
@@ -268,10 +273,12 @@ public class Equipment extends SugarRecord {
 
     public void setEquipped(boolean equip) {
         equipped = equip;
+        this.save();
     }
 
     public void setLeaderEquipment(boolean leader) {
         leaderSkillActivated = leader;
+        this.save();
     }
 
     /* Sets the adventurer that is equipping this item */
@@ -283,17 +290,13 @@ public class Equipment extends SugarRecord {
     /* Getter methods */
     public EnumFile.SkillsEnum getSkill() { return skill; }
 
-    public boolean isLeaderSkillActivated() {
-        return leaderSkillActivated;
-    }
+    public boolean isLeaderSkillActivated() { return leaderSkillActivated; }
 
     public EnumFile.SkillsEnum getLeaderSkill() {
         return leaderSkill;
     }
 
-    public boolean isEquipped() {
-        return equipped;
-    }
+    public boolean isEquipped() { return equipped; }
 
     public EnumFile.Equipments getEnumName() { return enumName; }
 
@@ -310,4 +313,21 @@ public class Equipment extends SugarRecord {
     public String getName() { return name; }
 
 
+    /* Used to set the equipment upon creation */
+    public void setCompatibleClasses() {
+        compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
+        for (int ordinal: compatibleClassesOrdinal) {
+            compatibleClasses.add(EnumFile.ClassEnum.values()[ordinal]);
+        }
+    }
+
+    /* Used to save compatible classes */
+    public void saveCompatibleClasses() {
+        int i = 0;
+        for (EnumFile.ClassEnum cClass: compatibleClasses) {
+            compatibleClassesOrdinal[i] = cClass.ordinal();
+            i++;
+        }
+        this.save();
+    }
 }
