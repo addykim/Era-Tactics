@@ -11,6 +11,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
+import askim.eratactics.R;
 import askim.eratactics.gamelogic.Adventurer;
 import askim.eratactics.gamelogic.Piece;
 import askim.eratactics.gamelogic.Team;
@@ -60,8 +61,7 @@ public class TeamView extends View {
         int boardHeight = getHeight();
         int cellWidth = getBoardCellsize();
         int cellHeight = getBoardCellsize();
-        // TODO change board UI/colors
-        mPaint.setColor(Color.LTGRAY);
+        mPaint.setColor(getResources().getColor(R.color.gridLine));
         mPaint.setStrokeWidth(GRID_LINE_WIDTH);
 
         // Draw the vertical and horizontal board lines

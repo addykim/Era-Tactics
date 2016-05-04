@@ -88,16 +88,11 @@ public class BoardView extends View {
         // Horizontal lines
         for (int i = 1; i < 7; i++) {
             // Change line color in the middle of board
-            //TODO change this color based on UI
-            if (i == 3)
-                mPaint.setColor(Color.BLACK);
-
             int xLine = cellHeight*i;
             canvas.drawLine(0, xLine, boardWidth, xLine, mPaint);
             // Changing back to old line color
-            // TODO change board UI/color
             if (i == 3)
-                mPaint.setColor((Color.LTGRAY));
+                mPaint.setColor(getResources().getColor(R.color.gridLine));
         }
 
         /* Draw characters */
