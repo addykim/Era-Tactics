@@ -64,5 +64,12 @@ public class EnumFile {
         CLASS
     }
 
+    public enum EnemyMoveType {
+        MOVE,
+        ATTACK,
+        HEAL,
+        NO_MOVE
+    }
+
 
 }

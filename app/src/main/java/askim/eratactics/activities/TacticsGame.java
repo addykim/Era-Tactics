@@ -1,10 +1,12 @@
 package askim.eratactics.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.orm.SugarContext;
 
 import java.util.ArrayList;
 
@@ -57,6 +57,7 @@ public class TacticsGame extends AppCompatActivity {
     private Handler mPauseHandler;
     private Runnable myRunnable;
 
+    /* Prompt that tells player whose turn it is */
     private TextView prompt;
 
     /* Elements necessary to play music */
@@ -65,6 +66,13 @@ public class TacticsGame extends AppCompatActivity {
     private boolean playMusic;
     private boolean playSfx;
 
+    /* Vibrating */
+    private boolean vibration;
+    private Vibrator vibes;
+    //TODO is this long enough
+    private static final int vibrationDuration = 300;
+
+    /* Current level being played */
     private int currentLevel;
 
     @Override
@@ -80,6 +88,9 @@ public class TacticsGame extends AppCompatActivity {
         Intent intent = getIntent(); // gets the previously created intent
 
         SharedPreferences mPrefs = getSharedPreferences(Resources.PREFS_NAME, MODE_PRIVATE);
+        vibration = mPrefs.getBoolean("vibration", false);
+        if (vibration)
+            vibes = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 
         /* Initialize music */
         playMusic = mPrefs.getBoolean("music", false);
@@ -167,7 +178,10 @@ public class TacticsGame extends AppCompatActivity {
         // TODO future if the player or computer is out of moves but the other is not, then skip the person who is out of turn until the other is out also
         // If out of active pieces, reset all the pieces and try make move again
         do {
-            boardLogic.makeComputerMove();
+            if (boardLogic.makeComputerMove() == EnumFile.EnemyMoveType.ATTACK) {
+                if (vibration)
+                    vibes.vibrate(vibrationDuration);
+            }
         } while (boardLogic.getActivePlayers() == 0 && boardLogic.getActiveEnemies() != 0);
 
         if (boardLogic.getActiveEnemies() == 0 && boardLogic.getActivePlayers() == 0) {
@@ -248,7 +262,6 @@ public class TacticsGame extends AppCompatActivity {
                 //TODO select a valid skill, then select invalid skill causes crash
             }
         } else {
-            Log.d(TAG, "Choose a character first to select a skill");
             Toast.makeText(this, "Select a character before selecting a skill", Toast.LENGTH_LONG).show();
         }
     }
@@ -283,10 +296,9 @@ public class TacticsGame extends AppCompatActivity {
         if (selectedSkill == EnumFile.SkillsEnum.HEAL && turnStatus == EnumFile.TurnStatus.SKILL) {
             boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row*3+col), selectedSkill);
             delayCleanUp();
-        } else {
-            Toast.makeText(getApplicationContext(),
-                    "You already used this character", Toast.LENGTH_SHORT).show();
-        }
+        } else
+            Toast.makeText(this, "You already used this character", Toast.LENGTH_SHORT).show();
+
     }
 
     /* Clicked on empty spot on grid */
@@ -310,6 +322,8 @@ public class TacticsGame extends AppCompatActivity {
             Log.d(TAG, log + ", selected computer's character, using skill " + selectedSkill);
             boardLogic.resolveSkill(selectedCharRow, selectedCharCol, (row * 3 + col), selectedSkill);
             playSFX();
+            if (vibration)
+                vibes.vibrate(vibrationDuration);
             delayCleanUp();
         } else {
             Log.d(TAG, log + ", selected computer's character, cannot use skill");
@@ -346,7 +360,6 @@ public class TacticsGame extends AppCompatActivity {
             public void run() {
                 changeTurn();
                 changePrompt(false);
-//                boardView.invalidate();
             }
         };
     }
@@ -393,6 +406,8 @@ public class TacticsGame extends AppCompatActivity {
         prompt.setText(text);
         prompt.invalidate();
     }
+
+    //TODO draw methods for turning off music or turning off music
 
 
     @Override

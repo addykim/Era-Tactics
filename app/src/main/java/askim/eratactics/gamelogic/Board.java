@@ -1,6 +1,7 @@
 package askim.eratactics.gamelogic;
 
 import android.content.Context;
+import android.text.method.MovementMethod;
 import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
@@ -287,10 +288,10 @@ public class Board {
      * @return false if no available pieces
      *         true if made a move
      */
-    public boolean makeComputerMove() {
+    public EnumFile.EnemyMoveType makeComputerMove() {
         if (activeEnemies <= 0) {
             Log.d(TAG, "OH NO Computer cannot move because the number of active enemies is <= 0!");
-            return false;
+            return EnumFile.EnemyMoveType.NO_MOVE;
         }
         int enemyNumber = ((int)(Math.random()*activeEnemies)) +1;
         Log.d(TAG,"Randomly selected the enemy # " + enemyNumber);
@@ -331,8 +332,7 @@ public class Board {
                             activeEnemies--;
                             Log.d(TAG,"Healed enemy on " + r + ", " + c
                                     + ". Number of active enemies is now " + activeEnemies);
-
-                            return true;
+                            return EnumFile.EnemyMoveType.HEAL;
                         }
                     }
                 }
@@ -357,7 +357,7 @@ public class Board {
                         activeEnemies--;
                         Log.d(TAG,"Attacked player on " + (target / 3) + ", " + (target % 3)
                                 + ". Number of active enemies is now " + activeEnemies);
-                        return true;
+                        return EnumFile.EnemyMoveType.ATTACK;
                     }
                 }
             }
@@ -366,11 +366,12 @@ public class Board {
         ArrayList<Integer> targets = availableTargets(movingR, movingC, EnumFile.SkillsEnum.MOVE);
         if (targets.size() == 0) {
             // This sad enemy piece can't do anything, skip its turn!
-            Log.d(TAG,"Did not find any available moves for enemy " + movingR + ", " + movingC
+            Log.d(TAG, "Did not find any available moves for enemy " + movingR + ", " + movingC
                     + ". Turn skipped. Number of active enemies is now " + activeEnemies);
             pieces[movingR][movingC].moved();
             activeEnemies--;
-            return true;
+            //TODO is this correct?
+            return EnumFile.EnemyMoveType.MOVE;
         }
         int numTargets = targets.size();
         int moveTo = (int)(Math.random()*numTargets);
@@ -381,7 +382,7 @@ public class Board {
         activeEnemies--;
         Log.d(TAG,"Moved to grid number " + targets.get(moveTo)
                 + ". Number of active enemies is now " + activeEnemies);
-        return true;
+        return EnumFile.EnemyMoveType.MOVE;
     }
 
     /**
@@ -409,16 +410,6 @@ public class Board {
     public Piece getBoardOccupant(int row, int col) {
 //        Log.d(TAG, "Board occupant " + pieces[row][col]);
         return pieces[row][col];
-    }
-
-    private String printBoard() {
-        String s = "";
-        for (int r = 0; r < 6; r++) {
-            for (int c = 0; c < 3; c++) {
-
-            }
-        }
-        return null;
     }
 
     /* This will be used in order to call boardview changes whenever enemy moves */
