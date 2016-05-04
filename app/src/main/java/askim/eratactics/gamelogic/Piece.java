@@ -4,6 +4,7 @@ import android.preference.EditTextPreference;
 import android.util.Log;
 
 import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
 
 import java.util.ArrayList;
 
@@ -34,9 +35,16 @@ public class Piece extends SugarRecord {
     public double agi;
     private boolean isPlayer;
     public boolean leader;
-    private ArrayList<EnumFile.SkillsEnum> skills;
+    // TODO does this get properly saved?
+    /* This is used to store the arraylist of skills. setSkills must be called upon loading a piece */
+    private int[] skillOrdinals = new int[6];
+
     private boolean hasMoved;
     private EnumFile.ClassEnum pieceClass;
+
+    /* This is the actual arraylist of skills */
+    @Ignore
+    private ArrayList<EnumFile.SkillsEnum> skills;
 
     public Piece() {}
 
@@ -80,6 +88,7 @@ public class Piece extends SugarRecord {
         skills.add(EnumFile.SkillsEnum.MOVE);
         skills.add(EnumFile.SkillsEnum.HEAL);
         pieceClass = enemyClass;
+        saveSkillEnums();
         this.save();
     }
 
@@ -95,6 +104,7 @@ public class Piece extends SugarRecord {
         hasMoved = true;
     }
 
+    /* Called when round is reset */
     public void resetPiece() {
         hasMoved = false;
     }
@@ -103,14 +113,16 @@ public class Piece extends SugarRecord {
         return hasMoved;
     }
 
+    /* Get the piece's class */
     public EnumFile.ClassEnum getPieceClass() {
-//        Log.d(TAG, "Getting the class of this piece: " + pieceClass);
         return pieceClass;
     }
 
+    /* Sets the level that the piece belongs to. Only applies to enemies */
     public boolean setLevel(LevelGenerator level) {
         if (level != null) {
             this.level = level;
+            this.save();
             return true;
         }
         return false;
@@ -124,5 +136,22 @@ public class Piece extends SugarRecord {
             this.save();
         }
         return false;
+    }
+
+    /* This must be called when instantiating enemies in order to grab the store the values */
+    public void setSkillEnums() {
+        skills = new ArrayList<EnumFile.SkillsEnum>();
+        for (int skill: skillOrdinals) {
+            skills.add(EnumFile.SkillsEnum.values()[skill]);
+        }
+    }
+
+    /* Saves the skills enum arraylist in a format okay to the database */
+    public void saveSkillEnums() {
+        int i = 0;
+        for (EnumFile.SkillsEnum skill: skills) {
+            skillOrdinals[i] = skill.ordinal();
+        }
+        this.save();
     }
 }

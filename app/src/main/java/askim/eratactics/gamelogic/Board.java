@@ -33,6 +33,7 @@ public class Board {
             Log.d(TAG, "Member.position: " + member.getPosition());
             Log.d(TAG, "Placing " + member.getAdventurerClassAsString() + " into Pieces at " +
                     (member.getPosition()/3+3) + ", " + (member.getPosition()%3));
+            // TODO do I need to call skills here for adventurers?
             pieces[member.getPosition()/3+3][member.getPosition()%3] = p;
             activePlayers++;
         }
@@ -47,17 +48,9 @@ public class Board {
         activeEnemies = 0;
         for (Piece piece: tempPieces) {
             pieces[piece.getPosition()/3][piece.getPosition()%3] = piece;
+            piece.setSkillEnums();
             activeEnemies++;
         }
-//            for (int i = 0; i < 3; i++) {
-//                for (int j = 0; j < 3; j++) {
-//                    pieces[i][j] = temp[i][j];
-//                    if (pieces[i][j] != null) {
-//                        activeEnemies++;
-//                    }
-//                }
-//            }
-//        }
     }
 
     // Returns who is in cell of grid
@@ -65,17 +58,13 @@ public class Board {
     public int resolveGrid(int row, int col) {
         if (pieces[row][col] == null) {
             return 0;
-        }
-        else if (!pieces[row][col].getIsPlayer()) {
+        } else if (!pieces[row][col].getIsPlayer()) {
             return 1;
-        }
-        else if (pieces[row][col].getIsPlayer() && !pieces[row][col].isHasMoved()) {
+        } else if (pieces[row][col].getIsPlayer() && !pieces[row][col].isHasMoved()) {
             return 2;
-        }
-        else if (pieces[row][col].getIsPlayer() && pieces[row][col].isHasMoved()) {
+        } else if (pieces[row][col].getIsPlayer() && pieces[row][col].isHasMoved()) {
             return 3;
-        }
-        else
+        } else
             return -1;
     }
 
@@ -174,7 +163,6 @@ public class Board {
             }
 
         }
-
         return targets;
     }
 
@@ -185,7 +173,6 @@ public class Board {
         int destRow = dest / 3;
         int destCol = dest % 3;
         double damage;
-
 
         switch (skill) {
             case MOVE:
