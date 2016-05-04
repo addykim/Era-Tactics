@@ -50,6 +50,7 @@ public class InventoryActivity extends FragmentActivity {
 
 
         GridView gridview = (GridView) findViewById(R.id.inventory_gridview);
+        gridview.setNumColumns(3);
         gridview.setAdapter(new InventoryAdapter(this));
 
 //        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
