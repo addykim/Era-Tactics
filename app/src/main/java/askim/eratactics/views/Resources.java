@@ -166,7 +166,7 @@ public class Resources {
                 id = R.drawable.arrow;
                 break;
             default:
-                id = R.drawable.wizard_dmged;
+                id = -1;
         }
         return id;
     }

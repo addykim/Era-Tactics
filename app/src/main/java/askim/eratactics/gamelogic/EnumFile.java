@@ -30,7 +30,8 @@ public class EnumFile {
         FIGHTER,
         ARCHER,
         KNIGHT,
-        APPRENTICE
+        APPRENTICE,
+        NONE
     }
 
     public enum EnemyClasses {
@@ -71,5 +72,10 @@ public class EnumFile {
         NO_MOVE
     }
 
+    public enum GameStatus {
+        PLAYER_WIN,
+        PLAYER_LOSE,
+        NONE
+    }
 
 }
