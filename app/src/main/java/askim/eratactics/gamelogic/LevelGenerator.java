@@ -89,11 +89,17 @@ public class LevelGenerator extends SugarRecord {
 
     public boolean getLocked() { return locked; }
 
-    public void setLocked(boolean locked) { this.locked = locked; }
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+        this.save();
+    }
 
     public boolean getCleared() { return cleared; }
 
-    public void setCleared(boolean cleared) { this.cleared = cleared; }
+    public void setCleared(boolean cleared) {
+        this.cleared = cleared;
+        this.save();
+    }
 
     /* Returns the enemy pieces as 2d array */
     public Piece[][] getEnemyPieces() {
