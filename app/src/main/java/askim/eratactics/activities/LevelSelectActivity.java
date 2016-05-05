@@ -52,7 +52,7 @@ public class LevelSelectActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        adapter.updateList(LevelGenerator.listAll(LevelGenerator.class));
     }
 }
 

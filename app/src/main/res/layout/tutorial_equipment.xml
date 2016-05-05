@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBackground">
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/mainBackground">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/mainBackground">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -21,38 +25,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/chooseAdventurers"
+                android:text="@string/clickEquipment"
                 android:textSize="@dimen/tutorial_h2"
                 android:layout_marginTop="30dp"/>
-            <TextView
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/adventurerNumberLimit"
-                android:textSize="@dimen/tutorial_h3" />
+                android:src="@drawable/equipment_tutorial_1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/changeAdventurer"
+                android:text="@string/longClickEquipment"
                 android:textSize="@dimen/tutorial_h2"
                 android:layout_marginTop="30dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/changeAdventurerExplanation"
-                android:textSize="@dimen/tutorial_h3" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/positionAdventurer"
+                android:text="@string/equipmentNote"
                 android:textSize="@dimen/tutorial_h2"
                 android:layout_marginTop="30dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/positionAdventurerExplanation"
-                android:textSize="@dimen/tutorial_h3" />
 
 
             <Button

@@ -1,11 +1,13 @@
 package askim.eratactics.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -60,6 +62,16 @@ public class TeamsActivity extends AppCompatActivity {
         teamListView = (TeamListView) findViewById(R.id.preSetTeamList);
         teamListView.setTeamMembers(alphaTeam.getTeamMembers());
         teamListView.setOnTouchListener(teamListTouchListener);
+
+        ImageView tutorial = (ImageView) findViewById(R.id.gameTutorial);
+        tutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tutorialIntent = new Intent(getApplicationContext(), TutorialActivity.class);
+                tutorialIntent.putExtra("tutorial", "teams");
+                startActivity(tutorialIntent);
+            }
+        });
     }
 
 

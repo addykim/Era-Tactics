@@ -18,8 +18,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import askim.eratactics.R;
-import askim.eratactics.activities.LevelSelectActivity;
-import askim.eratactics.activities.ResultActivity;
 import askim.eratactics.activities.TacticsGame;
 import askim.eratactics.gamelogic.LevelGenerator;
 
@@ -63,6 +61,12 @@ public class LevelSelectAdapter extends RecyclerView.Adapter<LevelSelectAdapter.
         void onItemClick(int position, View v);
     }
 
+    public void updateList(List<LevelGenerator> levelList) {
+        Log.d(TAG, "Updating adapter's list");
+        this.levelList = levelList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return (null != levelList ? levelList.size() : 0);
@@ -83,11 +87,9 @@ public class LevelSelectAdapter extends RecyclerView.Adapter<LevelSelectAdapter.
                 clickable = false;
             } else {
                 if (level.getCleared()) {
-                    // TODO replace this image with another
-                    imageView.setImageResource(R.drawable.wizard_dmged);
+                    imageView.setImageResource(R.drawable.cleared);
                 } else {
-                    // TODO replace this image with another
-                    imageView.setImageResource(R.drawable.civilian_dmged);
+                    imageView.setImageResource(R.drawable.new_level);
                 }
                 clickable = true;
             }

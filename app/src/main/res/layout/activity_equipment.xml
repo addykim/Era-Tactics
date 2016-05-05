@@ -24,7 +24,6 @@
             android:id="@+id/equipment_hat"
             android:layout_width="@dimen/equipment_display_size"
             android:layout_height="@dimen/equipment_display_size"
-            android:src="@drawable/fireball"
             android:layout_marginRight="@dimen/equipment_margin"
             android:background="@color/white"
             android:layout_above="@+id/equipment_character" />
@@ -132,7 +131,6 @@
             android:id="@+id/equipment_left"
             android:layout_width="@dimen/equipment_display_size"
             android:layout_height="@dimen/equipment_display_size"
-            android:src="@drawable/fireball"
             android:background="@color/white"
             android:layout_marginRight="@dimen/equipment_margin"/>
 
@@ -140,7 +138,6 @@
             android:id="@+id/equipment_character"
             android:layout_width="@dimen/equipment_display_size"
             android:layout_height="@dimen/equipment_display_size"
-            android:src="@drawable/wizard_dmged"
             android:background="@color/white"
             android:layout_marginRight="@dimen/equipment_margin"/>
 
@@ -148,7 +145,6 @@
             android:id="@+id/equipment_right"
             android:layout_width="@dimen/equipment_display_size"
             android:layout_height="@dimen/equipment_display_size"
-            android:src="@drawable/fireball"
             android:background="@color/white" />
 
     </LinearLayout>
@@ -203,7 +199,6 @@
                 android:id="@+id/equipment_armor"
                 android:layout_width="@dimen/equipment_display_size"
                 android:layout_height="@dimen/equipment_display_size"
-                android:src="@drawable/fireball"
                 android:background="@color/white" />
         </LinearLayout>
     </LinearLayout>

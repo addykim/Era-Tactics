@@ -5,11 +5,23 @@
     android:layout_height="match_parent"
     android:background="@color/mainBackground">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/teams"
-        android:textSize="@dimen/activity_header_text"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/teams"
+            android:textSize="@dimen/activity_header_text"/>
+
+        <ImageView
+            android:id="@+id/gameTutorial"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/question"/>
+    </RelativeLayout>
 
     <askim.eratactics.views.TeamListView
         android:id="@+id/preSetTeamList"
