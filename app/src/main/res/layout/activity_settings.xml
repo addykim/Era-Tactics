@@ -7,68 +7,69 @@
     tools:context=".activities.SettingsActivity">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/settings_text"
+        <TextView
+            android:id="@+id/settingsHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_below="@id/settingsHeader">
-
-            <TextView
-                android:id="@+id/musicText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/music"
-                android:textSize="@dimen/options_text"
-                android:layout_below="@id/settingsHeader"
-                android:layout_margin="@dimen/toggle_margin" />
-
-            <TextView
-                android:id="@+id/vibrationText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/options_text"
-                android:text="@string/vibration"
-                android:layout_margin="@dimen/toggle_margin"/>
-        </LinearLayout>
+            android:textSize="@dimen/activity_header_text"
+            android:text="@string/settings"
+            android:layout_centerHorizontal="true"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_toRightOf="@id/settingsHeader"
-            android:layout_below="@id/settingsHeader">
-
-            <ToggleButton
-                android:id="@+id/musicToggle"
+            android:orientation="horizontal"
+            android:layout_below="@id/settingsHeader"
+            android:layout_centerHorizontal="true">
+            <LinearLayout
+                android:id="@+id/settings_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/musicText"
-                android:layout_alignLeft="@+id/vibrationToggle"
-                android:layout_alignStart="@+id/vibrationToggle"/>
+                android:orientation="vertical"
+                android:layout_marginRight="@dimen/skillMarginLR">
 
-            <ToggleButton
-                android:id="@+id/vibrationToggle"
+                <TextView
+                    android:id="@+id/musicText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/music"
+                    android:textSize="@dimen/options_text"
+                    android:layout_margin="@dimen/toggle_margin" />
+
+                <TextView
+                    android:id="@+id/vibrationText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/options_text"
+                    android:text="@string/vibration"
+                    android:layout_margin="@dimen/toggle_margin"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New ToggleButton"
-                android:layout_gravity="center_horizontal|top"
-                android:layout_alignTop="@+id/vibrationText" />
+                android:orientation="vertical">
 
+                <ToggleButton
+                    android:id="@+id/musicToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/musicText"
+                    android:layout_alignLeft="@+id/vibrationToggle"
+                    android:layout_alignStart="@+id/vibrationToggle"/>
+
+                <ToggleButton
+                    android:id="@+id/vibrationToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New ToggleButton"
+                    android:layout_alignTop="@+id/vibrationText" />
+
+            </LinearLayout>
         </LinearLayout>
 
-    <TextView
-        android:id="@+id/settingsHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/activity_header_text"
-        android:text="@string/settings"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 

@@ -136,5 +136,6 @@ public class TeamView extends View {
 
     public void setTeam(Team t) {
         this.mTeam = t;
+        invalidate();
     }
 }

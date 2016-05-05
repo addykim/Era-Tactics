@@ -28,7 +28,8 @@ public class Adventurer extends SugarRecord {
     private Equipment body;
     private String leaderSkillDescription;
 
-    public Adventurer() {}
+    public Adventurer() {
+    }
 
     public Adventurer(Equipment advClass, Equipment head, Equipment left, Equipment right, Equipment body, String advName) {
         name = advName;
@@ -42,15 +43,14 @@ public class Adventurer extends SugarRecord {
     }
 
     /**
-     *
-     * @param e - new equipment
+     * @param e   - new equipment
      * @param pos - where to equip it
      * @return true - equipment is compatible with the class and successfully equipped
-     *         false - equipment not compatible with class
+     * false - equipment not compatible with class
      */
     // TODO switch to classenum
-    public boolean changeEquipment (Equipment e, int pos) {
-        if (e.compatibleClasses.contains(adventurerClass) && 0 <= pos && pos <=3) {
+    public boolean changeEquipment(Equipment e, int pos) {
+        if (e.compatibleClasses.contains(adventurerClass) && 0 <= pos && pos <= 3) {
             if (pos == 0) {
                 head.setEquipped(false);
                 head = e;
@@ -73,23 +73,10 @@ public class Adventurer extends SugarRecord {
         return false;
     }
 
-    public Equipment getEquipment(EnumFile.EquipmentPos pos) {
-        Equipment e = null;
-        switch(pos) {
-            case HEAD:
-                e = head;
-                break;
-            case LEFT:
-                e = left;
-            case RIGHT:
-                e = right;
-            case BODY:
-                e = body;
-            default:
-                Log.d(TAG, "Invalid equipment position");
-        }
-        return e;
-    }
+    public Equipment getHeadEquipment() { return head; }
+    public Equipment getLeftEquipment() { return left; }
+    public Equipment getRightEquipment() { return right; }
+    public Equipment getBodyEquipment() { return body; }
 
 
     // Stats getters that do calculations according to adventurers' base stats,
@@ -98,105 +85,115 @@ public class Adventurer extends SugarRecord {
     /**
      * The following 8 methods are stats getters that calculate according to adventurers' base
      * stats, equipments enhancements, and their leader status
+     *
      * @param isLeader - whether the adventurer is a leader
-     * @param equips - a list of booleans telling if an equipment is in effect
-     *               [0] - head
-     *               [1] - left hand
-     *               [2] - right hand
-     *               [3] - body
+     * @param equips   - a list of booleans telling if an equipment is in effect
+     *                 [0] - head
+     *                 [1] - left hand
+     *                 [2] - right hand
+     *                 [3] - body
      * @return
      */
     public int getHp(boolean isLeader, boolean[] equips) {
-        int hp = (int)adventurerClass.getHp();
+        int hp = (int) adventurerClass.getHp();
         if (head != null && equips[0] == true)
-            hp+=head.getHp();
+            hp += head.getHp();
         if (left != null & equips[1] == true)
-            hp+=left.getHp();
+            hp += left.getHp();
         if (right != null & equips[2] == true)
-            hp+=right.getHp();
+            hp += right.getHp();
         if (body != null & equips[3] == true)
-            hp+=body.getHp();
+            hp += body.getHp();
         if (isLeader)
             hp += 5;
         return hp;
     }
 
     public int getAtk(boolean isLeader, boolean[] equips) {
-        int atk = (int)adventurerClass.getAtk();
+        int atk = (int) adventurerClass.getAtk();
         if (head != null && equips[0] == true)
-            atk+=head.getAtk();
+            atk += head.getAtk();
         if (left != null & equips[1] == true)
-            atk+=left.getAtk();
+            atk += left.getAtk();
         if (right != null & equips[2] == true)
-            atk+=right.getAtk();
+            atk += right.getAtk();
         if (body != null & equips[3] == true)
-            atk+=body.getAtk();
+            atk += body.getAtk();
         if (isLeader)
             atk += 1;
         return atk;
     }
 
     public int getDef(boolean isLeader, boolean[] equips) {
-        int def = (int)adventurerClass.getDef();
+        int def = (int) adventurerClass.getDef();
         if (head != null && equips[0] == true)
-            def+=head.getHp();
+            def += head.getDef();
         if (left != null & equips[1] == true)
-            def+=left.getHp();
+            def += left.getDef();
         if (right != null & equips[2] == true)
-            def+=right.getHp();
+            def += right.getDef();
         if (body != null & equips[3] == true)
-            def+=body.getHp();
+            def += body.getDef();
         if (isLeader)
             def += 1;
         return def;
     }
 
     public int getMag(boolean isLeader, boolean[] equips) {
-        int mag = (int)adventurerClass.getMag();
-        for (int i = 0; i < 4; i++) {
-//            if (equipments[i] != null && equips[i] == true) {
-//                mag += equipments[i].getMag();
-//            }
-        }
+        int mag = (int) adventurerClass.getMag();
+        if (head != null && equips[0] == true)
+            mag += head.getMag();
+        if (left != null & equips[1] == true)
+            mag += left.getMag();
+        if (right != null & equips[2] == true)
+            mag += right.getMag();
+        if (body != null & equips[3] == true)
+            mag += body.getMag();
         if (isLeader)
             mag += 1;
         return mag;
     }
 
     public int getRes(boolean isLeader, boolean[] equips) {
-        int res = (int)adventurerClass.getRes();
+        int res = (int) adventurerClass.getRes();
         if (head != null && equips[0] == true)
-            res+=head.getRes();
+            res += head.getRes();
         if (left != null & equips[1] == true)
-            res+=left.getRes();
+            res += left.getRes();
         if (right != null & equips[2] == true)
-            res+=right.getRes();
+            res += right.getRes();
         if (body != null & equips[3] == true)
-            res+=body.getRes();
+            res += body.getRes();
         if (isLeader)
             res += 1;
         return res;
     }
 
     public int getMrg(boolean isLeader, boolean[] equips) {
-        int mrg = (int)adventurerClass.getMrg();
-        for (int i = 0; i < 4; i++) {
-//            if (equipments[i] != null && equips[i] == true) {
-//                mrg += equipments[i].getMrg();
-//            }
-        }
+        int mrg = (int) adventurerClass.getMrg();
+        if (head != null && equips[0] == true)
+            mrg += head.getMrg();
+        if (left != null & equips[1] == true)
+            mrg += left.getMrg();
+        if (right != null & equips[2] == true)
+            mrg += right.getMrg();
+        if (body != null & equips[3] == true)
+            mrg += body.getMrg();
         if (isLeader)
             mrg += 1;
         return mrg;
     }
 
     public int getAtr(boolean isLeader, boolean[] equips) {
-        int atr = (int)adventurerClass.getAtr();
-        for (int i = 0; i < 4; i++) {
-//            if (equipments[i] != null && equips[i] == true) {
-//                atr += equipments[i].getAtr();
-//            }
-        }
+        int atr = (int) adventurerClass.getAtr();
+        if (head != null && equips[0] == true)
+            atr += head.getAtr();
+        if (left != null & equips[1] == true)
+            atr += left.getAtr();
+        if (right != null & equips[2] == true)
+            atr += right.getAtr();
+        if (body != null & equips[3] == true)
+            atr += body.getAtr();
         if (isLeader)
             atr += 0;
         return atr;
@@ -205,18 +202,19 @@ public class Adventurer extends SugarRecord {
     public double getAgi(boolean isLeader, boolean[] equips) {
         double agi = adventurerClass.getAgi();
         if (head != null && equips[0] == true)
-            agi+=head.getAgi();
+            agi += head.getAgi();
         if (left != null & equips[1] == true)
-            agi+=left.getAgi();
+            agi += left.getAgi();
         if (right != null & equips[2] == true)
-            agi+=right.getAgi();
+            agi += right.getAgi();
         if (body != null & equips[3] == true)
-            agi+=body.getAgi();
+            agi += body.getAgi();
         if (isLeader)
             agi += 0;
         return agi;
     }
 
+    //TODO what is the purpose of this method?
     public ArrayList<Equipment> availableEquipment(int pos, ArrayList<Equipment> allEquipment) {
         ArrayList<Equipment> results = new ArrayList<Equipment>();
 //
@@ -228,25 +226,47 @@ public class Adventurer extends SugarRecord {
         return results;
     }
 
-    public String getAdventurerName() { return name; }
+    public String getAdventurerName() {
+        return name;
+    }
 
     public void setLeaderEquipment(EnumFile.EquipmentPos pos) {
-        if (head.isLeaderSkillActivated())
-            head.setLeaderEquipment(false);
-        if (left.isLeaderSkillActivated())
-            left.setLeaderEquipment(false);
-        if (right.isLeaderSkillActivated())
-            right.setLeaderEquipment(false);
-        if (body.isLeaderSkillActivated())
-            body.setLeaderEquipment(false);
-//
-//
-//        equipments[pos].setLeaderEquipment(true);
-//        if (equipments[pos].getLeaderSkill() != null)
-//            leaderSkillDescription = name + " has " + equipments[pos].getName() + " as the leader skill!";
-//        else
-//            leaderSkillDescription = name + "\'s leader equipment " + equipments[pos].getName()
-//                    + " does not have a learder skill :P ";
+        boolean hasLeaderSkill = false;
+        StringBuffer skill = new StringBuffer();
+        skill.append(name + " has ");
+        if (pos == EnumFile.EquipmentPos.HEAD) {
+            head.setLeaderEquipment(true);
+            if (head.getLeaderSkill() != null) {
+                hasLeaderSkill = true;
+                skill.append(getHeadEquipment().getLeaderSkill());
+            }
+        } else if (pos == EnumFile.EquipmentPos.LEFT) {
+            left.setLeaderEquipment(true);
+            if (left.getLeaderSkill() != null) {
+                hasLeaderSkill = true;
+                skill.append(getLeftEquipment().getLeaderSkill());
+            }
+        } else if (pos == EnumFile.EquipmentPos.RIGHT) {
+            right.setLeaderEquipment(true);
+            if (right.getLeaderSkill() != null) {
+                hasLeaderSkill = true;
+                skill.append(getRightEquipment().getLeaderSkill());
+            }
+        } else if (pos == EnumFile.EquipmentPos.BODY) {
+            body.setLeaderEquipment(body.isLeaderSkillActivated());
+            if (body.getLeaderSkill() != null) {
+                hasLeaderSkill = true;
+                skill.append(getBodyEquipment().getLeaderSkill());
+            }
+        }
+
+        if (hasLeaderSkill) {
+            skill.append(" as the leader skill!");
+            leaderSkillDescription = skill.toString();
+        } else {
+            leaderSkillDescription = "No Leader Skill";
+        }
+        this.save();
     }
 
     //GETTER METHODS:
@@ -254,36 +274,71 @@ public class Adventurer extends SugarRecord {
         ArrayList<EnumFile.SkillsEnum> skills = new ArrayList<EnumFile.SkillsEnum>();
         skills.add(EnumFile.SkillsEnum.MOVE);
         skills.add(EnumFile.SkillsEnum.PUNCH);
-//        for (Equipment e : equipments) {
-//            if (e != null && e.pos != 3) {
-//                skills.add(e.getSkill());
-//                if (e.isLeaderSkillActivated() && isLeader) {
-//                    skills.add(e.getLeaderSkill());
-//                }
-//            }
-//        }
+
+        if (head != null) {
+            skills.add(head.getSkill());
+            if (head.isLeaderSkillActivated() && isLeader)
+                skills.add(head.getLeaderSkill());
+        }
+
+        if (left != null) {
+            skills.add(left.getSkill());
+            if (left.isLeaderSkillActivated() && isLeader)
+                skills.add(left.getLeaderSkill());
+        }
+
+        if (right != null) {
+            skills.add(right.getSkill());
+            if (right.isLeaderSkillActivated() && isLeader)
+                skills.add(right.getLeaderSkill());
+        }
+
+        if (body != null) {
+            skills.add(body.getSkill());
+            if (body.isLeaderSkillActivated() && isLeader)
+                skills.add(body.getLeaderSkill());
+        }
+
+
         return skills;
     }
 
     /* Return the leader skill description as a string */
-    public String getLeaderSkillDescription() { return leaderSkillDescription; }
+    public String getLeaderSkillDescription() {
+        return leaderSkillDescription;
+    }
 
 
     /* Get the adventurer's equipment in some form */
-    public Equipment getAdventurerClassAsEquipment() { return adventurerClass; }
-    public EnumFile.ClassEnum getAdventureClassAsEnum() { return adventurerClass.getClassName(); }
-    public String getAdventurerClassAsString() { return adventurerClass.getName(); }
+    public Equipment getAdventurerClassAsEquipment() {
+        return adventurerClass;
+    }
 
-    public int getAdventurerLevel() { return lvl; }
+    public EnumFile.ClassEnum getAdventureClassAsEnum() {
+        return adventurerClass.getClassName();
+    }
 
-    public void setTeam(Team team) { this.team = team; this.save(); }
+    public String getAdventurerClassAsString() {
+        return adventurerClass.getName();
+    }
+
+    public int getAdventurerLevel() {
+        return lvl;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+        this.save();
+    }
 
     /* Gets the position of the character on a board */
-    public int getPosition() { return position; }
+    public int getPosition() {
+        return position;
+    }
 
     /* @Return: true if it successfully set position, */
     public boolean setPosition(int position) {
-        if (0<=position && position <=8) {
+        if (0 <= position && position <= 8) {
             this.position = position;
             return true;
         }

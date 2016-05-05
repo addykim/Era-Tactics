@@ -52,6 +52,8 @@ public class EquipmentActivity extends AppCompatActivity {
         advId = intent.getLongExtra("advId", 1);
 
         characterImage = (ImageView) findViewById(R.id.equipment_character);
+        // This is here purely for debugging purposes.
+
         hatImage = (ImageView)findViewById(R.id.equipment_hat);
         leftImage = (ImageView)findViewById(R.id.equipment_left);
         rightImage = (ImageView)findViewById(R.id.equipment_right);
@@ -70,7 +72,23 @@ public class EquipmentActivity extends AppCompatActivity {
         characterName.setText(adv.getAdventurerName());
         characterImage.setImageResource(Resources.getImageId(adv.getAdventurerClassAsString()));
 
+        characterImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (adv.getHeadEquipment() != null)
+                    Log.d(TAG, "Head equipment: " + adv.getHeadEquipment().getName());
+                if (adv.getLeftEquipment() != null)
+                    Log.d(TAG, "Left equipment: " + adv.getLeftEquipment().getName());
+                if (adv.getRightEquipment() != null)
+                    Log.d(TAG, "Right equipment: " + adv.getRightEquipment().getName());
+                if (adv.getBodyEquipment() != null)
+                    Log.d(TAG, "Body equipment: " + adv.getBodyEquipment().getName());
+
+            }
+        });
+
         setImages();
+        setStatText();
         setLeaderText();
     }
 
@@ -96,27 +114,31 @@ public class EquipmentActivity extends AppCompatActivity {
     public void setImages() {
         // Set all images
         int imageId = -1;
-        if (adv.getEquipment(EnumFile.EquipmentPos.HEAD) != null) {
+        if (adv.getHeadEquipment() != null) {
             imageId = Resources.getEquipmentImageId(adv.getAdventureClassAsEnum(),
-                    adv.getEquipment(EnumFile.EquipmentPos.HEAD).getEnumName());
+                    adv.getHeadEquipment().getEnumName());
+            Log.d(TAG, "Head id: " + imageId);
             if (imageId != -1)
                 hatImage.setImageResource(imageId);
         }
-        if (adv.getEquipment(EnumFile.EquipmentPos.LEFT) != null) {
+        if (adv.getLeftEquipment() != null) {
             imageId = Resources.getEquipmentImageId(adv.getAdventureClassAsEnum(),
-                    adv.getEquipment(EnumFile.EquipmentPos.LEFT).getEnumName());
+                    adv.getLeftEquipment().getEnumName());
+            Log.d(TAG, "Left id: " + imageId);
             if (imageId != -1)
                 leftImage.setImageResource(imageId);
         }
-        if (adv.getEquipment(EnumFile.EquipmentPos.RIGHT) != null) {
+        if (adv.getRightEquipment() != null) {
             imageId = Resources.getEquipmentImageId(adv.getAdventureClassAsEnum(),
-                    adv.getEquipment(EnumFile.EquipmentPos.RIGHT).getEnumName());
+                    adv.getRightEquipment().getEnumName());
+            Log.d(TAG, "Right id: " + imageId);
             if (imageId != -1)
                 rightImage.setImageResource(imageId);
         }
-        if (adv.getEquipment(EnumFile.EquipmentPos.BODY) != null) {
+        if (adv.getBodyEquipment() != null) {
             imageId = Resources.getEquipmentImageId(adv.getAdventureClassAsEnum(),
-                    adv.getEquipment(EnumFile.EquipmentPos.BODY).getEnumName());
+                    adv.getBodyEquipment().getEnumName());
+            Log.d(TAG, "Body id: " + imageId);
             if (imageId != -1)
                 armorImage.setImageResource(imageId);
         }
@@ -132,13 +154,12 @@ public class EquipmentActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) { setLeaderText(); }
 
-        @Override
         // TODO: Click and hold the equipment buttons will bring up the inventory to pick a replacement
         // Call availableEquipment(int pos, Arraylist<Equipment> equip) on the adventurer to get
         // the list of inventory that matches the given position, need to provide the list of ALL
         // equipment that the player has (This is not currently created)
         // pos: 0 - head, 1 - lefthand, 2 - righthand, 3 - body
-
+        @Override
         public boolean onLongClick(View v) {
             Log.d(TAG, "Long click");
             // TODO does not work yet
@@ -146,6 +167,7 @@ public class EquipmentActivity extends AppCompatActivity {
             //TODO send in equipment details activity
             //TODO on return get the new updated information
             startActivity(intent);
+            // TODO do someting on the way back
             return true;
         }
 
