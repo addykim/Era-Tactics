@@ -50,9 +50,9 @@ public class Equipment extends SugarRecord {
     @Ignore
     public ArrayList<EnumFile.ClassEnum> compatibleClasses;
 
-    //TODO how big is this
     /* Used to save the compatible classes into the database */
-    private int[] compatibleClassesOrdinal = new int[10];
+//     TODO is not being used right now
+//    private int[] compatibleClassesOrdinal = new int[10];
 
     private boolean equipped;
 
@@ -73,7 +73,8 @@ public class Equipment extends SugarRecord {
         position = EnumFile.EquipmentPos.LEFT;
         leaderSkill = EnumFile.SkillsEnum.LIGHTNING;
         leaderSkillActivated = false;
-        saveCompatibleClasses();
+//        saveCompatibleClasses();
+        this.save();
         //Save called in saveCompatibleClasses
     }
 
@@ -261,7 +262,8 @@ public class Equipment extends SugarRecord {
         }
         position = EnumFile.EquipmentPos.LEFT;
         leaderSkillActivated = false;
-        saveCompatibleClasses();
+//        saveCompatibleClasses();
+        this.save();
         // Saved in saveCompatibleClasses
     }
 
@@ -287,6 +289,24 @@ public class Equipment extends SugarRecord {
         this.save();
     }
 
+    /* Used to set the equipment upon creation */
+//    public void setCompatibleClasses() {
+//        compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
+//        for (int ordinal: compatibleClassesOrdinal) {
+//            compatibleClasses.add(EnumFile.ClassEnum.values()[ordinal]);
+//        }
+//    }
+
+    /* Used to save compatible classes */
+//    public void saveCompatibleClasses() {
+//        int i = 0;
+//        for (EnumFile.ClassEnum cClass: compatibleClasses) {
+//            compatibleClassesOrdinal[i] = cClass.ordinal();
+//            i++;
+//        }
+//        this.save();
+//    }
+
     /* Getter methods */
     public EnumFile.SkillsEnum getSkill() { return skill; }
 
@@ -311,23 +331,4 @@ public class Equipment extends SugarRecord {
     public double getAtr() { return atr; }
     public double getAgi() { return agi; }
     public String getName() { return name; }
-
-
-    /* Used to set the equipment upon creation */
-    public void setCompatibleClasses() {
-        compatibleClasses = new ArrayList<EnumFile.ClassEnum>();
-        for (int ordinal: compatibleClassesOrdinal) {
-            compatibleClasses.add(EnumFile.ClassEnum.values()[ordinal]);
-        }
-    }
-
-    /* Used to save compatible classes */
-    public void saveCompatibleClasses() {
-        int i = 0;
-        for (EnumFile.ClassEnum cClass: compatibleClasses) {
-            compatibleClassesOrdinal[i] = cClass.ordinal();
-            i++;
-        }
-        this.save();
-    }
 }
