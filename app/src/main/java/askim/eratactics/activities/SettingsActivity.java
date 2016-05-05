@@ -37,15 +37,15 @@ public class SettingsActivity extends AppCompatActivity {
         // Code from http://stackoverflow.com/questions/5734721/android-shared-preferences
         settings = getSharedPreferences(Resources.PREFS_NAME, Activity.MODE_PRIVATE);
         musicToggle = (ToggleButton) findViewById(R.id.musicToggle);
-        sfxToggle = (ToggleButton) findViewById(R.id.sfxToggle);
+//        sfxToggle = (ToggleButton) findViewById(R.id.sfxToggle);
         vibrationToggle = (ToggleButton) findViewById(R.id.vibrationToggle);
-        leftToggle = (ToggleButton) findViewById(R.id.leftHandedToggle);
+//        leftToggle = (ToggleButton) findViewById(R.id.leftHandedToggle);
 
         // Set checked
         musicToggle.setChecked(settings.getBoolean("music", true));
-        sfxToggle.setChecked(settings.getBoolean("sfx", true));
+//        sfxToggle.setChecked(settings.getBoolean("sfx", true));
         vibrationToggle.setChecked(settings.getBoolean("vibration", false));
-        leftToggle.setChecked(settings.getBoolean("leftMode", false));
+//        leftToggle.setChecked(settings.getBoolean("leftMode", false));
 
 
         editor = settings.edit();
@@ -65,19 +65,19 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        sfxToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(TAG, "SFX toggle: " + isChecked);
-                if (isChecked) {
-                    editor.putBoolean("sfx", true);
-                } else {
-                    editor.putBoolean("sfx", false);
-                }
-                Log.d(TAG, "Commiting");
-                editor.commit();
-            }
-        });
+//        sfxToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                Log.d(TAG, "SFX toggle: " + isChecked);
+//                if (isChecked) {
+//                    editor.putBoolean("sfx", true);
+//                } else {
+//                    editor.putBoolean("sfx", false);
+//                }
+//                Log.d(TAG, "Commiting");
+//                editor.commit();
+//            }
+//        });
 
         vibrationToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -93,20 +93,20 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        leftToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(TAG, "left toggle: " + isChecked);
-                if (isChecked) {
-                    Toast.makeText(getApplicationContext(), "Sorry left handed mode isn't available yet :(", Toast.LENGTH_LONG).show();
-                    editor.putBoolean("leftMode", true);
-                } else {
-                    editor.putBoolean("leftMode", false);
-                }
-                Log.d(TAG, "Commiting");
-                editor.commit();
-            }
-        });
+//        leftToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                Log.d(TAG, "left toggle: " + isChecked);
+//                if (isChecked) {
+//                    Toast.makeText(getApplicationContext(), "Sorry left handed mode isn't available yet :(", Toast.LENGTH_LONG).show();
+//                    editor.putBoolean("leftMode", true);
+//                } else {
+//                    editor.putBoolean("leftMode", false);
+//                }
+//                Log.d(TAG, "Commiting");
+//                editor.commit();
+//            }
+//        });
     }
 }
 

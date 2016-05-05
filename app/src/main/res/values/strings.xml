@@ -47,6 +47,8 @@
     <string name="equipmentDefense">DEF</string>
     <string name="equipmentMagic">MAG</string>
     <string name="equipmentResistence">RES</string>
+    <string name="noSkill">No Skill</string>
+    <string name="noLeaderSkill">No Leader skill</string>
 
     <!--Stage selection-->
     <string name="selectStage">Pick a level</string>
