@@ -51,15 +51,15 @@ public class SplashActivity extends AppCompatActivity {
 
         /*
          * Create player adventures, levels, and enemies
-         * numberOfAdventurers will return -1 if the table has not been intialized. It is assumed
+         * numberOfAdventurers will return -1 if the table has not been initialized. It is assumed
          * that if the adventurer table has been created, then there are tables for equipment,
          * team, inventory, and levels.
          */
         long numberOfAdventurers = Adventurer.count(Adventurer.class, null, null);
-        if (numberOfAdventurers == -1) {
-            PlayerAdventurers members = new PlayerAdventurers(this);
+        if (numberOfAdventurers <= 0) {
+            new PlayerAdventurers(this);
             for (int i = 1; i <= LevelGenerator.NUM_LEVELS; i++) {
-                LevelGenerator level = new LevelGenerator(this, i);
+                new LevelGenerator(this, i);
             }
         }
 
