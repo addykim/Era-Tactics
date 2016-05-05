@@ -31,7 +31,6 @@ public class ResultActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-//        SugarContext.init(this);
 
         Intent results = getIntent(); // gets the previously created intent
         levelPlayed = results.getLongExtra("level", 1);
@@ -55,37 +54,35 @@ public class ResultActivity extends Activity {
     }
 
     private void levelWon() {
-        text.setText(R.string.postGameCleared);
-        if (mPrefs.getBoolean("vibration", false)) {
-            // TODO play winning sound
-            LevelGenerator level = LevelGenerator.findById(LevelGenerator.class, levelPlayed);
-            try {
-                level.setCleared(true);
-                level.save();
-            } catch (NullPointerException e) {
-                Log.d(TAG, "LEVEL IS NULL :(");
-            } finally {
-                if (level != null) {
-                    Log.d(TAG, "Level updated successfully");
+        // TODO play winning sound
+        LevelGenerator level = LevelGenerator.findById(LevelGenerator.class, levelPlayed);
+        try {
+            text.setText(level.getName() + " cleared!");
+            level.setCleared(true);
+        } catch (NullPointerException e) {
+            Log.d(TAG, "LEVEL IS NULL :(");
+        } finally {
+            if (level != null) {
+                Log.d(TAG, "Current level cleared successfully");
+                if (mPrefs.getBoolean("vibration", false)) {
                     Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(500);
-                } else {
-                    Log.d(TAG, "Level is null in finally :(");
                 }
+            } else {
+                Log.d(TAG, "Current level is not set as cleared successfully");
             }
+        }
             /* Set next level as playable */
-            LevelGenerator nextLevel = LevelGenerator.findById(LevelGenerator.class, levelPlayed+1);
-            try {
-                nextLevel.setLocked(false);
-                nextLevel.save();
-            } catch (NullPointerException e) {
-                Log.d(TAG, "NEXT LEVEL IS NULL:(");
-            } finally {
-                if (nextLevel != null) {
-                    Log.d(TAG, "Next level updated successfully");
-                } else {
-                    Log.d(TAG, "Next level is null :(");
-                }
+        LevelGenerator nextLevel = LevelGenerator.findById(LevelGenerator.class, levelPlayed+1);
+        try {
+            nextLevel.setLocked(false);
+        } catch (NullPointerException e) {
+            Log.d(TAG, "NEXT LEVEL IS NULL:(");
+        } finally {
+            if (nextLevel != null) {
+                Log.d(TAG, "Next level unlocked");
+            } else {
+                Log.d(TAG, "Next level is unlocked unsuccessfully");
             }
         }
     }
@@ -96,11 +93,4 @@ public class ResultActivity extends Activity {
         image.setImageResource(R.drawable.lose_game);
 
     }
-
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        SugarContext.terminate();
-//    }
-
 }

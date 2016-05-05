@@ -45,7 +45,7 @@
     <dimen name="boardMargin">15dp</dimen>
 
     <!--Post game-->
-    <dimen name="post_game_header">50sp</dimen>
+    <dimen name="post_game_header">40sp</dimen>
     <dimen name="post_game_back_button">30sp</dimen>
 
     <!--SettingsActivity-->

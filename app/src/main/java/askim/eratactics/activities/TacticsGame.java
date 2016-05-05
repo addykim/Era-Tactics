@@ -46,6 +46,10 @@ public class TacticsGame extends AppCompatActivity {
     private Board boardLogic;
 
     private EnumFile.TurnStatus turnStatus;
+    /* This is only established inside during the game if someone wins. This flag is intended to
+     * prevent the game from launching multiple intents
+     */
+    private EnumFile.GameStatus gameStatus;
 
     private int selectedChar;
     private int selectedCharRow;
@@ -73,7 +77,7 @@ public class TacticsGame extends AppCompatActivity {
     private static final int vibrationDuration = 300;
 
     /* Current level being played */
-    private int currentLevel;
+    private long currentLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,8 @@ public class TacticsGame extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.hide();
+
+        gameStatus = EnumFile.GameStatus.NONE;
 
         Intent intent = getIntent(); // gets the previously created intent
 
@@ -108,8 +114,8 @@ public class TacticsGame extends AppCompatActivity {
         alphaTeam.setTeamMembers();
 
         // Gets level selected
-        currentLevel = (int) intent.getLongExtra("level", 1);
-        boardLogic = new Board(alphaTeam, currentLevel, this);
+        currentLevel = intent.getLongExtra("level", 1);
+        boardLogic = new Board(alphaTeam, (int) currentLevel, this);
         boardView = (BoardView) findViewById(R.id.board);
         boardView.setGame(boardLogic);
 
@@ -126,7 +132,7 @@ public class TacticsGame extends AppCompatActivity {
             public void onClick(View v) {
                 Intent results = new Intent(getApplicationContext(), ResultActivity.class);
                 results.putExtra("win", true);
-                results.getIntExtra("level", currentLevel);
+                results.putExtra("level", currentLevel);
                 startActivity(results);
                 finish();
             }
@@ -136,8 +142,8 @@ public class TacticsGame extends AppCompatActivity {
         tutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO pass point of the tutorial into
                 Intent tutorialIntent = new Intent(getApplicationContext(), TutorialActivity.class);
+                tutorialIntent.putExtra("tutorial", "game");
                 startActivity(tutorialIntent);
             }
         });
@@ -156,14 +162,14 @@ public class TacticsGame extends AppCompatActivity {
         return 0 <= selectedChar && selectedChar <= 17;
     }
 
-    /* Creates a new game */
+    /* Creates a new_level game */
     private void newGame() {
-        Log.d(TAG, "Creating new game");
+        Log.d(TAG, "Creating new_level game");
         resetValues();
         possibleTargets = new ArrayList<Integer>();
     }
 
-    /* Call at new game and every time change turned */
+    /* Call at new_level game and every time change turned */
     private void resetValues() {
         turnStatus = EnumFile.TurnStatus.CHARACTER;
         selectedChar = -1;
@@ -201,21 +207,26 @@ public class TacticsGame extends AppCompatActivity {
 
     /* Dead pieces are also removed in checkGameOver */
     public void checkForWinner() {
-//        Log.d(TAG, "Checking for winner");
-        int result = boardLogic.checkGameOver();
-        if (result == 1) {
-            Intent results = new Intent(this, ResultActivity.class);
-            results.putExtra("win", true);
-            results.putExtra("level", currentLevel);
-            startActivity(results);
+        int result;
+        Intent resultIntent = null;
+        if (gameStatus == EnumFile.GameStatus.NONE) {
+            result = boardLogic.checkGameOver();
+            resultIntent = new Intent(this, ResultActivity.class);
+            if (result == 1) {
+                resultIntent.putExtra("win", true);
+                resultIntent.putExtra("level", currentLevel);
+                gameStatus = EnumFile.GameStatus.PLAYER_WIN;
+            } else if (result == 2) {
+                // Computer wins
+                resultIntent.putExtra("win", false);
+                gameStatus = EnumFile.GameStatus.PLAYER_LOSE;
+            } else if (result == -1) {
+                Log.d(TAG, "SOMETHING WENT VERY VERY WRONG AHHHHHHHH");
+            }
+        }
+        if (gameStatus != EnumFile.GameStatus.NONE && resultIntent != null) {
+            startActivity(resultIntent);
             finish();
-        } else if (result == 2) {
-            Intent results = new Intent(this, ResultActivity.class);
-            results.putExtra("win", false);
-            startActivity(results);
-            finish();
-        } else if (result == -1) {
-            Log.d(TAG, "SOMETHING WENT VERY VERY WRONG AHHHHHHHH");
         }
         // else continue playing
     }
@@ -366,6 +377,7 @@ public class TacticsGame extends AppCompatActivity {
 
     /* Computer clean up method */
     private void delayCleanUp() {
+        checkForWinner();
         turnStatus = EnumFile.TurnStatus.ENEMY;
 
         // Nullify everything
