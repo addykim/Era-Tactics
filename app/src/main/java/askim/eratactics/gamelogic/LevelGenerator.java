@@ -44,27 +44,41 @@ public class LevelGenerator extends SugarRecord {
                 // 4 enemies
                 name = "Level 2";
                 enemyPieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][0].setPosition(0);
                 enemyPieces[0][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[0][2].setPosition(2);
                 enemyPieces[1][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[1][1].setPosition(4);
                 enemyPieces[2][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[2][2].setPosition(8);
                 break;
             case 3:
                 // 4 enemies
                 name = "Level 3";
                 enemyPieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][0].setPosition(0);
                 enemyPieces[0][1] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[0][1].setPosition(1);
                 enemyPieces[0][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[0][2].setPosition(3);
                 enemyPieces[1][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[1][1].setPosition(5);
                 enemyPieces[2][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[2][2].setPosition(8);
                 break;
             case 4:
                 // 4 enemies
                 name = "Level 4";
                 enemyPieces[0][0] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[0][0].setPosition(0);
                 enemyPieces[0][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[0][2].setPosition(3);
                 enemyPieces[1][1] = new Piece(EnumFile.ClassEnum.HORNEDFROG, this);
+                enemyPieces[1][1].setPosition(5);
                 enemyPieces[2][2] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[2][2].setPosition(8);
                 enemyPieces[2][1] = new Piece(EnumFile.ClassEnum.BADTEETH, this);
+                enemyPieces[2][1].setPosition(7);
                 break;
         }
         // Saving the level created
@@ -90,7 +104,6 @@ public class LevelGenerator extends SugarRecord {
                 throw new IllegalArgumentException();
             }
         }
-//        throw new IllegalArgumentException();
         return null;
     }
 
