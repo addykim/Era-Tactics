@@ -39,15 +39,15 @@
             android:textSize="30dp"
             android:background="?android:selectableItemBackground"
             android:id="@+id/membersButton"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_gravity="center"
-            android:text="Inventory"
-            android:textSize="30sp"
-            android:background="?android:selectableItemBackground"
-            android:id="@+id/tempTeamsButton"/>
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--style="?android:attr/borderlessButtonStyle"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="Inventory"-->
+            <!--android:textSize="30sp"-->
+            <!--android:background="?android:selectableItemBackground"-->
+            <!--android:id="@+id/tempTeamsButton"/>-->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
