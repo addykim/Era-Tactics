@@ -126,17 +126,17 @@ public class TacticsGame extends AppCompatActivity {
         skillView.setOnTouchListener(skillTouchListener);
 
         // TODO remove for beta
-        Button instaWin = (Button) findViewById(R.id.instaWin);
-        instaWin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent results = new Intent(getApplicationContext(), ResultActivity.class);
-                results.putExtra("win", true);
-                results.putExtra("level", currentLevel);
-                startActivity(results);
-                finish();
-            }
-        });
+//        Button instaWin = (Button) findViewById(R.id.instaWin);
+//        instaWin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent results = new Intent(getApplicationContext(), ResultActivity.class);
+//                results.putExtra("win", true);
+//                results.putExtra("level", currentLevel);
+//                startActivity(results);
+//                finish();
+//            }
+//        });
 
         ImageView tutorial = (ImageView) findViewById(R.id.gameTutorial);
         tutorial.setOnClickListener(new View.OnClickListener() {

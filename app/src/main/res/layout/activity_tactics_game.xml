@@ -20,13 +20,6 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
-        <!--TODO delete this button -->
-        <Button
-            android:id="@+id/instaWin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/gameTutorial"
-            android:text="instawin" />
 
         <ImageView
             android:id="@+id/gameTutorial"
